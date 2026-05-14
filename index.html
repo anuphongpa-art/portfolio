@@ -502,14 +502,44 @@ nav {
 .tl-desc   { font-size: 0.875rem; color: var(--sub); line-height: 1.85; }
 
 /* Photo grid */
-.photo-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; }
-.photo-grid img {
-  width: 100px; height: 72px; object-fit: cover;
-  border-radius: var(--rs); border: 1px solid var(--gb);
-  cursor: pointer;
-  transition: opacity 0.22s, border-color 0.22s, transform 0.22s;
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 0.55rem;
+  margin-top: 1.35rem;
 }
-.photo-grid img:hover { opacity: 0.82; border-color: var(--gbhi); transform: scale(1.05); }
+.photo-item {
+  position: relative;
+  border-radius: var(--rs);
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--gb);
+  aspect-ratio: 4 / 3;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.photo-item:hover {
+  border-color: rgba(56,201,176,0.45);
+  box-shadow: 0 0 20px rgba(56,201,176,0.15);
+}
+.photo-item img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.photo-item:hover img { transform: scale(1.06); }
+/* Caption overlay */
+.photo-item::after {
+  content: attr(data-caption);
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem 0.75rem 0.6rem;
+  background: linear-gradient(0deg, rgba(7,9,15,0.88) 0%, transparent 100%);
+  font-size: 0.65rem; color: var(--text); line-height: 1.4;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.photo-item:hover::after { opacity: 1; }
 
 /* ==============================
    SKILLS
@@ -806,10 +836,18 @@ footer {
           <div class="tl-loc">Bangkok, Thailand · On-site</div>
           <p class="tl-desc">Gained practical experience in genetic laboratory techniques including PCR and SNP analysis. Contributed to a research paper published in Animal Bioscience and assisted in organizing the 2nd Animal Genomics and Bioresource for ESG &amp; SDG Seminar.</p>
           <div class="photo-grid">
-            <img src="images/exp1-1.jpg" alt="2nd Animal Genomics Seminar" onclick="openLB(this.src)">
-            <img src="images/exp1-2.jpg" alt="Animal Bioscience publication" onclick="openLB(this.src)">
-            <img src="images/exp1-3.jpg" alt="Research poster" onclick="openLB(this.src)">
-            <img src="images/exp1-4.jpg" alt="Seminar event" onclick="openLB(this.src)">
+            <div class="photo-item" data-caption="2nd Animal Genomics Seminar" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp1-1.jpg" alt="2nd Animal Genomics Seminar">
+            </div>
+            <div class="photo-item" data-caption="Animal Bioscience Publication" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp1-2.jpg" alt="Animal Bioscience publication">
+            </div>
+            <div class="photo-item" data-caption="Research Poster" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp1-3.jpg" alt="Research poster">
+            </div>
+            <div class="photo-item" data-caption="Seminar Event" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp1-4.jpg" alt="Seminar event">
+            </div>
           </div>
         </div>
       </div>
@@ -825,10 +863,18 @@ footer {
           <div class="tl-loc">Tokyo, Japan · On-site</div>
           <p class="tl-desc">Engaged in the Animal Resource Science and Management program, focusing on key research areas within Zoology while developing proficiency in adaptability and communication in an international academic environment.</p>
           <div class="photo-grid">
-            <img src="images/exp2-1.jpg" alt="University of Tokyo campus" onclick="openLB(this.src)">
-            <img src="images/exp2-2.jpg" alt="Classroom session" onclick="openLB(this.src)">
-            <img src="images/exp2-3.jpg" alt="Animal science field work" onclick="openLB(this.src)">
-            <img src="images/exp2-4.jpg" alt="Lab group" onclick="openLB(this.src)">
+            <div class="photo-item" data-caption="University of Tokyo Campus" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp2-1.jpg" alt="University of Tokyo campus">
+            </div>
+            <div class="photo-item" data-caption="Classroom Session" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp2-2.jpg" alt="Classroom session">
+            </div>
+            <div class="photo-item" data-caption="Animal Science Field Work" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp2-3.jpg" alt="Animal science field work">
+            </div>
+            <div class="photo-item" data-caption="Lab Group" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp2-4.jpg" alt="Lab group">
+            </div>
           </div>
         </div>
       </div>
@@ -844,8 +890,12 @@ footer {
           <div class="tl-loc">Bangkok, Thailand · On-site</div>
           <p class="tl-desc">Managed analytical instruments and conducted routine chemical testing including ELISA and PCR. Enhanced clinical lab skills in isolating, identifying, typing, and grouping parasites in body fluids.</p>
           <div class="photo-grid">
-            <img src="images/exp3-1.jpg" alt="Lab team" onclick="openLB(this.src)">
-            <img src="images/exp3-2.jpg" alt="Microscope work" onclick="openLB(this.src)">
+            <div class="photo-item" data-caption="Lab Team" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp3-1.jpg" alt="Lab team">
+            </div>
+            <div class="photo-item" data-caption="Microscope Work" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp3-2.jpg" alt="Microscope work">
+            </div>
           </div>
         </div>
       </div>
@@ -861,8 +911,12 @@ footer {
           <div class="tl-loc">Nakhon Ratchasima, Thailand · On-site</div>
           <p class="tl-desc">Acquired experience in zoo management and animal care including animal restraint, first aid, and necropsy, while developing and implementing specialized care plans focused on nutrition and health.</p>
           <div class="photo-grid">
-            <img src="images/exp4-1.jpg" alt="Zoo team with certificates" onclick="openLB(this.src)">
-            <img src="images/exp4-2.jpg" alt="Animal necropsy practice" onclick="openLB(this.src)">
+            <div class="photo-item" data-caption="Zoo Team with Certificates" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp4-1.jpg" alt="Zoo team with certificates">
+            </div>
+            <div class="photo-item" data-caption="Animal Necropsy Practice" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/exp4-2.jpg" alt="Animal necropsy practice">
+            </div>
           </div>
         </div>
       </div>
@@ -894,9 +948,15 @@ footer {
           <div class="tl-loc">Science and Technology</div>
           <p class="tl-desc">Involved in organizing events such as Pitch&amp;Sandwich and KU Startup BOOTCAMP 2024 in partnership with KUBIC and NIA, managing over 100 Kasetsart University students. Represented KU as a participant in the Startup Thailand League 2024: Coaching Camp at Panyapiwat Institute of Management.</p>
           <div class="photo-grid">
-            <img src="images/vol1-1.jpg" alt="Startup Thailand League 2024 Coaching Camp" onclick="openLB(this.src)">
-            <img src="images/vol1-2.jpg" alt="KU Startup BOOTCAMP 2024" onclick="openLB(this.src)">
-            <img src="images/vol1-3.jpg" alt="Pitch and Sandwich Event" onclick="openLB(this.src)">
+            <div class="photo-item" data-caption="Startup Thailand League 2024 Coaching Camp" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/vol1-1.jpg" alt="Startup Thailand League 2024 Coaching Camp">
+            </div>
+            <div class="photo-item" data-caption="KU Startup BOOTCAMP 2024" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/vol1-2.jpg" alt="KU Startup BOOTCAMP 2024">
+            </div>
+            <div class="photo-item" data-caption="Pitch &amp; Sandwich Event" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/vol1-3.jpg" alt="Pitch and Sandwich Event">
+            </div>
           </div>
         </div>
       </div>
@@ -912,8 +972,12 @@ footer {
           <div class="tl-loc">Education</div>
           <p class="tl-desc">Managed financial statements and partnered with sponsors including Thai Beverage Public Company Limited and MuvMi for TEDxKasetsartU2023, while enhancing teamwork and project management skills through collaboration, resource allocation, and conflict resolution.</p>
           <div class="photo-grid">
-            <img src="images/vol2-1.jpg" alt="TEDxKasetsartU team" onclick="openLB(this.src)">
-            <img src="images/vol2-2.jpg" alt="TEDxKasetsartU event" onclick="openLB(this.src)">
+            <div class="photo-item" data-caption="TEDxKasetsartU Team" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/vol2-1.jpg" alt="TEDxKasetsartU team">
+            </div>
+            <div class="photo-item" data-caption="TEDxKasetsartU Event" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/vol2-2.jpg" alt="TEDxKasetsartU event">
+            </div>
           </div>
         </div>
       </div>
@@ -929,7 +993,9 @@ footer {
           <div class="tl-loc">Education</div>
           <p class="tl-desc">Identified pain points and developed solutions for student club activities through member feedback analysis, while improving leadership and communication skills.</p>
           <div class="photo-grid">
-            <img src="images/vol3-1.jpg" alt="Veterinary Technology student club" onclick="openLB(this.src)">
+            <div class="photo-item" data-caption="Veterinary Technology Student Club" onclick="openLB(this.querySelector('img').src)">
+              <img src="images/vol3-1.jpg" alt="Veterinary Technology student club">
+            </div>
           </div>
         </div>
       </div>
