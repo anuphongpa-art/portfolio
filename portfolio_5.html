@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anuphong Payopat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #0F1115;
+  --s1:    #161920;
+  --s2:    #1C2028;
+  --border:rgba(255,255,255,0.08);
+  --bhi:   rgba(255,255,255,0.14);
+  --text:  #EEF0F4;
+  --sub:   #9BA3B2;
+  --muted: #5C6270;
+  --dim:   #343844;
+  --sci:   #38C9B0;
+  --biz:   #8B7CF6;
+  --tech:  #E8943A;
+  --vol:   #E06B8B;
+  --sg:    rgba(56,201,176,0.07);
+  --bg2:   rgba(139,124,246,0.07);
+  --tg:    rgba(232,148,58,0.07);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'Inter', system-ui, sans-serif;
+  --r:     4px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 3.5rem;background:rgba(15,17,21,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-brand{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);display:flex;align-items:center;gap:0.75rem;}
+.nav-divider{width:1px;height:18px;background:var(--border);}
+.nav-title{font-size:0.72rem;font-weight:400;color:var(--muted);letter-spacing:0.05em;font-family:var(--sans);}
+.nav-menu{display:flex;align-items:center;gap:0;list-style:none;}
+.nav-menu a{text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);padding:0.4rem 1rem;transition:color 0.18s;}
+.nav-menu a:hover{color:var(--text);}
+.nav-cta{text-decoration:none;font-size:0.72rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--text);padding:0.5rem 1.25rem;border:1px solid var(--bhi);border-radius:var(--r);transition:all 0.2s;}
+.nav-cta:hover{background:var(--s2);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem 4rem;position:relative;z-index:1;border-bottom:1px solid var(--border);}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:40%;background:radial-gradient(ellipse 60% 100% at 50% 0%,rgba(56,201,176,0.05) 0%,transparent 70%);pointer-events:none;}
+.hero-kicker{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:2.25rem;opacity:0;animation:up 0.7s 0.1s ease forwards;}
+.hero-kicker span{color:var(--sci);}
+.hero-kicker::before,.hero-kicker::after{content:'';display:block;width:20px;height:1px;background:var(--dim);}
+.hero-name{font-family:var(--serif);font-size:clamp(3.2rem,9vw,7rem);font-weight:700;line-height:1.05;letter-spacing:-0.01em;color:var(--text);margin-bottom:0.5rem;opacity:0;animation:up 0.7s 0.22s ease forwards;}
+.hero-name em{font-style:italic;background:linear-gradient(110deg,var(--sci) 0%,var(--biz) 50%,var(--tech) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:0.85rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3rem;font-weight:400;opacity:0;animation:up 0.7s 0.32s ease forwards;}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);max-width:580px;width:100%;border:1px solid var(--border);margin-bottom:3rem;opacity:0;animation:up 0.7s 0.42s ease forwards;}
+.pillar{padding:1.5rem 1.25rem;border-right:1px solid var(--border);text-align:center;position:relative;overflow:hidden;transition:background 0.22s;cursor:default;}
+.pillar:last-child{border-right:none;}
+.pillar-bar{position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+.pillar:hover .pillar-bar{transform:scaleX(1);}
+.p-sci .pillar-bar{background:var(--sci);}.p-biz .pillar-bar{background:var(--biz);}.p-tech .pillar-bar{background:var(--tech);}
+.p-sci:hover{background:var(--sg);}.p-biz:hover{background:var(--bg2);}.p-tech:hover{background:var(--tg);}
+.pillar-icon{font-size:1.2rem;margin-bottom:0.5rem;}
+.pillar-name{font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.35rem;}
+.p-sci .pillar-name{color:var(--sci);}.p-biz .pillar-name{color:var(--biz);}.p-tech .pillar-name{color:var(--tech);}
+.pillar-desc{font-size:0.68rem;color:var(--muted);line-height:1.5;}
+.hero-bio{font-size:0.95rem;color:var(--sub);line-height:1.85;max-width:480px;margin-bottom:2.5rem;opacity:0;animation:up 0.7s 0.52s ease forwards;}
+.hero-actions{display:flex;gap:0.75rem;justify-content:center;opacity:0;animation:up 0.7s 0.62s ease forwards;}
+.btn{text-decoration:none;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.75rem 2rem;border-radius:var(--r);transition:all 0.2s;font-family:var(--sans);}
+.btn-solid{background:var(--text);color:var(--bg);}.btn-solid:hover{opacity:0.9;transform:translateY(-1px);}
+.btn-outline{border:1px solid var(--bhi);color:var(--sub);background:transparent;}.btn-outline:hover{border-color:rgba(255,255,255,0.25);color:var(--text);}
+
+/* SECTION */
+.sec{padding:6rem 3.5rem;position:relative;z-index:1;}
+.sec.on-surface{background:var(--s1);border-bottom:1px solid var(--border);}
+.sec-head{display:flex;align-items:center;gap:1.25rem;margin-bottom:3.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
+.sec-index{font-size:0.62rem;font-weight:600;letter-spacing:0.14em;color:var(--dim);}
+.sec-name{font-family:var(--serif);font-size:clamp(1.4rem,2.4vw,1.85rem);font-weight:600;color:var(--text);}
+.sec-rule{flex:1;height:1px;background:var(--border);}
+.sec-location{font-size:0.7rem;color:var(--muted);letter-spacing:0.04em;}
+
+/* PROFILE */
+.profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);max-width:1140px;margin:0 auto;}
+.profile-col{background:var(--bg);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1.25rem;position:relative;overflow:hidden;transition:background 0.22s;}
+.profile-col::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.p-sci.profile-col::before{background:var(--sci);}.p-biz.profile-col::before{background:var(--biz);}.p-tech.profile-col::before{background:var(--tech);}
+.profile-col:hover{background:var(--s1);}
+.pc-label{display:flex;align-items:center;gap:0.65rem;font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;}
+.pc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.p-sci .pc-dot{background:var(--sci);}.p-biz .pc-dot{background:var(--biz);}.p-tech .pc-dot{background:var(--tech);}
+.p-sci .pc-label{color:var(--sci);}.p-biz .pc-label{color:var(--biz);}.p-tech .pc-label{color:var(--tech);}
+.pc-body{font-size:0.88rem;color:var(--sub);line-height:1.85;}
+.pc-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:auto;}
+.pc-tag{font-size:0.63rem;font-weight:600;letter-spacing:0.04em;padding:0.25rem 0.65rem;border-radius:3px;border:1px solid;}
+.p-sci .pc-tag{border-color:rgba(56,201,176,0.25);color:var(--sci);}
+.p-biz .pc-tag{border-color:rgba(139,124,246,0.25);color:var(--biz);}
+.p-tech .pc-tag{border-color:rgba(232,148,58,0.25);color:var(--tech);}
+
+/* TIMELINE */
+.timeline{max-width:860px;margin:0 auto;display:flex;flex-direction:column;}
+.tl-item{display:grid;grid-template-columns:160px 1fr;border-top:1px solid var(--border);padding:2.25rem 0;}
+.tl-item:last-child{border-bottom:1px solid var(--border);}
+.tl-left{padding-right:2.5rem;padding-top:0.15rem;}
+.tl-period{font-size:0.72rem;color:var(--muted);line-height:1.6;letter-spacing:0.03em;}
+.tl-dur{font-size:0.68rem;color:var(--dim);margin-top:0.25rem;}
+.tl-org{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;}
+.tl-role{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:0.3rem;}
+.tl-loc{font-size:0.7rem;color:var(--dim);margin-bottom:0.9rem;}
+.tl-desc{font-size:0.875rem;color:var(--sub);line-height:1.82;max-width:580px;}
+.exp-accent .tl-org{color:var(--sci);}
+.vol-accent .tl-org{color:var(--vol);}
+
+/* PHOTO GRID */
+.photo-grid{display:flex;flex-wrap:wrap;gap:0.55rem;margin-top:1.25rem;}
+.photo-grid img{
+  width:110px;height:80px;object-fit:cover;
+  border-radius:3px;border:1px solid var(--border);
+  cursor:pointer;transition:opacity 0.2s,border-color 0.2s,transform 0.2s;
+}
+.photo-grid img:hover{opacity:0.85;border-color:var(--bhi);transform:scale(1.03);}
+
+/* LIGHTBOX */
+#lb{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.88);align-items:center;justify-content:center;cursor:zoom-out;}
+#lb.open{display:flex;}
+#lb img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:4px;}
+#lb-close{position:absolute;top:1.25rem;right:1.5rem;font-size:1.5rem;color:rgba(255,255,255,0.45);cursor:pointer;background:none;border:none;line-height:1;transition:color 0.2s;}
+#lb-close:hover{color:#fff;}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);max-width:1140px;margin:0 auto;}
+.sk-col{background:var(--bg);}
+.sk-head{padding:1.5rem 2rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.65rem;}
+.sk-dot{width:5px;height:5px;border-radius:50%;}
+.p-sci .sk-dot{background:var(--sci);}.p-biz .sk-dot{background:var(--biz);}.p-tech .sk-dot{background:var(--tech);}
+.sk-label{font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;}
+.p-sci .sk-label{color:var(--sci);}.p-biz .sk-label{color:var(--biz);}.p-tech .sk-label{color:var(--tech);}
+.sk-list{list-style:none;padding:0.75rem 2rem 2rem;}
+.sk-list li{font-size:0.85rem;color:var(--sub);padding:0.6rem 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;transition:color 0.18s;}
+.sk-list li:last-child{border-bottom:none;}
+.p-sci .sk-list li:hover{color:var(--sci);}.p-biz .sk-list li:hover{color:var(--biz);}.p-tech .sk-list li:hover{color:var(--tech);}
+.sk-list li::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--border);flex-shrink:0;}
+
+/* EDUCATION */
+.edu-table{max-width:860px;margin:0 auto;}
+.edu-row{display:grid;grid-template-columns:160px 1fr auto;gap:2.5rem;align-items:center;padding:1.6rem 0;border-top:1px solid var(--border);transition:padding-left 0.2s;}
+.edu-row:last-child{border-bottom:1px solid var(--border);}
+.edu-row:hover{padding-left:0.5rem;}
+.edu-period{font-size:0.72rem;color:var(--muted);}
+.edu-deg{font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--text);line-height:1.3;}
+.edu-inst{font-size:0.78rem;color:var(--sub);margin-top:0.2rem;}
+.edu-pill{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:3px;border:1px solid;white-space:nowrap;}
+.pill-active{border-color:rgba(56,201,176,0.35);color:var(--sci);}
+.pill-done{border-color:var(--dim);color:var(--muted);}
+
+/* CONTACT */
+.contact-sec{background:var(--s1);border-top:1px solid var(--border);}
+.contact-wrap{max-width:700px;margin:0 auto;}
+.contact-heading{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3rem);font-weight:700;line-height:1.2;margin-bottom:0.85rem;color:var(--text);}
+.contact-heading em{font-style:italic;background:linear-gradient(100deg,var(--sci),var(--biz) 55%,var(--tech));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.contact-body{font-size:0.9rem;color:var(--sub);line-height:1.85;margin-bottom:2.5rem;max-width:520px;}
+.contact-links{display:flex;flex-direction:column;gap:2px;}
+.clink{text-decoration:none;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;background:var(--bg);border:1px solid var(--border);color:var(--text);transition:all 0.2s;border-radius:var(--r);}
+.clink:hover{background:var(--s2);border-color:var(--bhi);}
+.clink:hover .clink-arrow{transform:translateX(4px);color:var(--text);}
+.clink-label{font-size:0.85rem;font-weight:600;color:var(--text);}
+.clink-val{font-size:0.74rem;color:var(--muted);margin-top:0.1rem;}
+.clink-arrow{color:var(--dim);transition:all 0.2s;font-size:0.9rem;}
+
+/* FOOTER */
+footer{padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);position:relative;z-index:1;}
+.f-brand{font-family:var(--serif);font-size:0.85rem;font-weight:600;color:var(--muted);}
+.f-pillars{display:flex;align-items:center;gap:1.5rem;}
+.f-pillars span{font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;}
+.fp-sci{color:var(--sci);}.fp-biz{color:var(--biz);}.fp-tech{color:var(--tech);}
+.f-copy{font-size:0.68rem;color:var(--dim);}
+
+/* ANIM */
+@keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  nav{padding:0 1.5rem;}.nav-menu,.nav-title,.nav-divider{display:none;}
+  .sec{padding:4.5rem 1.5rem;}
+  .profile-grid{grid-template-columns:1fr;}
+  .tl-item{grid-template-columns:1fr;}.tl-left{padding-right:0;padding-bottom:0.75rem;}
+  .skills-grid{grid-template-columns:1fr;}
+  .edu-row{grid-template-columns:1fr;gap:0.4rem;}
+  footer{flex-direction:column;gap:0.75rem;padding:1.5rem;text-align:center;}
+  .f-pillars{justify-content:center;}
+  .photo-grid img{width:80px;height:60px;}
+}
+</style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div id="lb" onclick="closeLB()">
+  <button id="lb-close" onclick="closeLB()">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    Anuphong Payopat
+    <div class="nav-divider"></div>
+    <span class="nav-title">Science · Business · Technology</span>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="#profile">Profile</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#volunteering">Volunteering</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+  <a href="mailto:anuphong3502@gmail.com" class="nav-cta">Contact</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-kicker"><span>Bangkok, Thailand</span> · Researcher &amp; Entrepreneur</div>
+  <h1 class="hero-name">Anuphong <em>Payopat</em></h1>
+  <p class="hero-sub">M.S. Biochemistry · Kasetsart University</p>
+  <div class="pillars">
+    <div class="pillar p-sci">
+      <div class="pillar-icon">🔬</div>
+      <div class="pillar-name">Science</div>
+      <div class="pillar-desc">Biochemistry · Genetics<br>Veterinary Technology</div>
+      <div class="pillar-bar"></div>
+    </div>
+    <div class="pillar p-biz">
+      <div class="pillar-icon">📈</div>
+      <div class="pillar-name">Business</div>
+      <div class="pillar-desc">Entrepreneurship<br>PE · Venture Capital</div>
+      <div class="pillar-bar"></div>
+    </div>
+    <div class="pillar p-tech">
+      <div class="pillar-icon">⚙️</div>
+      <div class="pillar-name">Technology</div>
+      <div class="pillar-desc">Artificial Intelligence<br>Research &amp; Innovation</div>
+      <div class="pillar-bar"></div>
+    </div>
+  </div>
+  <p class="hero-bio">A researcher and entrepreneur with a diverse background in life sciences, strategic business, and emerging technology. Published in <em>Animal Bioscience</em>. International experience at The University of Tokyo.</p>
+  <div class="hero-actions">
+    <a href="#profile" class="btn btn-solid">View Profile</a>
+    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+  </div>
+</section>
+
+<!-- PROFILE -->
+<section class="sec on-surface" id="profile">
+  <div class="sec-head reveal">
+    <span class="sec-index">00</span>
+    <h2 class="sec-name">Profile</h2>
+    <div class="sec-rule"></div>
+    <span class="sec-location">Bangkok, TH · Open to opportunities</span>
+  </div>
+  <div class="profile-grid">
+    <div class="profile-col p-sci reveal">
+      <div class="pc-label"><div class="pc-dot"></div>Science</div>
+      <p class="pc-body">Diverse academic and practical background in biochemistry, veterinary technology, and genetics. Research covers genetic diversity in Thai Indigenous chickens and antibiotic residue testing in pork. Published in <em>Animal Bioscience</em>.</p>
+      <div class="pc-tags"><span class="pc-tag">Biochemistry</span><span class="pc-tag">Genetics</span><span class="pc-tag">Vet Technology</span><span class="pc-tag">PCR / SNP</span><span class="pc-tag">ELISA</span></div>
+    </div>
+    <div class="profile-col p-biz reveal" style="transition-delay:.1s">
+      <div class="pc-label"><div class="pc-dot"></div>Business</div>
+      <p class="pc-body">Actively involved in entrepreneurship through the KU Startup Club and business case competitions. Deep interest in private equity and venture capital, with strong project management and leadership capabilities.</p>
+      <div class="pc-tags"><span class="pc-tag">Entrepreneurship</span><span class="pc-tag">Private Equity</span><span class="pc-tag">Venture Capital</span><span class="pc-tag">Leadership</span></div>
+    </div>
+    <div class="profile-col p-tech reveal" style="transition-delay:.2s">
+      <div class="pc-label"><div class="pc-dot"></div>Technology</div>
+      <p class="pc-body">Passionate about the role of artificial intelligence and emerging technologies in advancing scientific research and business innovation. Experienced in applying analytical tools to complex problems in genomics and animal health.</p>
+      <div class="pc-tags"><span class="pc-tag">Artificial Intelligence</span><span class="pc-tag">Lab Analytics</span><span class="pc-tag">R&amp;D</span><span class="pc-tag">Innovation</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="sec" id="experience">
+  <div class="sec-head reveal">
+    <span class="sec-index">01</span>
+    <h2 class="sec-name">Experience</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="timeline">
+
+    <div class="tl-item exp-accent reveal">
+      <div class="tl-left">
+        <div class="tl-period">Dec 2023 — Mar 2024</div>
+        <div class="tl-dur">4 months</div>
+      </div>
+      <div>
+        <div class="tl-org">Animal Genomics and Bioresource Research Center</div>
+        <div class="tl-role">Research Assistant Intern</div>
+        <div class="tl-loc">Bangkok, Thailand · On-site</div>
+        <p class="tl-desc">Gained practical experience in genetic laboratory techniques including PCR and SNP analysis. Contributed to a research paper published in Animal Bioscience and assisted in organizing the 2nd Animal Genomics and Bioresource for ESG &amp; SDG Seminar.</p>
+        <div class="photo-grid">
+          <img src="images/exp1-1.jpg" alt="2nd Animal Genomics Seminar" onclick="openLB(this.src)">
+          <img src="images/exp1-2.jpg" alt="Animal Bioscience publication" onclick="openLB(this.src)">
+          <img src="images/exp1-3.jpg" alt="Research poster" onclick="openLB(this.src)">
+          <img src="images/exp1-4.jpg" alt="Seminar event" onclick="openLB(this.src)">
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item exp-accent reveal" style="transition-delay:.07s">
+      <div class="tl-left">
+        <div class="tl-period">Nov 2023</div>
+        <div class="tl-dur">1 month</div>
+      </div>
+      <div>
+        <div class="tl-org">The University of Tokyo</div>
+        <div class="tl-role">Exchange Student</div>
+        <div class="tl-loc">Tokyo, Japan · On-site</div>
+        <p class="tl-desc">Engaged in the Animal Resource Science and Management program, focusing on key research areas within Zoology while developing proficiency in adaptability and communication in an international academic environment.</p>
+        <div class="photo-grid">
+          <img src="images/exp2-1.jpg" alt="University of Tokyo campus" onclick="openLB(this.src)">
+          <img src="images/exp2-2.jpg" alt="Classroom session" onclick="openLB(this.src)">
+          <img src="images/exp2-3.jpg" alt="Animal science field work" onclick="openLB(this.src)">
+          <img src="images/exp2-4.jpg" alt="Lab group" onclick="openLB(this.src)">
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item exp-accent reveal" style="transition-delay:.13s">
+      <div class="tl-left">
+        <div class="tl-period">Apr — May 2023</div>
+        <div class="tl-dur">2 months</div>
+      </div>
+      <div>
+        <div class="tl-org">Kasetsart University</div>
+        <div class="tl-role">Veterinary Technologist Intern</div>
+        <div class="tl-loc">Bangkok, Thailand · On-site</div>
+        <p class="tl-desc">Managed analytical instruments and conducted routine chemical testing including ELISA and PCR. Enhanced clinical lab skills in isolating, identifying, typing, and grouping parasites in body fluids.</p>
+        <div class="photo-grid">
+          <img src="images/exp3-1.jpg" alt="Lab team" onclick="openLB(this.src)">
+          <img src="images/exp3-2.jpg" alt="Microscope work" onclick="openLB(this.src)">
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item exp-accent reveal" style="transition-delay:.18s">
+      <div class="tl-left">
+        <div class="tl-period">Apr 2022</div>
+        <div class="tl-dur">1 month</div>
+      </div>
+      <div>
+        <div class="tl-org">Bonanza Exotic Zoo</div>
+        <div class="tl-role">Veterinary Technologist Intern</div>
+        <div class="tl-loc">Nakhon Ratchasima, Thailand · On-site</div>
+        <p class="tl-desc">Acquired experience in zoo management and animal care including animal restraint, first aid, and necropsy, while developing and implementing specialized care plans focused on nutrition and health.</p>
+        <div class="photo-grid">
+          <img src="images/exp4-1.jpg" alt="Zoo team with certificates" onclick="openLB(this.src)">
+          <img src="images/exp4-2.jpg" alt="Animal necropsy practice" onclick="openLB(this.src)">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VOLUNTEERING -->
+<section class="sec on-surface" id="volunteering">
+  <div class="sec-head reveal">
+    <span class="sec-index">02</span>
+    <h2 class="sec-name">Volunteering</h2>
+    <div class="sec-rule"></div>
+    <span class="sec-location">Science &amp; Technology · Education</span>
+  </div>
+  <div class="timeline">
+
+    <div class="tl-item vol-accent reveal">
+      <div class="tl-left">
+        <div class="tl-period">Jun 2023 — May 2024</div>
+        <div class="tl-dur">1 year</div>
+      </div>
+      <div>
+        <div class="tl-org" style="color:var(--vol)">KU Startup</div>
+        <div class="tl-role">Staff of Build Startup Team</div>
+        <div class="tl-loc">Science and Technology</div>
+        <p class="tl-desc">Involved in organizing events such as Pitch&amp;Sandwich and KU Startup BOOTCAMP 2024 in partnership with KUBIC and NIA, managing over 100 Kasetsart University students. Represented KU as a participant in the Startup Thailand League 2024: Coaching Camp at Panyapiwat Institute of Management.</p>
+        <div class="photo-grid">
+          <img src="images/vol1-1.jpg" alt="Startup Thailand League 2024 Coaching Camp" onclick="openLB(this.src)">
+          <img src="images/vol1-2.jpg" alt="KU Startup BOOTCAMP 2024" onclick="openLB(this.src)">
+          <img src="images/vol1-3.jpg" alt="Pitch and Sandwich Event" onclick="openLB(this.src)">
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item vol-accent reveal" style="transition-delay:.08s">
+      <div class="tl-left">
+        <div class="tl-period">Apr 2022 — May 2023</div>
+        <div class="tl-dur">1 yr 2 months</div>
+      </div>
+      <div>
+        <div class="tl-org" style="color:var(--vol)">TEDxKasetsartU</div>
+        <div class="tl-role">Staff of Financial &amp; Sponsor Team</div>
+        <div class="tl-loc">Education</div>
+        <p class="tl-desc">Managed financial statements and partnered with sponsors including Thai Beverage Public Company Limited and MuvMi for TEDxKasetsartU2023, while enhancing teamwork and project management skills through collaboration, resource allocation, and conflict resolution.</p>
+        <div class="photo-grid">
+          <img src="images/vol2-1.jpg" alt="TEDxKasetsartU team" onclick="openLB(this.src)">
+          <img src="images/vol2-2.jpg" alt="TEDxKasetsartU event" onclick="openLB(this.src)">
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item vol-accent reveal" style="transition-delay:.15s">
+      <div class="tl-left">
+        <div class="tl-period">May 2022 — Mar 2023</div>
+        <div class="tl-dur">11 months</div>
+      </div>
+      <div>
+        <div class="tl-org" style="color:var(--vol)">Student Club of Veterinary Technology</div>
+        <div class="tl-role">Head of Quality Evaluation Team</div>
+        <div class="tl-loc">Education</div>
+        <p class="tl-desc">Identified pain points and developed solutions for student club activities through member feedback analysis, while improving leadership and communication skills.</p>
+        <div class="photo-grid">
+          <img src="images/vol3-1.jpg" alt="Veterinary Technology student club" onclick="openLB(this.src)">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="sec" id="skills">
+  <div class="sec-head reveal">
+    <span class="sec-index">03</span>
+    <h2 class="sec-name">Skills</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="sk-col p-sci">
+      <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Science</div></div>
+      <ul class="sk-list">
+        <li>PCR &amp; SNP Analysis</li><li>ELISA</li><li>Parasite Identification</li>
+        <li>Genetic Diversity Research</li><li>Antibiotic Residue Testing</li><li>Animal Necropsy</li>
+      </ul>
+    </div>
+    <div class="sk-col p-biz">
+      <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Business</div></div>
+      <ul class="sk-list">
+        <li>Private Equity</li><li>Venture Capital</li><li>Entrepreneurship</li>
+        <li>Project Management</li><li>Business Case Competitions</li><li>Leadership &amp; Communication</li>
+      </ul>
+    </div>
+    <div class="sk-col p-tech">
+      <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Technology</div></div>
+      <ul class="sk-list">
+        <li>Artificial Intelligence (AI)</li><li>Research &amp; Development</li><li>Analytical Instruments</li>
+        <li>Research Writing</li><li>Data Analysis</li><li>Cross-cultural Adaptability</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="sec on-surface" id="education">
+  <div class="sec-head reveal">
+    <span class="sec-index">04</span>
+    <h2 class="sec-name">Education</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="edu-table reveal">
+    <div class="edu-row">
+      <div class="edu-period">Jun 2024 — Present</div>
+      <div><div class="edu-deg">Master's degree — Biochemistry</div><div class="edu-inst">Kasetsart University</div></div>
+      <span class="edu-pill pill-active">In Progress</span>
+    </div>
+    <div class="edu-row">
+      <div class="edu-period">Jun 2020 — Mar 2024</div>
+      <div><div class="edu-deg">Bachelor's degree — Veterinary Technology</div><div class="edu-inst">Kasetsart University</div></div>
+      <span class="edu-pill pill-done">Completed</span>
+    </div>
+    <div class="edu-row">
+      <div class="edu-period">Jun 2017 — Mar 2020</div>
+      <div><div class="edu-deg">Intensive English Program</div><div class="edu-inst">Debsirin School</div></div>
+      <span class="edu-pill pill-done">Completed</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec contact-sec" id="contact">
+  <div class="contact-wrap">
+    <div class="reveal">
+      <h2 class="contact-heading">Let's work<br><em>together.</em></h2>
+      <p class="contact-body">Open to research collaborations, entrepreneurship ventures, and conversations at the intersection of Science, Business, and Technology.</p>
+    </div>
+    <div class="contact-links reveal" style="transition-delay:.12s">
+      <a href="mailto:anuphong3502@gmail.com" class="clink">
+        <div><div class="clink-label">Email</div><div class="clink-val">anuphong3502@gmail.com</div></div>
+        <span class="clink-arrow">→</span>
+      </a>
+      <a href="https://www.linkedin.com/in/anuphongpayopat" class="clink" target="_blank">
+        <div><div class="clink-label">LinkedIn</div><div class="clink-val">linkedin.com/in/anuphongpayopat</div></div>
+        <span class="clink-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Anuphong Payopat</div>
+  <div class="f-pillars">
+    <span class="fp-sci">Science</span>
+    <span class="fp-biz">Business</span>
+    <span class="fp-tech">Technology</span>
+  </div>
+  <span class="f-copy">© 2026 · Bangkok, Thailand</span>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  function openLB(src) {
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lb').classList.add('open');
+  }
+  function closeLB() {
+    document.getElementById('lb').classList.remove('open');
+    document.getElementById('lb-img').src = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+</script>
+</body>
+</html>
