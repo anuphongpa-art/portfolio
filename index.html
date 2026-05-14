@@ -6,193 +6,639 @@
 <title>Anuphong Payopat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:    #0F1115;
-  --s1:    #161920;
-  --s2:    #1C2028;
-  --border:rgba(255,255,255,0.08);
-  --bhi:   rgba(255,255,255,0.14);
-  --text:  #EEF0F4;
-  --sub:   #9BA3B2;
-  --muted: #5C6270;
-  --dim:   #343844;
-  --sci:   #38C9B0;
-  --biz:   #8B7CF6;
-  --tech:  #E8943A;
-  --vol:   #E06B8B;
-  --sg:    rgba(56,201,176,0.07);
-  --bg2:   rgba(139,124,246,0.07);
-  --tg:    rgba(232,148,58,0.07);
+  --teal:   #38C9B0;
+  --purple: #8B7CF6;
+  --amber:  #E8943A;
+  --pink:   #E06B8B;
+  --teal-glow:   rgba(56,201,176,0.35);
+  --purple-glow: rgba(139,124,246,0.35);
+  --amber-glow:  rgba(232,148,58,0.35);
+  --pink-glow:   rgba(224,107,139,0.35);
+
+  --bg:     #07090F;
+  --bg2:    #0A0D16;
+  --glass:  rgba(255,255,255,0.035);
+  --glass2: rgba(255,255,255,0.06);
+  --gb:     rgba(255,255,255,0.08);
+  --gbhi:   rgba(255,255,255,0.14);
+
+  --text:   #F0F2F7;
+  --sub:    #9BA3B2;
+  --muted:  #5C6270;
+  --dim:    #272C38;
+
   --serif: 'Playfair Display', Georgia, serif;
   --sans:  'Inter', system-ui, sans-serif;
-  --r:     4px;
+  --r:     12px;
+  --rs:    8px;
 }
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
-::-webkit-scrollbar{width:3px;}
-::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px;}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 3.5rem;background:rgba(15,17,21,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
-.nav-brand{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text);display:flex;align-items:center;gap:0.75rem;}
-.nav-divider{width:1px;height:18px;background:var(--border);}
-.nav-title{font-size:0.72rem;font-weight:400;color:var(--muted);letter-spacing:0.05em;font-family:var(--sans);}
-.nav-menu{display:flex;align-items:center;gap:0;list-style:none;}
-.nav-menu a{text-decoration:none;font-size:0.72rem;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);padding:0.4rem 1rem;transition:color 0.18s;}
-.nav-menu a:hover{color:var(--text);}
-.nav-cta{text-decoration:none;font-size:0.72rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--text);padding:0.5rem 1.25rem;border:1px solid var(--bhi);border-radius:var(--r);transition:all 0.2s;}
-.nav-cta:hover{background:var(--s2);}
-
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem 4rem;position:relative;z-index:1;border-bottom:1px solid var(--border);}
-.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:40%;background:radial-gradient(ellipse 60% 100% at 50% 0%,rgba(56,201,176,0.05) 0%,transparent 70%);pointer-events:none;}
-.hero-kicker{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:2.25rem;opacity:0;animation:up 0.7s 0.1s ease forwards;}
-.hero-kicker span{color:var(--sci);}
-.hero-kicker::before,.hero-kicker::after{content:'';display:block;width:20px;height:1px;background:var(--dim);}
-.hero-name{font-family:var(--serif);font-size:clamp(3.2rem,9vw,7rem);font-weight:700;line-height:1.05;letter-spacing:-0.01em;color:var(--text);margin-bottom:0.5rem;opacity:0;animation:up 0.7s 0.22s ease forwards;}
-.hero-name em{font-style:italic;background:linear-gradient(110deg,var(--sci) 0%,var(--biz) 50%,var(--tech) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:0.85rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3rem;font-weight:400;opacity:0;animation:up 0.7s 0.32s ease forwards;}
-.pillars{display:grid;grid-template-columns:repeat(3,1fr);max-width:580px;width:100%;border:1px solid var(--border);margin-bottom:3rem;opacity:0;animation:up 0.7s 0.42s ease forwards;}
-.pillar{padding:1.5rem 1.25rem;border-right:1px solid var(--border);text-align:center;position:relative;overflow:hidden;transition:background 0.22s;cursor:default;}
-.pillar:last-child{border-right:none;}
-.pillar-bar{position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
-.pillar:hover .pillar-bar{transform:scaleX(1);}
-.p-sci .pillar-bar{background:var(--sci);}.p-biz .pillar-bar{background:var(--biz);}.p-tech .pillar-bar{background:var(--tech);}
-.p-sci:hover{background:var(--sg);}.p-biz:hover{background:var(--bg2);}.p-tech:hover{background:var(--tg);}
-.pillar-icon{font-size:1.2rem;margin-bottom:0.5rem;}
-.pillar-name{font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.35rem;}
-.p-sci .pillar-name{color:var(--sci);}.p-biz .pillar-name{color:var(--biz);}.p-tech .pillar-name{color:var(--tech);}
-.pillar-desc{font-size:0.68rem;color:var(--muted);line-height:1.5;}
-.hero-bio{font-size:0.95rem;color:var(--sub);line-height:1.85;max-width:480px;margin-bottom:2.5rem;opacity:0;animation:up 0.7s 0.52s ease forwards;}
-.hero-actions{display:flex;gap:0.75rem;justify-content:center;opacity:0;animation:up 0.7s 0.62s ease forwards;}
-.btn{text-decoration:none;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.75rem 2rem;border-radius:var(--r);transition:all 0.2s;font-family:var(--sans);}
-.btn-solid{background:var(--text);color:var(--bg);}.btn-solid:hover{opacity:0.9;transform:translateY(-1px);}
-.btn-outline{border:1px solid var(--bhi);color:var(--sub);background:transparent;}.btn-outline:hover{border-color:rgba(255,255,255,0.25);color:var(--text);}
-
-/* SECTION */
-.sec{padding:6rem 3.5rem;position:relative;z-index:1;}
-.sec.on-surface{background:var(--s1);border-bottom:1px solid var(--border);}
-.sec-head{display:flex;align-items:center;gap:1.25rem;margin-bottom:3.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
-.sec-index{font-size:0.62rem;font-weight:600;letter-spacing:0.14em;color:var(--dim);}
-.sec-name{font-family:var(--serif);font-size:clamp(1.4rem,2.4vw,1.85rem);font-weight:600;color:var(--text);}
-.sec-rule{flex:1;height:1px;background:var(--border);}
-.sec-location{font-size:0.7rem;color:var(--muted);letter-spacing:0.04em;}
-
-/* PROFILE */
-.profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);max-width:1140px;margin:0 auto;}
-.profile-col{background:var(--bg);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1.25rem;position:relative;overflow:hidden;transition:background 0.22s;}
-.profile-col::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
-.p-sci.profile-col::before{background:var(--sci);}.p-biz.profile-col::before{background:var(--biz);}.p-tech.profile-col::before{background:var(--tech);}
-.profile-col:hover{background:var(--s1);}
-.pc-label{display:flex;align-items:center;gap:0.65rem;font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;}
-.pc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.p-sci .pc-dot{background:var(--sci);}.p-biz .pc-dot{background:var(--biz);}.p-tech .pc-dot{background:var(--tech);}
-.p-sci .pc-label{color:var(--sci);}.p-biz .pc-label{color:var(--biz);}.p-tech .pc-label{color:var(--tech);}
-.pc-body{font-size:0.88rem;color:var(--sub);line-height:1.85;}
-.pc-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:auto;}
-.pc-tag{font-size:0.63rem;font-weight:600;letter-spacing:0.04em;padding:0.25rem 0.65rem;border-radius:3px;border:1px solid;}
-.p-sci .pc-tag{border-color:rgba(56,201,176,0.25);color:var(--sci);}
-.p-biz .pc-tag{border-color:rgba(139,124,246,0.25);color:var(--biz);}
-.p-tech .pc-tag{border-color:rgba(232,148,58,0.25);color:var(--tech);}
-
-/* TIMELINE */
-.timeline{max-width:860px;margin:0 auto;display:flex;flex-direction:column;}
-.tl-item{display:grid;grid-template-columns:160px 1fr;border-top:1px solid var(--border);padding:2.25rem 0;}
-.tl-item:last-child{border-bottom:1px solid var(--border);}
-.tl-left{padding-right:2.5rem;padding-top:0.15rem;}
-.tl-period{font-size:0.72rem;color:var(--muted);line-height:1.6;letter-spacing:0.03em;}
-.tl-dur{font-size:0.68rem;color:var(--dim);margin-top:0.25rem;}
-.tl-org{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;}
-.tl-role{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:0.3rem;}
-.tl-loc{font-size:0.7rem;color:var(--dim);margin-bottom:0.9rem;}
-.tl-desc{font-size:0.875rem;color:var(--sub);line-height:1.82;max-width:580px;}
-.exp-accent .tl-org{color:var(--sci);}
-.vol-accent .tl-org{color:var(--vol);}
-
-/* PHOTO GRID */
-.photo-grid{display:flex;flex-wrap:wrap;gap:0.55rem;margin-top:1.25rem;}
-.photo-grid img{
-  width:110px;height:80px;object-fit:cover;
-  border-radius:3px;border:1px solid var(--border);
-  cursor:pointer;transition:opacity 0.2s,border-color 0.2s,transform 0.2s;
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+  font-size: 15px;
 }
-.photo-grid img:hover{opacity:0.85;border-color:var(--bhi);transform:scale(1.03);}
 
-/* LIGHTBOX */
-#lb{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.88);align-items:center;justify-content:center;cursor:zoom-out;}
-#lb.open{display:flex;}
-#lb img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:4px;}
-#lb-close{position:absolute;top:1.25rem;right:1.5rem;font-size:1.5rem;color:rgba(255,255,255,0.45);cursor:pointer;background:none;border:none;line-height:1;transition:color 0.2s;}
-#lb-close:hover{color:#fff;}
+/* Film grain overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.022;
+  pointer-events: none;
+  z-index: 9999;
+}
 
-/* SKILLS */
-.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);max-width:1140px;margin:0 auto;}
-.sk-col{background:var(--bg);}
-.sk-head{padding:1.5rem 2rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.65rem;}
-.sk-dot{width:5px;height:5px;border-radius:50%;}
-.p-sci .sk-dot{background:var(--sci);}.p-biz .sk-dot{background:var(--biz);}.p-tech .sk-dot{background:var(--tech);}
-.sk-label{font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;}
-.p-sci .sk-label{color:var(--sci);}.p-biz .sk-label{color:var(--biz);}.p-tech .sk-label{color:var(--tech);}
-.sk-list{list-style:none;padding:0.75rem 2rem 2rem;}
-.sk-list li{font-size:0.85rem;color:var(--sub);padding:0.6rem 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;transition:color 0.18s;}
-.sk-list li:last-child{border-bottom:none;}
-.p-sci .sk-list li:hover{color:var(--sci);}.p-biz .sk-list li:hover{color:var(--biz);}.p-tech .sk-list li:hover{color:var(--tech);}
-.sk-list li::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--border);flex-shrink:0;}
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
 
-/* EDUCATION */
-.edu-table{max-width:860px;margin:0 auto;}
-.edu-row{display:grid;grid-template-columns:160px 1fr auto;gap:2.5rem;align-items:center;padding:1.6rem 0;border-top:1px solid var(--border);transition:padding-left 0.2s;}
-.edu-row:last-child{border-bottom:1px solid var(--border);}
-.edu-row:hover{padding-left:0.5rem;}
-.edu-period{font-size:0.72rem;color:var(--muted);}
-.edu-deg{font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--text);line-height:1.3;}
-.edu-inst{font-size:0.78rem;color:var(--sub);margin-top:0.2rem;}
-.edu-pill{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:3px;border:1px solid;white-space:nowrap;}
-.pill-active{border-color:rgba(56,201,176,0.35);color:var(--sci);}
-.pill-done{border-color:var(--dim);color:var(--muted);}
+/* ==============================
+   NAV
+============================== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  height: 66px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4rem;
+  background: rgba(7,9,15,0.72);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-bottom: 1px solid var(--gb);
+}
+.nav-brand {
+  font-family: var(--serif);
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--text); letter-spacing: -0.01em;
+}
+.nav-menu {
+  display: flex; align-items: center; gap: 0.2rem;
+  list-style: none;
+}
+.nav-menu a {
+  text-decoration: none;
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--muted); padding: 0.5rem 0.9rem;
+  border-radius: var(--rs);
+  transition: color 0.2s, background 0.2s;
+}
+.nav-menu a:hover { color: var(--text); background: var(--glass); }
+.nav-cta {
+  text-decoration: none;
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--bg); background: var(--text);
+  padding: 0.55rem 1.35rem; border-radius: var(--rs);
+  transition: all 0.22s;
+}
+.nav-cta:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(240,242,247,0.18); }
 
-/* CONTACT */
-.contact-sec{background:var(--s1);border-top:1px solid var(--border);}
-.contact-wrap{max-width:700px;margin:0 auto;}
-.contact-heading{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3rem);font-weight:700;line-height:1.2;margin-bottom:0.85rem;color:var(--text);}
-.contact-heading em{font-style:italic;background:linear-gradient(100deg,var(--sci),var(--biz) 55%,var(--tech));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.contact-body{font-size:0.9rem;color:var(--sub);line-height:1.85;margin-bottom:2.5rem;max-width:520px;}
-.contact-links{display:flex;flex-direction:column;gap:2px;}
-.clink{text-decoration:none;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;background:var(--bg);border:1px solid var(--border);color:var(--text);transition:all 0.2s;border-radius:var(--r);}
-.clink:hover{background:var(--s2);border-color:var(--bhi);}
-.clink:hover .clink-arrow{transform:translateX(4px);color:var(--text);}
-.clink-label{font-size:0.85rem;font-weight:600;color:var(--text);}
-.clink-val{font-size:0.74rem;color:var(--muted);margin-top:0.1rem;}
-.clink-arrow{color:var(--dim);transition:all 0.2s;font-size:0.9rem;}
+/* ==============================
+   HERO
+============================== */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 5rem;
+  overflow: hidden;
+}
 
-/* FOOTER */
-footer{padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);position:relative;z-index:1;}
-.f-brand{font-family:var(--serif);font-size:0.85rem;font-weight:600;color:var(--muted);}
-.f-pillars{display:flex;align-items:center;gap:1.5rem;}
-.f-pillars span{font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;}
-.fp-sci{color:var(--sci);}.fp-biz{color:var(--biz);}.fp-tech{color:var(--tech);}
-.f-copy{font-size:0.68rem;color:var(--dim);}
+/* Floating gradient orbs */
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(90px); pointer-events: none;
+}
+.orb-1 {
+  width: 560px; height: 560px;
+  background: radial-gradient(circle, rgba(56,201,176,0.2) 0%, transparent 68%);
+  top: -120px; left: -120px;
+  animation: orb1 9s ease-in-out infinite;
+}
+.orb-2 {
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, rgba(139,124,246,0.2) 0%, transparent 68%);
+  bottom: -80px; right: -80px;
+  animation: orb2 11s ease-in-out infinite;
+}
+.orb-3 {
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(232,148,58,0.14) 0%, transparent 68%);
+  top: 55%; left: 55%;
+  animation: orb3 7s ease-in-out infinite;
+}
+@keyframes orb1 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(50px,40px);} }
+@keyframes orb2 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-40px,-50px);} }
+@keyframes orb3 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-30px,30px);} }
 
-/* ANIM */
-@keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease,transform 0.6s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
+/* Hero content */
+.hero-content { position: relative; z-index: 2; }
 
-/* RESPONSIVE */
-@media(max-width:960px){
-  nav{padding:0 1.5rem;}.nav-menu,.nav-title,.nav-divider{display:none;}
-  .sec{padding:4.5rem 1.5rem;}
-  .profile-grid{grid-template-columns:1fr;}
-  .tl-item{grid-template-columns:1fr;}.tl-left{padding-right:0;padding-bottom:0.75rem;}
-  .skills-grid{grid-template-columns:1fr;}
-  .edu-row{grid-template-columns:1fr;gap:0.4rem;}
-  footer{flex-direction:column;gap:0.75rem;padding:1.5rem;text-align:center;}
-  .f-pillars{justify-content:center;}
-  .photo-grid img{width:80px;height:60px;}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--teal);
+  background: rgba(56,201,176,0.07);
+  border: 1px solid rgba(56,201,176,0.22);
+  padding: 0.38rem 1rem; border-radius: 100px;
+  margin-bottom: 2.25rem;
+  opacity: 0; animation: up 0.7s 0.1s ease forwards;
+}
+.badge-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 10vw, 7.5rem);
+  font-weight: 700; line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--text); margin-bottom: 1rem;
+  opacity: 0; animation: up 0.7s 0.22s ease forwards;
+}
+.hero-name em {
+  font-style: italic;
+  background: linear-gradient(120deg, var(--teal) 0%, var(--purple) 50%, var(--amber) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-tagline {
+  font-size: 0.86rem; color: var(--muted); letter-spacing: 0.09em; text-transform: uppercase;
+  margin-bottom: 3.5rem; font-weight: 400;
+  opacity: 0; animation: up 0.7s 0.32s ease forwards;
+}
+
+/* Pillar trio */
+.pillars {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  max-width: 600px; width: 100%;
+  gap: 1px; background: var(--gb);
+  border: 1px solid var(--gb);
+  border-radius: var(--r); overflow: hidden;
+  margin: 0 auto 3.5rem;
+  opacity: 0; animation: up 0.7s 0.42s ease forwards;
+}
+.pillar {
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  padding: 1.6rem 1.25rem;
+  text-align: center; cursor: default;
+  transition: background 0.25s;
+  position: relative; overflow: hidden;
+}
+.pillar::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+}
+.pillar:hover::after { transform: scaleX(1); }
+.p-sci::after  { background: var(--teal); }
+.p-biz::after  { background: var(--purple); }
+.p-tech::after { background: var(--amber); }
+.p-sci:hover  { background: rgba(56,201,176,0.07); }
+.p-biz:hover  { background: rgba(139,124,246,0.07); }
+.p-tech:hover { background: rgba(232,148,58,0.07); }
+.pillar-icon  { font-size: 1.4rem; margin-bottom: 0.55rem; }
+.pillar-name  { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.38rem; }
+.p-sci  .pillar-name { color: var(--teal); }
+.p-biz  .pillar-name { color: var(--purple); }
+.p-tech .pillar-name { color: var(--amber); }
+.pillar-desc { font-size: 0.68rem; color: var(--muted); line-height: 1.55; }
+
+.hero-bio {
+  font-size: 0.97rem; color: var(--sub); line-height: 1.9;
+  max-width: 500px; margin: 0 auto 2.75rem;
+  opacity: 0; animation: up 0.7s 0.52s ease forwards;
+}
+
+.hero-actions {
+  display: flex; gap: 0.85rem; justify-content: center;
+  opacity: 0; animation: up 0.7s 0.62s ease forwards;
+}
+.btn {
+  text-decoration: none; font-size: 0.77rem; font-weight: 600;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 0.85rem 2.25rem; border-radius: var(--rs);
+  transition: all 0.22s; font-family: var(--sans);
+}
+.btn-solid {
+  background: linear-gradient(135deg, var(--teal) 0%, var(--purple) 100%);
+  color: #fff;
+  box-shadow: 0 4px 24px rgba(56,201,176,0.22);
+}
+.btn-solid:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(56,201,176,0.38); }
+.btn-outline {
+  border: 1px solid var(--gb); color: var(--sub);
+  background: var(--glass); backdrop-filter: blur(8px);
+}
+.btn-outline:hover { border-color: var(--gbhi); color: var(--text); }
+
+@keyframes up { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+
+/* ==============================
+   SECTION LAYOUT
+============================== */
+.sec {
+  padding: 7rem 4rem;
+  position: relative; z-index: 1;
+}
+.sec-inner { max-width: 1140px; margin: 0 auto; position: relative; z-index: 2; }
+
+.sec-head { margin-bottom: 4rem; }
+.sec-label {
+  font-size: 0.64rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.5rem;
+}
+.sec-name {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700; line-height: 1.1; color: var(--text);
+}
+.sec-rule {
+  width: 40px; height: 2px; margin-top: 0.85rem;
+  border-radius: 2px;
+}
+
+/* ==============================
+   SECTION BACKGROUNDS
+============================== */
+
+/* Profile — subtle teal mesh from left */
+#profile { background: var(--bg2); overflow: hidden; }
+#profile::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 55% 70% at -5% 50%, rgba(56,201,176,0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 105% 10%, rgba(139,124,246,0.06) 0%, transparent 60%);
+}
+
+/* Experience — blurred photo (exp2-1: Tokyo, exp1-1: lab) */
+#experience { background: var(--bg); overflow: hidden; }
+.exp-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url('images/exp2-1.jpg');
+  background-size: cover; background-position: center 30%;
+  filter: blur(28px) brightness(0.14) saturate(0.4);
+  transform: scale(1.1);
+}
+.exp-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(7,9,15,0.88) 0%,
+    rgba(7,9,15,0.6)  35%,
+    rgba(7,9,15,0.6)  65%,
+    rgba(7,9,15,0.92) 100%
+  );
+}
+
+/* Volunteering — blurred photo (vol1-2: bootcamp) */
+#volunteering { background: var(--bg2); overflow: hidden; }
+.vol-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url('images/vol1-2.jpg');
+  background-size: cover; background-position: center;
+  filter: blur(28px) brightness(0.12) saturate(0.35);
+  transform: scale(1.1);
+}
+.vol-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(10,13,22,0.92) 0%,
+    rgba(10,13,22,0.62) 40%,
+    rgba(10,13,22,0.62) 60%,
+    rgba(10,13,22,0.95) 100%
+  );
+}
+
+/* Skills — purple/amber gradient mesh */
+#skills { background: var(--bg); overflow: hidden; }
+#skills::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 55% 65% at 95% 10%, rgba(139,124,246,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 55% at 5%  90%, rgba(232,148,58,0.08) 0%, transparent 60%);
+}
+
+/* Education — clean dark with faint teal top */
+#education { background: var(--bg2); overflow: hidden; }
+#education::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 35% at 50% 0%, rgba(56,201,176,0.06) 0%, transparent 65%);
+}
+
+/* Contact — purple/teal soft gradient */
+#contact { background: var(--bg); overflow: hidden; }
+#contact::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 65% 60% at 15% 65%, rgba(139,124,246,0.11) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 55% at 85% 30%, rgba(56,201,176,0.08) 0%, transparent 60%);
+}
+
+/* ==============================
+   GLASS CARD base
+============================== */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--gb);
+  border-radius: var(--r);
+  transition: background 0.25s, border-color 0.25s;
+}
+.glass-card:hover { background: var(--glass2); border-color: var(--gbhi); }
+
+/* ==============================
+   PROFILE
+============================== */
+.profile-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: var(--gb);
+  border: 1px solid var(--gb);
+  border-radius: var(--r); overflow: hidden;
+}
+.profile-col {
+  background: var(--glass);
+  backdrop-filter: blur(18px);
+  padding: 2.5rem 2rem;
+  display: flex; flex-direction: column; gap: 1.25rem;
+  position: relative; overflow: hidden;
+  transition: background 0.25s;
+}
+.profile-col::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+}
+.p-sci.profile-col::before  { background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+.p-biz.profile-col::before  { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
+.p-tech.profile-col::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
+.p-sci.profile-col:hover  { background: rgba(56,201,176,0.05); }
+.p-biz.profile-col:hover  { background: rgba(139,124,246,0.05); }
+.p-tech.profile-col:hover { background: rgba(232,148,58,0.05); }
+
+.pc-label {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.63rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.pc-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.p-sci  .pc-dot { background: var(--teal); }
+.p-biz  .pc-dot { background: var(--purple); }
+.p-tech .pc-dot { background: var(--amber); }
+.p-sci  .pc-label { color: var(--teal); }
+.p-biz  .pc-label { color: var(--purple); }
+.p-tech .pc-label { color: var(--amber); }
+
+.pc-body { font-size: 0.875rem; color: var(--sub); line-height: 1.85; }
+.pc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
+.pc-tag {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.04em;
+  padding: 0.22rem 0.65rem; border-radius: 4px; border: 1px solid;
+}
+.p-sci  .pc-tag { border-color: rgba(56,201,176,0.22);  color: var(--teal); }
+.p-biz  .pc-tag { border-color: rgba(139,124,246,0.22); color: var(--purple); }
+.p-tech .pc-tag { border-color: rgba(232,148,58,0.22);  color: var(--amber); }
+
+/* ==============================
+   TIMELINE
+============================== */
+.timeline {
+  max-width: 840px; margin: 0 auto;
+  display: flex; flex-direction: column;
+  position: relative; z-index: 2;
+}
+/* Left vertical line */
+.timeline::before {
+  content: '';
+  position: absolute; left: 0; top: 8px; bottom: 0; width: 1px;
+  background: linear-gradient(180deg, transparent 0%, var(--gb) 8%, var(--gb) 92%, transparent 100%);
+}
+.tl-item { padding: 0 0 2.25rem 2.5rem; position: relative; }
+/* Node dot */
+.tl-item::before {
+  content: '';
+  position: absolute; left: -3.5px; top: 7px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--bg); border: 1px solid var(--gb);
+  transition: background 0.25s, box-shadow 0.25s;
+}
+.exp-accent.tl-item:hover::before { background: var(--teal);   box-shadow: 0 0 10px var(--teal-glow); }
+.vol-accent.tl-item:hover::before { background: var(--pink);   box-shadow: 0 0 10px var(--pink-glow); }
+
+/* Card */
+.tl-card {
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--gb);
+  border-radius: var(--r);
+  padding: 1.75rem 2rem;
+  transition: background 0.25s, border-color 0.25s;
+}
+.tl-item:hover .tl-card { background: var(--glass2); border-color: var(--gbhi); }
+
+.tl-meta {
+  display: flex; align-items: center; gap: 0.75rem;
+  flex-wrap: wrap; margin-bottom: 0.9rem;
+}
+.tl-org-badge {
+  font-size: 0.61rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.2rem 0.7rem; border-radius: 4px; border: 1px solid;
+}
+.exp-accent .tl-org-badge { color: var(--teal);   border-color: rgba(56,201,176,0.28);   background: rgba(56,201,176,0.06); }
+.vol-accent .tl-org-badge { color: var(--pink);   border-color: rgba(224,107,139,0.28);  background: rgba(224,107,139,0.06); }
+.tl-period { font-size: 0.7rem; color: var(--muted); }
+.tl-dur    { font-size: 0.67rem; color: var(--dim); margin-left: auto; }
+.tl-role   { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 0.28rem; }
+.tl-loc    { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.85rem; }
+.tl-desc   { font-size: 0.875rem; color: var(--sub); line-height: 1.85; }
+
+/* Photo grid */
+.photo-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; }
+.photo-grid img {
+  width: 100px; height: 72px; object-fit: cover;
+  border-radius: var(--rs); border: 1px solid var(--gb);
+  cursor: pointer;
+  transition: opacity 0.22s, border-color 0.22s, transform 0.22s;
+}
+.photo-grid img:hover { opacity: 0.82; border-color: var(--gbhi); transform: scale(1.05); }
+
+/* ==============================
+   SKILLS
+============================== */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: var(--gb);
+  border: 1px solid var(--gb);
+  border-radius: var(--r); overflow: hidden;
+  position: relative; z-index: 2;
+}
+.sk-col { background: var(--glass); backdrop-filter: blur(18px); }
+.sk-head {
+  padding: 1.5rem 2rem 1.1rem;
+  border-bottom: 1px solid var(--gb);
+  display: flex; align-items: center; gap: 0.65rem;
+}
+.sk-dot { width: 5px; height: 5px; border-radius: 50%; }
+.p-sci  .sk-dot { background: var(--teal); }
+.p-biz  .sk-dot { background: var(--purple); }
+.p-tech .sk-dot { background: var(--amber); }
+.sk-label { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+.p-sci  .sk-label { color: var(--teal); }
+.p-biz  .sk-label { color: var(--purple); }
+.p-tech .sk-label { color: var(--amber); }
+.sk-list { list-style: none; padding: 0.75rem 2rem 2rem; }
+.sk-list li {
+  font-size: 0.855rem; color: var(--sub);
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--gb);
+  display: flex; align-items: center; justify-content: space-between;
+  transition: color 0.18s;
+}
+.sk-list li:last-child { border-bottom: none; }
+.p-sci  .sk-list li:hover { color: var(--teal); }
+.p-biz  .sk-list li:hover { color: var(--purple); }
+.p-tech .sk-list li:hover { color: var(--amber); }
+.sk-list li::after { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--gb); flex-shrink: 0; }
+
+/* ==============================
+   EDUCATION
+============================== */
+.edu-list {
+  max-width: 800px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 1px;
+  background: var(--gb); border: 1px solid var(--gb);
+  border-radius: var(--r); overflow: hidden;
+  position: relative; z-index: 2;
+}
+.edu-row {
+  background: var(--glass); backdrop-filter: blur(18px);
+  padding: 2rem 2.25rem;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 1.5rem; align-items: center;
+  transition: background 0.22s;
+}
+.edu-row:hover { background: var(--glass2); }
+.edu-period { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.38rem; }
+.edu-deg    { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text); line-height: 1.3; }
+.edu-inst   { font-size: 0.78rem; color: var(--sub); margin-top: 0.2rem; }
+.edu-pill {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.3rem 0.9rem; border-radius: 100px; border: 1px solid; white-space: nowrap;
+}
+.pill-active { border-color: rgba(56,201,176,0.38); color: var(--teal);  background: rgba(56,201,176,0.06); }
+.pill-done   { border-color: var(--dim);             color: var(--muted); }
+
+/* ==============================
+   CONTACT
+============================== */
+.contact-wrap { max-width: 680px; margin: 0 auto; position: relative; z-index: 2; }
+.contact-heading {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700; line-height: 1.15;
+  margin-bottom: 1rem; color: var(--text);
+}
+.contact-heading em {
+  font-style: italic;
+  background: linear-gradient(100deg, var(--teal), var(--purple) 55%, var(--amber));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.contact-body { font-size: 0.9rem; color: var(--sub); line-height: 1.85; margin-bottom: 2.5rem; max-width: 500px; }
+.contact-links { display: flex; flex-direction: column; gap: 3px; }
+.clink {
+  text-decoration: none;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: var(--glass); backdrop-filter: blur(18px);
+  border: 1px solid var(--gb);
+  border-radius: var(--r); color: var(--text);
+  transition: all 0.22s;
+}
+.clink:hover { background: var(--glass2); border-color: var(--gbhi); }
+.clink:hover .clink-arrow { transform: translateX(5px); color: var(--text); }
+.clink-left { display: flex; align-items: center; gap: 1rem; }
+.clink-icon {
+  width: 40px; height: 40px; border-radius: var(--rs);
+  border: 1px solid var(--gb); background: rgba(255,255,255,0.04);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0; font-style: normal;
+}
+.clink-label { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+.clink-val   { font-size: 0.75rem; color: var(--muted); margin-top: 0.1rem; }
+.clink-arrow { color: var(--muted); transition: all 0.22s; font-size: 1rem; }
+
+/* ==============================
+   FOOTER
+============================== */
+footer {
+  padding: 1.75rem 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--gb);
+  position: relative; z-index: 10;
+  background: rgba(7,9,15,0.85);
+  backdrop-filter: blur(20px);
+}
+.f-brand { font-family: var(--serif); font-size: 0.9rem; font-weight: 600; color: var(--muted); }
+.f-pillars { display: flex; align-items: center; gap: 1.5rem; }
+.f-pillars span { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.fp-sci { color: var(--teal); } .fp-biz { color: var(--purple); } .fp-tech { color: var(--amber); }
+.f-copy { font-size: 0.7rem; color: var(--dim); }
+
+/* ==============================
+   LIGHTBOX
+============================== */
+#lb {
+  display: none; position: fixed; inset: 0; z-index: 9000;
+  background: rgba(0,0,0,0.9); backdrop-filter: blur(16px);
+  align-items: center; justify-content: center; cursor: zoom-out;
+}
+#lb.open { display: flex; }
+#lb img { max-width: 90vw; max-height: 88vh; object-fit: contain; border-radius: var(--r); }
+#lb-close {
+  position: absolute; top: 1.5rem; right: 2rem;
+  font-size: 1.5rem; color: rgba(255,255,255,0.4);
+  cursor: pointer; background: none; border: none; line-height: 1;
+  transition: color 0.2s;
+}
+#lb-close:hover { color: #fff; }
+
+/* ==============================
+   SCROLL REVEAL
+============================== */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ==============================
+   RESPONSIVE
+============================== */
+@media (max-width: 960px) {
+  nav { padding: 0 1.5rem; }
+  .nav-menu { display: none; }
+  .sec { padding: 5rem 1.5rem; }
+  .profile-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 0.75rem; padding: 1.5rem; text-align: center; }
+  .f-pillars { justify-content: center; }
+  .photo-grid img { width: 80px; height: 58px; }
+  .edu-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .tl-card { padding: 1.25rem 1.25rem; }
 }
 </style>
 </head>
@@ -206,11 +652,7 @@ footer{padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:spa
 
 <!-- NAV -->
 <nav>
-  <div class="nav-brand">
-    Anuphong Payopat
-    <div class="nav-divider"></div>
-    <span class="nav-title">Science · Business · Technology</span>
-  </div>
+  <div class="nav-brand">Anuphong Payopat</div>
   <ul class="nav-menu">
     <li><a href="#profile">Profile</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -223,271 +665,303 @@ footer{padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:spa
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-kicker"><span>Bangkok, Thailand</span> · Researcher &amp; Entrepreneur</div>
-  <h1 class="hero-name">Anuphong <em>Payopat</em></h1>
-  <p class="hero-sub">M.S. Biochemistry · Kasetsart University</p>
-  <div class="pillars">
-    <div class="pillar p-sci">
-      <div class="pillar-icon">🔬</div>
-      <div class="pillar-name">Science</div>
-      <div class="pillar-desc">Biochemistry · Genetics<br>Veterinary Technology</div>
-      <div class="pillar-bar"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="badge-dot"></div>Bangkok, Thailand · Open to Opportunities</div>
+    <h1 class="hero-name">Anuphong <em>Payopat</em></h1>
+    <p class="hero-tagline">M.S. Biochemistry · Kasetsart University · Researcher &amp; Entrepreneur</p>
+    <div class="pillars">
+      <div class="pillar p-sci">
+        <div class="pillar-icon">🔬</div>
+        <div class="pillar-name">Science</div>
+        <div class="pillar-desc">Biochemistry · Genetics<br>Veterinary Technology</div>
+      </div>
+      <div class="pillar p-biz">
+        <div class="pillar-icon">📈</div>
+        <div class="pillar-name">Business</div>
+        <div class="pillar-desc">Entrepreneurship<br>PE · Venture Capital</div>
+      </div>
+      <div class="pillar p-tech">
+        <div class="pillar-icon">⚙️</div>
+        <div class="pillar-name">Technology</div>
+        <div class="pillar-desc">Artificial Intelligence<br>Research &amp; Innovation</div>
+      </div>
     </div>
-    <div class="pillar p-biz">
-      <div class="pillar-icon">📈</div>
-      <div class="pillar-name">Business</div>
-      <div class="pillar-desc">Entrepreneurship<br>PE · Venture Capital</div>
-      <div class="pillar-bar"></div>
+    <p class="hero-bio">A researcher and entrepreneur with a diverse background in life sciences, strategic business, and emerging technology. Published in <em>Animal Bioscience</em>. International experience at The University of Tokyo.</p>
+    <div class="hero-actions">
+      <a href="#profile" class="btn btn-solid">View Profile</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
     </div>
-    <div class="pillar p-tech">
-      <div class="pillar-icon">⚙️</div>
-      <div class="pillar-name">Technology</div>
-      <div class="pillar-desc">Artificial Intelligence<br>Research &amp; Innovation</div>
-      <div class="pillar-bar"></div>
-    </div>
-  </div>
-  <p class="hero-bio">A researcher and entrepreneur with a diverse background in life sciences, strategic business, and emerging technology. Published in <em>Animal Bioscience</em>. International experience at The University of Tokyo.</p>
-  <div class="hero-actions">
-    <a href="#profile" class="btn btn-solid">View Profile</a>
-    <a href="#contact" class="btn btn-outline">Get in Touch</a>
   </div>
 </section>
 
 <!-- PROFILE -->
-<section class="sec on-surface" id="profile">
-  <div class="sec-head reveal">
-    <span class="sec-index">00</span>
-    <h2 class="sec-name">Profile</h2>
-    <div class="sec-rule"></div>
-    <span class="sec-location">Bangkok, TH · Open to opportunities</span>
-  </div>
-  <div class="profile-grid">
-    <div class="profile-col p-sci reveal">
-      <div class="pc-label"><div class="pc-dot"></div>Science</div>
-      <p class="pc-body">Diverse academic and practical background in biochemistry, veterinary technology, and genetics. Research covers genetic diversity in Thai Indigenous chickens and antibiotic residue testing in pork. Published in <em>Animal Bioscience</em>.</p>
-      <div class="pc-tags"><span class="pc-tag">Biochemistry</span><span class="pc-tag">Genetics</span><span class="pc-tag">Vet Technology</span><span class="pc-tag">PCR / SNP</span><span class="pc-tag">ELISA</span></div>
+<section class="sec" id="profile">
+  <div class="sec-inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">00 — Profile</div>
+      <h2 class="sec-name">Who I Am</h2>
+      <div class="sec-rule" style="background:linear-gradient(90deg,var(--teal),transparent);"></div>
     </div>
-    <div class="profile-col p-biz reveal" style="transition-delay:.1s">
-      <div class="pc-label"><div class="pc-dot"></div>Business</div>
-      <p class="pc-body">Actively involved in entrepreneurship through the KU Startup Club and business case competitions. Deep interest in private equity and venture capital, with strong project management and leadership capabilities.</p>
-      <div class="pc-tags"><span class="pc-tag">Entrepreneurship</span><span class="pc-tag">Private Equity</span><span class="pc-tag">Venture Capital</span><span class="pc-tag">Leadership</span></div>
-    </div>
-    <div class="profile-col p-tech reveal" style="transition-delay:.2s">
-      <div class="pc-label"><div class="pc-dot"></div>Technology</div>
-      <p class="pc-body">Passionate about the role of artificial intelligence and emerging technologies in advancing scientific research and business innovation. Experienced in applying analytical tools to complex problems in genomics and animal health.</p>
-      <div class="pc-tags"><span class="pc-tag">Artificial Intelligence</span><span class="pc-tag">Lab Analytics</span><span class="pc-tag">R&amp;D</span><span class="pc-tag">Innovation</span></div>
+    <div class="profile-grid reveal">
+      <div class="profile-col p-sci">
+        <div class="pc-label"><div class="pc-dot"></div>Science</div>
+        <p class="pc-body">Diverse academic and practical background in biochemistry, veterinary technology, and genetics. Research covers genetic diversity in Thai Indigenous chickens and antibiotic residue testing in pork. Published in <em>Animal Bioscience</em>.</p>
+        <div class="pc-tags">
+          <span class="pc-tag">Biochemistry</span><span class="pc-tag">Genetics</span>
+          <span class="pc-tag">Vet Technology</span><span class="pc-tag">PCR / SNP</span><span class="pc-tag">ELISA</span>
+        </div>
+      </div>
+      <div class="profile-col p-biz">
+        <div class="pc-label"><div class="pc-dot"></div>Business</div>
+        <p class="pc-body">Actively involved in entrepreneurship through the KU Startup Club and business case competitions. Deep interest in private equity and venture capital, with strong project management and leadership capabilities.</p>
+        <div class="pc-tags">
+          <span class="pc-tag">Entrepreneurship</span><span class="pc-tag">Private Equity</span>
+          <span class="pc-tag">Venture Capital</span><span class="pc-tag">Leadership</span>
+        </div>
+      </div>
+      <div class="profile-col p-tech">
+        <div class="pc-label"><div class="pc-dot"></div>Technology</div>
+        <p class="pc-body">Passionate about the role of artificial intelligence and emerging technologies in advancing scientific research and business innovation. Experienced in applying analytical tools to complex problems in genomics and animal health.</p>
+        <div class="pc-tags">
+          <span class="pc-tag">Artificial Intelligence</span><span class="pc-tag">Lab Analytics</span>
+          <span class="pc-tag">R&amp;D</span><span class="pc-tag">Innovation</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
 <section class="sec" id="experience">
-  <div class="sec-head reveal">
-    <span class="sec-index">01</span>
-    <h2 class="sec-name">Experience</h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="timeline">
+  <div class="exp-bg"></div>
+  <div class="exp-overlay"></div>
+  <div class="sec-inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">01 — Experience</div>
+      <h2 class="sec-name">Work &amp; Research</h2>
+      <div class="sec-rule" style="background:linear-gradient(90deg,var(--teal),transparent);"></div>
+    </div>
+    <div class="timeline">
 
-    <div class="tl-item exp-accent reveal">
-      <div class="tl-left">
-        <div class="tl-period">Dec 2023 — Mar 2024</div>
-        <div class="tl-dur">4 months</div>
-      </div>
-      <div>
-        <div class="tl-org">Animal Genomics and Bioresource Research Center</div>
-        <div class="tl-role">Research Assistant Intern</div>
-        <div class="tl-loc">Bangkok, Thailand · On-site</div>
-        <p class="tl-desc">Gained practical experience in genetic laboratory techniques including PCR and SNP analysis. Contributed to a research paper published in Animal Bioscience and assisted in organizing the 2nd Animal Genomics and Bioresource for ESG &amp; SDG Seminar.</p>
-        <div class="photo-grid">
-          <img src="images/exp1-1.jpg" alt="2nd Animal Genomics Seminar" onclick="openLB(this.src)">
-          <img src="images/exp1-2.jpg" alt="Animal Bioscience publication" onclick="openLB(this.src)">
-          <img src="images/exp1-3.jpg" alt="Research poster" onclick="openLB(this.src)">
-          <img src="images/exp1-4.jpg" alt="Seminar event" onclick="openLB(this.src)">
+      <div class="tl-item exp-accent reveal">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">Animal Genomics &amp; Bioresource</span>
+            <span class="tl-period">Dec 2023 — Mar 2024</span>
+            <span class="tl-dur">4 mo</span>
+          </div>
+          <div class="tl-role">Research Assistant Intern</div>
+          <div class="tl-loc">Bangkok, Thailand · On-site</div>
+          <p class="tl-desc">Gained practical experience in genetic laboratory techniques including PCR and SNP analysis. Contributed to a research paper published in Animal Bioscience and assisted in organizing the 2nd Animal Genomics and Bioresource for ESG &amp; SDG Seminar.</p>
+          <div class="photo-grid">
+            <img src="images/exp1-1.jpg" alt="2nd Animal Genomics Seminar" onclick="openLB(this.src)">
+            <img src="images/exp1-2.jpg" alt="Animal Bioscience publication" onclick="openLB(this.src)">
+            <img src="images/exp1-3.jpg" alt="Research poster" onclick="openLB(this.src)">
+            <img src="images/exp1-4.jpg" alt="Seminar event" onclick="openLB(this.src)">
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="tl-item exp-accent reveal" style="transition-delay:.07s">
-      <div class="tl-left">
-        <div class="tl-period">Nov 2023</div>
-        <div class="tl-dur">1 month</div>
-      </div>
-      <div>
-        <div class="tl-org">The University of Tokyo</div>
-        <div class="tl-role">Exchange Student</div>
-        <div class="tl-loc">Tokyo, Japan · On-site</div>
-        <p class="tl-desc">Engaged in the Animal Resource Science and Management program, focusing on key research areas within Zoology while developing proficiency in adaptability and communication in an international academic environment.</p>
-        <div class="photo-grid">
-          <img src="images/exp2-1.jpg" alt="University of Tokyo campus" onclick="openLB(this.src)">
-          <img src="images/exp2-2.jpg" alt="Classroom session" onclick="openLB(this.src)">
-          <img src="images/exp2-3.jpg" alt="Animal science field work" onclick="openLB(this.src)">
-          <img src="images/exp2-4.jpg" alt="Lab group" onclick="openLB(this.src)">
+      <div class="tl-item exp-accent reveal" style="transition-delay:.07s">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">The University of Tokyo</span>
+            <span class="tl-period">Nov 2023</span>
+            <span class="tl-dur">1 mo</span>
+          </div>
+          <div class="tl-role">Exchange Student</div>
+          <div class="tl-loc">Tokyo, Japan · On-site</div>
+          <p class="tl-desc">Engaged in the Animal Resource Science and Management program, focusing on key research areas within Zoology while developing proficiency in adaptability and communication in an international academic environment.</p>
+          <div class="photo-grid">
+            <img src="images/exp2-1.jpg" alt="University of Tokyo campus" onclick="openLB(this.src)">
+            <img src="images/exp2-2.jpg" alt="Classroom session" onclick="openLB(this.src)">
+            <img src="images/exp2-3.jpg" alt="Animal science field work" onclick="openLB(this.src)">
+            <img src="images/exp2-4.jpg" alt="Lab group" onclick="openLB(this.src)">
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="tl-item exp-accent reveal" style="transition-delay:.13s">
-      <div class="tl-left">
-        <div class="tl-period">Apr — May 2023</div>
-        <div class="tl-dur">2 months</div>
-      </div>
-      <div>
-        <div class="tl-org">Kasetsart University</div>
-        <div class="tl-role">Veterinary Technologist Intern</div>
-        <div class="tl-loc">Bangkok, Thailand · On-site</div>
-        <p class="tl-desc">Managed analytical instruments and conducted routine chemical testing including ELISA and PCR. Enhanced clinical lab skills in isolating, identifying, typing, and grouping parasites in body fluids.</p>
-        <div class="photo-grid">
-          <img src="images/exp3-1.jpg" alt="Lab team" onclick="openLB(this.src)">
-          <img src="images/exp3-2.jpg" alt="Microscope work" onclick="openLB(this.src)">
+      <div class="tl-item exp-accent reveal" style="transition-delay:.13s">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">Kasetsart University</span>
+            <span class="tl-period">Apr — May 2023</span>
+            <span class="tl-dur">2 mo</span>
+          </div>
+          <div class="tl-role">Veterinary Technologist Intern</div>
+          <div class="tl-loc">Bangkok, Thailand · On-site</div>
+          <p class="tl-desc">Managed analytical instruments and conducted routine chemical testing including ELISA and PCR. Enhanced clinical lab skills in isolating, identifying, typing, and grouping parasites in body fluids.</p>
+          <div class="photo-grid">
+            <img src="images/exp3-1.jpg" alt="Lab team" onclick="openLB(this.src)">
+            <img src="images/exp3-2.jpg" alt="Microscope work" onclick="openLB(this.src)">
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="tl-item exp-accent reveal" style="transition-delay:.18s">
-      <div class="tl-left">
-        <div class="tl-period">Apr 2022</div>
-        <div class="tl-dur">1 month</div>
-      </div>
-      <div>
-        <div class="tl-org">Bonanza Exotic Zoo</div>
-        <div class="tl-role">Veterinary Technologist Intern</div>
-        <div class="tl-loc">Nakhon Ratchasima, Thailand · On-site</div>
-        <p class="tl-desc">Acquired experience in zoo management and animal care including animal restraint, first aid, and necropsy, while developing and implementing specialized care plans focused on nutrition and health.</p>
-        <div class="photo-grid">
-          <img src="images/exp4-1.jpg" alt="Zoo team with certificates" onclick="openLB(this.src)">
-          <img src="images/exp4-2.jpg" alt="Animal necropsy practice" onclick="openLB(this.src)">
+      <div class="tl-item exp-accent reveal" style="transition-delay:.18s">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">Bonanza Exotic Zoo</span>
+            <span class="tl-period">Apr 2022</span>
+            <span class="tl-dur">1 mo</span>
+          </div>
+          <div class="tl-role">Veterinary Technologist Intern</div>
+          <div class="tl-loc">Nakhon Ratchasima, Thailand · On-site</div>
+          <p class="tl-desc">Acquired experience in zoo management and animal care including animal restraint, first aid, and necropsy, while developing and implementing specialized care plans focused on nutrition and health.</p>
+          <div class="photo-grid">
+            <img src="images/exp4-1.jpg" alt="Zoo team with certificates" onclick="openLB(this.src)">
+            <img src="images/exp4-2.jpg" alt="Animal necropsy practice" onclick="openLB(this.src)">
+          </div>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </section>
 
 <!-- VOLUNTEERING -->
-<section class="sec on-surface" id="volunteering">
-  <div class="sec-head reveal">
-    <span class="sec-index">02</span>
-    <h2 class="sec-name">Volunteering</h2>
-    <div class="sec-rule"></div>
-    <span class="sec-location">Science &amp; Technology · Education</span>
-  </div>
-  <div class="timeline">
+<section class="sec" id="volunteering">
+  <div class="vol-bg"></div>
+  <div class="vol-overlay"></div>
+  <div class="sec-inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">02 — Volunteering</div>
+      <h2 class="sec-name">Community &amp; Leadership</h2>
+      <div class="sec-rule" style="background:linear-gradient(90deg,var(--pink),transparent);"></div>
+    </div>
+    <div class="timeline">
 
-    <div class="tl-item vol-accent reveal">
-      <div class="tl-left">
-        <div class="tl-period">Jun 2023 — May 2024</div>
-        <div class="tl-dur">1 year</div>
-      </div>
-      <div>
-        <div class="tl-org" style="color:var(--vol)">KU Startup</div>
-        <div class="tl-role">Staff of Build Startup Team</div>
-        <div class="tl-loc">Science and Technology</div>
-        <p class="tl-desc">Involved in organizing events such as Pitch&amp;Sandwich and KU Startup BOOTCAMP 2024 in partnership with KUBIC and NIA, managing over 100 Kasetsart University students. Represented KU as a participant in the Startup Thailand League 2024: Coaching Camp at Panyapiwat Institute of Management.</p>
-        <div class="photo-grid">
-          <img src="images/vol1-1.jpg" alt="Startup Thailand League 2024 Coaching Camp" onclick="openLB(this.src)">
-          <img src="images/vol1-2.jpg" alt="KU Startup BOOTCAMP 2024" onclick="openLB(this.src)">
-          <img src="images/vol1-3.jpg" alt="Pitch and Sandwich Event" onclick="openLB(this.src)">
+      <div class="tl-item vol-accent reveal">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">KU Startup</span>
+            <span class="tl-period">Jun 2023 — May 2024</span>
+            <span class="tl-dur">1 yr</span>
+          </div>
+          <div class="tl-role">Staff of Build Startup Team</div>
+          <div class="tl-loc">Science and Technology</div>
+          <p class="tl-desc">Involved in organizing events such as Pitch&amp;Sandwich and KU Startup BOOTCAMP 2024 in partnership with KUBIC and NIA, managing over 100 Kasetsart University students. Represented KU as a participant in the Startup Thailand League 2024: Coaching Camp at Panyapiwat Institute of Management.</p>
+          <div class="photo-grid">
+            <img src="images/vol1-1.jpg" alt="Startup Thailand League 2024 Coaching Camp" onclick="openLB(this.src)">
+            <img src="images/vol1-2.jpg" alt="KU Startup BOOTCAMP 2024" onclick="openLB(this.src)">
+            <img src="images/vol1-3.jpg" alt="Pitch and Sandwich Event" onclick="openLB(this.src)">
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="tl-item vol-accent reveal" style="transition-delay:.08s">
-      <div class="tl-left">
-        <div class="tl-period">Apr 2022 — May 2023</div>
-        <div class="tl-dur">1 yr 2 months</div>
-      </div>
-      <div>
-        <div class="tl-org" style="color:var(--vol)">TEDxKasetsartU</div>
-        <div class="tl-role">Staff of Financial &amp; Sponsor Team</div>
-        <div class="tl-loc">Education</div>
-        <p class="tl-desc">Managed financial statements and partnered with sponsors including Thai Beverage Public Company Limited and MuvMi for TEDxKasetsartU2023, while enhancing teamwork and project management skills through collaboration, resource allocation, and conflict resolution.</p>
-        <div class="photo-grid">
-          <img src="images/vol2-1.jpg" alt="TEDxKasetsartU team" onclick="openLB(this.src)">
-          <img src="images/vol2-2.jpg" alt="TEDxKasetsartU event" onclick="openLB(this.src)">
+      <div class="tl-item vol-accent reveal" style="transition-delay:.08s">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">TEDxKasetsartU</span>
+            <span class="tl-period">Apr 2022 — May 2023</span>
+            <span class="tl-dur">1 yr 2 mo</span>
+          </div>
+          <div class="tl-role">Staff of Financial &amp; Sponsor Team</div>
+          <div class="tl-loc">Education</div>
+          <p class="tl-desc">Managed financial statements and partnered with sponsors including Thai Beverage Public Company Limited and MuvMi for TEDxKasetsartU2023, while enhancing teamwork and project management skills through collaboration, resource allocation, and conflict resolution.</p>
+          <div class="photo-grid">
+            <img src="images/vol2-1.jpg" alt="TEDxKasetsartU team" onclick="openLB(this.src)">
+            <img src="images/vol2-2.jpg" alt="TEDxKasetsartU event" onclick="openLB(this.src)">
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="tl-item vol-accent reveal" style="transition-delay:.15s">
-      <div class="tl-left">
-        <div class="tl-period">May 2022 — Mar 2023</div>
-        <div class="tl-dur">11 months</div>
-      </div>
-      <div>
-        <div class="tl-org" style="color:var(--vol)">Student Club of Veterinary Technology</div>
-        <div class="tl-role">Head of Quality Evaluation Team</div>
-        <div class="tl-loc">Education</div>
-        <p class="tl-desc">Identified pain points and developed solutions for student club activities through member feedback analysis, while improving leadership and communication skills.</p>
-        <div class="photo-grid">
-          <img src="images/vol3-1.jpg" alt="Veterinary Technology student club" onclick="openLB(this.src)">
+      <div class="tl-item vol-accent reveal" style="transition-delay:.15s">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">Student Club · Vet Tech</span>
+            <span class="tl-period">May 2022 — Mar 2023</span>
+            <span class="tl-dur">11 mo</span>
+          </div>
+          <div class="tl-role">Head of Quality Evaluation Team</div>
+          <div class="tl-loc">Education</div>
+          <p class="tl-desc">Identified pain points and developed solutions for student club activities through member feedback analysis, while improving leadership and communication skills.</p>
+          <div class="photo-grid">
+            <img src="images/vol3-1.jpg" alt="Veterinary Technology student club" onclick="openLB(this.src)">
+          </div>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </section>
 
 <!-- SKILLS -->
 <section class="sec" id="skills">
-  <div class="sec-head reveal">
-    <span class="sec-index">03</span>
-    <h2 class="sec-name">Skills</h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="skills-grid reveal">
-    <div class="sk-col p-sci">
-      <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Science</div></div>
-      <ul class="sk-list">
-        <li>PCR &amp; SNP Analysis</li><li>ELISA</li><li>Parasite Identification</li>
-        <li>Genetic Diversity Research</li><li>Antibiotic Residue Testing</li><li>Animal Necropsy</li>
-      </ul>
+  <div class="sec-inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">03 — Skills</div>
+      <h2 class="sec-name">Capabilities</h2>
+      <div class="sec-rule" style="background:linear-gradient(90deg,var(--purple),transparent);"></div>
     </div>
-    <div class="sk-col p-biz">
-      <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Business</div></div>
-      <ul class="sk-list">
-        <li>Private Equity</li><li>Venture Capital</li><li>Entrepreneurship</li>
-        <li>Project Management</li><li>Business Case Competitions</li><li>Leadership &amp; Communication</li>
-      </ul>
-    </div>
-    <div class="sk-col p-tech">
-      <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Technology</div></div>
-      <ul class="sk-list">
-        <li>Artificial Intelligence (AI)</li><li>Research &amp; Development</li><li>Analytical Instruments</li>
-        <li>Research Writing</li><li>Data Analysis</li><li>Cross-cultural Adaptability</li>
-      </ul>
+    <div class="skills-grid reveal">
+      <div class="sk-col p-sci">
+        <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Science</div></div>
+        <ul class="sk-list">
+          <li>PCR &amp; SNP Analysis</li><li>ELISA</li><li>Parasite Identification</li>
+          <li>Genetic Diversity Research</li><li>Antibiotic Residue Testing</li><li>Animal Necropsy</li>
+        </ul>
+      </div>
+      <div class="sk-col p-biz">
+        <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Business</div></div>
+        <ul class="sk-list">
+          <li>Private Equity</li><li>Venture Capital</li><li>Entrepreneurship</li>
+          <li>Project Management</li><li>Business Case Competitions</li><li>Leadership &amp; Communication</li>
+        </ul>
+      </div>
+      <div class="sk-col p-tech">
+        <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Technology</div></div>
+        <ul class="sk-list">
+          <li>Artificial Intelligence (AI)</li><li>Research &amp; Development</li><li>Analytical Instruments</li>
+          <li>Research Writing</li><li>Data Analysis</li><li>Cross-cultural Adaptability</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- EDUCATION -->
-<section class="sec on-surface" id="education">
-  <div class="sec-head reveal">
-    <span class="sec-index">04</span>
-    <h2 class="sec-name">Education</h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="edu-table reveal">
-    <div class="edu-row">
-      <div class="edu-period">Jun 2024 — Present</div>
-      <div><div class="edu-deg">Master's degree — Biochemistry</div><div class="edu-inst">Kasetsart University</div></div>
-      <span class="edu-pill pill-active">In Progress</span>
+<section class="sec" id="education">
+  <div class="sec-inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">04 — Education</div>
+      <h2 class="sec-name">Academic Background</h2>
+      <div class="sec-rule" style="background:linear-gradient(90deg,var(--amber),transparent);"></div>
     </div>
-    <div class="edu-row">
-      <div class="edu-period">Jun 2020 — Mar 2024</div>
-      <div><div class="edu-deg">Bachelor's degree — Veterinary Technology</div><div class="edu-inst">Kasetsart University</div></div>
-      <span class="edu-pill pill-done">Completed</span>
-    </div>
-    <div class="edu-row">
-      <div class="edu-period">Jun 2017 — Mar 2020</div>
-      <div><div class="edu-deg">Intensive English Program</div><div class="edu-inst">Debsirin School</div></div>
-      <span class="edu-pill pill-done">Completed</span>
+    <div class="edu-list reveal">
+      <div class="edu-row">
+        <div>
+          <div class="edu-period">Jun 2024 — Present</div>
+          <div class="edu-deg">Master's degree — Biochemistry</div>
+          <div class="edu-inst">Kasetsart University</div>
+        </div>
+        <span class="edu-pill pill-active">In Progress</span>
+      </div>
+      <div class="edu-row">
+        <div>
+          <div class="edu-period">Jun 2020 — Mar 2024</div>
+          <div class="edu-deg">Bachelor's degree — Veterinary Technology</div>
+          <div class="edu-inst">Kasetsart University</div>
+        </div>
+        <span class="edu-pill pill-done">Completed</span>
+      </div>
+      <div class="edu-row">
+        <div>
+          <div class="edu-period">Jun 2017 — Mar 2020</div>
+          <div class="edu-deg">Intensive English Program</div>
+          <div class="edu-inst">Debsirin School</div>
+        </div>
+        <span class="edu-pill pill-done">Completed</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="sec contact-sec" id="contact">
+<section class="sec" id="contact">
   <div class="contact-wrap">
     <div class="reveal">
       <h2 class="contact-heading">Let's work<br><em>together.</em></h2>
@@ -495,11 +969,17 @@ footer{padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:spa
     </div>
     <div class="contact-links reveal" style="transition-delay:.12s">
       <a href="mailto:anuphong3502@gmail.com" class="clink">
-        <div><div class="clink-label">Email</div><div class="clink-val">anuphong3502@gmail.com</div></div>
+        <div class="clink-left">
+          <div class="clink-icon">✉</div>
+          <div><div class="clink-label">Email</div><div class="clink-val">anuphong3502@gmail.com</div></div>
+        </div>
         <span class="clink-arrow">→</span>
       </a>
-      <a href="https://www.linkedin.com/in/anuphongpayopat" class="clink" target="_blank">
-        <div><div class="clink-label">LinkedIn</div><div class="clink-val">linkedin.com/in/anuphongpayopat</div></div>
+      <a href="https://www.linkedin.com/in/anuphongpayopat" class="clink" target="_blank" rel="noopener">
+        <div class="clink-left">
+          <div class="clink-icon" style="font-family:var(--sans);font-weight:700;font-size:0.75rem;letter-spacing:0;">in</div>
+          <div><div class="clink-label">LinkedIn</div><div class="clink-val">linkedin.com/in/anuphongpayopat</div></div>
+        </div>
         <span class="clink-arrow">→</span>
       </a>
     </div>
@@ -519,7 +999,7 @@ footer{padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:spa
 <script>
   const io = new IntersectionObserver(es => {
     es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.07 });
+  }, { threshold: 0.06 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   function openLB(src) {
