@@ -109,10 +109,9 @@ nav {
 .hero {
   min-height: 100vh;
   position: relative;
-  display: flex; flex-direction: column;
+  display: flex;
   align-items: center; justify-content: center;
-  text-align: center;
-  padding: 6rem 2rem 5rem;
+  padding: 6rem 4rem 5rem;
   overflow: hidden;
 }
 
@@ -143,8 +142,42 @@ nav {
 @keyframes orb2 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-40px,-50px);} }
 @keyframes orb3 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-30px,30px);} }
 
-/* Hero content */
-.hero-content { position: relative; z-index: 2; }
+/* Hero two-column layout */
+.hero-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4.5rem;
+  align-items: center;
+  max-width: 1040px;
+  width: 100%;
+  position: relative; z-index: 2;
+}
+
+/* Photo column */
+.hero-photo-col { flex-shrink: 0; }
+.hero-photo-ring {
+  width: 270px; height: 270px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--purple) 50%, var(--amber) 100%);
+  box-shadow: 0 0 50px rgba(56,201,176,0.22), 0 0 100px rgba(139,124,246,0.14);
+  animation: photoGlow 4s ease-in-out infinite alternate;
+}
+.hero-photo-ring img {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  background: var(--bg2);
+}
+@keyframes photoGlow {
+  from { box-shadow: 0 0 40px rgba(56,201,176,0.18), 0 0 80px rgba(139,124,246,0.1); }
+  to   { box-shadow: 0 0 70px rgba(56,201,176,0.38), 0 0 140px rgba(139,124,246,0.22); }
+}
+
+/* Text column */
+.hero-text-col { text-align: left; }
 
 .hero-badge {
   display: inline-flex; align-items: center; gap: 0.55rem;
@@ -160,10 +193,10 @@ nav {
 
 .hero-name {
   font-family: var(--serif);
-  font-size: clamp(3.5rem, 10vw, 7.5rem);
-  font-weight: 700; line-height: 1.0;
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  font-weight: 700; line-height: 1.05;
   letter-spacing: -0.02em;
-  color: var(--text); margin-bottom: 1rem;
+  color: var(--text); margin-bottom: 0.75rem;
   opacity: 0; animation: up 0.7s 0.22s ease forwards;
 }
 .hero-name em {
@@ -185,7 +218,7 @@ nav {
   gap: 1px; background: var(--gb);
   border: 1px solid var(--gb);
   border-radius: var(--r); overflow: hidden;
-  margin: 0 auto 3.5rem;
+  margin: 0 0 3rem;
   opacity: 0; animation: up 0.7s 0.42s ease forwards;
 }
 .pillar {
@@ -217,12 +250,12 @@ nav {
 
 .hero-bio {
   font-size: 0.97rem; color: var(--sub); line-height: 1.9;
-  max-width: 500px; margin: 0 auto 2.75rem;
+  max-width: 480px; margin: 0 0 2.5rem;
   opacity: 0; animation: up 0.7s 0.52s ease forwards;
 }
 
 .hero-actions {
-  display: flex; gap: 0.85rem; justify-content: center;
+  display: flex; gap: 0.85rem; justify-content: flex-start;
   opacity: 0; animation: up 0.7s 0.62s ease forwards;
 }
 .btn {
@@ -631,6 +664,13 @@ footer {
 @media (max-width: 960px) {
   nav { padding: 0 1.5rem; }
   .nav-menu { display: none; }
+  .hero { padding: 5rem 1.5rem 4rem; }
+  .hero-layout { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; justify-items: center; }
+  .hero-text-col { text-align: center; }
+  .hero-photo-ring { width: 180px; height: 180px; }
+  .hero-actions { justify-content: center; }
+  .pillars { margin: 0 auto 3rem; }
+  .hero-bio { margin: 0 auto 2.5rem; }
   .sec { padding: 5rem 1.5rem; }
   .profile-grid { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: 1fr; }
@@ -668,31 +708,40 @@ footer {
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
-  <div class="hero-content">
-    <div class="hero-badge"><div class="badge-dot"></div>Bangkok, Thailand · Open to Opportunities</div>
-    <h1 class="hero-name">Anuphong <em>Payopat</em></h1>
-    <p class="hero-tagline">M.S. Biochemistry · Kasetsart University · Researcher &amp; Entrepreneur</p>
-    <div class="pillars">
-      <div class="pillar p-sci">
-        <div class="pillar-icon">🔬</div>
-        <div class="pillar-name">Science</div>
-        <div class="pillar-desc">Biochemistry · Genetics<br>Veterinary Technology</div>
-      </div>
-      <div class="pillar p-biz">
-        <div class="pillar-icon">📈</div>
-        <div class="pillar-name">Business</div>
-        <div class="pillar-desc">Entrepreneurship<br>PE · Venture Capital</div>
-      </div>
-      <div class="pillar p-tech">
-        <div class="pillar-icon">⚙️</div>
-        <div class="pillar-name">Technology</div>
-        <div class="pillar-desc">Artificial Intelligence<br>Research &amp; Innovation</div>
+  <div class="hero-layout">
+    <!-- Photo -->
+    <div class="hero-photo-col">
+      <div class="hero-photo-ring">
+        <img src="images/profile.png" alt="Anuphong Payopat">
       </div>
     </div>
-    <p class="hero-bio">A researcher and entrepreneur with a diverse background in life sciences, strategic business, and emerging technology. Published in <em>Animal Bioscience</em>. International experience at The University of Tokyo.</p>
-    <div class="hero-actions">
-      <a href="#profile" class="btn btn-solid">View Profile</a>
-      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    <!-- Text -->
+    <div class="hero-text-col">
+      <div class="hero-badge"><div class="badge-dot"></div>Bangkok, Thailand · Open to Opportunities</div>
+      <h1 class="hero-name">Anuphong <em>Payopat</em></h1>
+      <p class="hero-tagline">M.S. Biochemistry · Kasetsart University · Researcher &amp; Entrepreneur</p>
+      <div class="pillars">
+        <div class="pillar p-sci">
+          <div class="pillar-icon">🔬</div>
+          <div class="pillar-name">Science</div>
+          <div class="pillar-desc">Biochemistry · Genetics<br>Veterinary Technology</div>
+        </div>
+        <div class="pillar p-biz">
+          <div class="pillar-icon">📈</div>
+          <div class="pillar-name">Business</div>
+          <div class="pillar-desc">Entrepreneurship<br>PE · Venture Capital</div>
+        </div>
+        <div class="pillar p-tech">
+          <div class="pillar-icon">⚙️</div>
+          <div class="pillar-name">Technology</div>
+          <div class="pillar-desc">Artificial Intelligence<br>Research &amp; Innovation</div>
+        </div>
+      </div>
+      <p class="hero-bio">A researcher and entrepreneur with a diverse background in life sciences, strategic business, and emerging technology. Published in <em>Animal Bioscience</em>. International experience at The University of Tokyo.</p>
+      <div class="hero-actions">
+        <a href="#profile" class="btn btn-solid">View Profile</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
     </div>
   </div>
 </section>
