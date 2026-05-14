@@ -375,8 +375,66 @@ nav {
     radial-gradient(ellipse 80% 35% at 50% 0%, rgba(56,201,176,0.06) 0%, transparent 65%);
 }
 
+/* Certifications — amber/purple mesh */
+#certifications { background: var(--bg); overflow: hidden; }
+#certifications::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 55% 50% at 5% 35%, rgba(232,148,58,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 55% at 95% 70%, rgba(139,124,246,0.07) 0%, transparent 60%);
+}
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--gb);
+  border: 1px solid var(--gb);
+  border-radius: var(--r); overflow: hidden;
+  position: relative; z-index: 2;
+}
+.cert-card {
+  background: var(--glass); backdrop-filter: blur(18px);
+  padding: 1.6rem 1.5rem;
+  display: flex; flex-direction: column; gap: 0.7rem;
+  position: relative; overflow: hidden;
+  transition: background 0.25s;
+}
+.cert-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.cert-teal::before   { background: var(--teal); }
+.cert-purple::before { background: var(--purple); }
+.cert-amber::before  { background: var(--amber); }
+.cert-teal:hover   { background: rgba(56,201,176,0.05); }
+.cert-purple:hover { background: rgba(139,124,246,0.05); }
+.cert-amber:hover  { background: rgba(232,148,58,0.05); }
+
+.cert-issuer { display: flex; align-items: center; gap: 0.55rem; }
+.cert-issuer-badge {
+  width: 28px; height: 28px; border-radius: 6px;
+  border: 1px solid var(--gb); background: rgba(255,255,255,0.04);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.56rem; font-weight: 800; flex-shrink: 0;
+}
+.cert-teal   .cert-issuer-badge { color: var(--teal);   border-color: rgba(56,201,176,0.28); }
+.cert-purple .cert-issuer-badge { color: var(--purple); border-color: rgba(139,124,246,0.28); }
+.cert-amber  .cert-issuer-badge { color: var(--amber);  border-color: rgba(232,148,58,0.28); }
+.cert-issuer-name { font-size: 0.67rem; font-weight: 500; color: var(--muted); line-height: 1.3; }
+.cert-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 600; color: var(--text); line-height: 1.35; }
+.cert-date { font-size: 0.68rem; color: var(--muted); }
+.cert-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; padding-top: 0.25rem; }
+.cert-tag {
+  font-size: 0.59rem; font-weight: 600; letter-spacing: 0.03em;
+  padding: 0.18rem 0.55rem; border-radius: 3px; border: 1px solid;
+}
+.cert-teal   .cert-tag { color: var(--teal);   border-color: rgba(56,201,176,0.2); }
+.cert-purple .cert-tag { color: var(--purple); border-color: rgba(139,124,246,0.2); }
+.cert-amber  .cert-tag { color: var(--amber);  border-color: rgba(232,148,58,0.2); }
+
 /* Contact — purple/teal soft gradient */
-#contact { background: var(--bg); overflow: hidden; }
+#contact { background: var(--bg2); overflow: hidden; }
 #contact::before {
   content: '';
   position: absolute; inset: 0; z-index: 0;
@@ -709,6 +767,7 @@ footer {
   .photo-grid img { width: 80px; height: 58px; }
   .edu-row { grid-template-columns: 1fr; gap: 0.5rem; }
   .tl-card { padding: 1.25rem 1.25rem; }
+  .cert-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -729,6 +788,7 @@ footer {
     <li><a href="#volunteering">Volunteering</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
+    <li><a href="#certifications">Certifications</a></li>
   </ul>
   <a href="mailto:anuphong3502@gmail.com" class="nav-cta">Contact</a>
 </nav>
@@ -1071,6 +1131,224 @@ footer {
         </div>
         <span class="edu-pill pill-done">Completed</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="sec" id="certifications">
+  <div class="sec-inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">05 — Certifications</div>
+      <h2 class="sec-name">Licenses &amp; Certifications</h2>
+      <div class="sec-rule" style="background:linear-gradient(90deg,var(--amber),transparent);"></div>
+    </div>
+    <div class="cert-grid reveal">
+
+      <div class="cert-card cert-teal">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">CU</div>
+          <div class="cert-issuer-name">Chulalongkorn University</div>
+        </div>
+        <div class="cert-name">Finalist 30 Innovation of CUVET Hackathon 2026</div>
+        <div class="cert-date">Feb 2026</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Startups</span><span class="cert-tag">Artificial Intelligence</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">G</div>
+          <div class="cert-issuer-name">Google</div>
+        </div>
+        <div class="cert-name">Start Writing Prompts like a Pro</div>
+        <div class="cert-date">Aug 2025 · ID A9N2K0A8P7ZP</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Prompt Engineering</span><span class="cert-tag">AI</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-purple">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">UB</div>
+          <div class="cert-issuer-name">Università Bocconi</div>
+        </div>
+        <div class="cert-name">Private Equity and Venture Capital</div>
+        <div class="cert-date">Jul 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Private Equity</span><span class="cert-tag">Venture Capital</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">DR</div>
+          <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
+        </div>
+        <div class="cert-name">Certified Professional Data Analyst</div>
+        <div class="cert-date">May 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">R</span><span class="cert-tag">Statistics</span><span class="cert-tag">Data Science</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-teal">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">SC</div>
+          <div class="cert-issuer-name">Social Case Competition</div>
+        </div>
+        <div class="cert-name">Social Case Competition 2025</div>
+        <div class="cert-date">Apr 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Project Management</span><span class="cert-tag">Research Skills</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-purple">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">DR</div>
+          <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
+        </div>
+        <div class="cert-name">Mental Model Practitioners</div>
+        <div class="cert-date">Mar 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Mental Models</span><span class="cert-tag">Economics</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">W3</div>
+          <div class="cert-issuer-name">w3schools.com</div>
+        </div>
+        <div class="cert-name">Statistics Certification</div>
+        <div class="cert-date">Mar 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Statistical Analysis</span><span class="cert-tag">Data Analytics</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">W3</div>
+          <div class="cert-issuer-name">w3schools.com</div>
+        </div>
+        <div class="cert-name">R Certification</div>
+        <div class="cert-date">Feb 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">R</span><span class="cert-tag">Data Analytics</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">W3</div>
+          <div class="cert-issuer-name">w3schools.com</div>
+        </div>
+        <div class="cert-name">SQL Certification</div>
+        <div class="cert-date">Feb 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">SQL</span><span class="cert-tag">Data Analytics</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">W3</div>
+          <div class="cert-issuer-name">w3schools.com</div>
+        </div>
+        <div class="cert-name">Excel Certification</div>
+        <div class="cert-date">Feb 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Microsoft Excel</span><span class="cert-tag">Data Analytics</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-purple">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">DR</div>
+          <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
+        </div>
+        <div class="cert-name">One Person Business 101</div>
+        <div class="cert-date">Jan 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Business</span><span class="cert-tag">Generalism</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">DR</div>
+          <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
+        </div>
+        <div class="cert-name">Data Analyst Manifesto</div>
+        <div class="cert-date">Dec 2024</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Data Analysis</span><span class="cert-tag">Data Science</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">PM</div>
+          <div class="cert-issuer-name">Project Management Institute</div>
+        </div>
+        <div class="cert-name">Generative AI Overview for Project Managers</div>
+        <div class="cert-date">Dec 2024</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Generative AI</span><span class="cert-tag">Project Management</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-teal">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">SC</div>
+          <div class="cert-issuer-name">SHAKE A CHANGE</div>
+        </div>
+        <div class="cert-name">Social Case Competition — Hack a Change Program</div>
+        <div class="cert-date">Jan 2022</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Problem Solving</span><span class="cert-tag">Product Presentation</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-teal">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">KU</div>
+          <div class="cert-issuer-name">KU Startup</div>
+        </div>
+        <div class="cert-name">KU StartUp League 2022</div>
+        <div class="cert-date">Jan 2022</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Product Presentation</span><span class="cert-tag">Presentations</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-teal">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">SC</div>
+          <div class="cert-issuer-name">Social Case Competition</div>
+        </div>
+        <div class="cert-name">Social Case Competition 2021</div>
+        <div class="cert-date">Jun 2021</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Problem Solving</span><span class="cert-tag">Teamwork</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-teal">
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">KU</div>
+          <div class="cert-issuer-name">KU Startup</div>
+        </div>
+        <div class="cert-name">KU StartUp League 2021</div>
+        <div class="cert-date">Feb 2021</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Product Presentation</span><span class="cert-tag">Presentations</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
