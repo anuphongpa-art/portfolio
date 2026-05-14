@@ -424,6 +424,19 @@ nav {
 .cert-issuer-name { font-size: 0.67rem; font-weight: 500; color: var(--muted); line-height: 1.3; }
 .cert-name { font-family: var(--serif); font-size: 0.95rem; font-weight: 600; color: var(--text); line-height: 1.35; }
 .cert-date { font-size: 0.68rem; color: var(--muted); }
+.cert-img-wrap {
+  border-radius: var(--rs); overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--gb);
+  margin-bottom: 0.1rem; cursor: pointer;
+}
+.cert-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.cert-card:hover .cert-img-wrap img { transform: scale(1.04); }
 .cert-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; padding-top: 0.25rem; }
 .cert-tag {
   font-size: 0.59rem; font-weight: 600; letter-spacing: 0.03em;
@@ -1146,6 +1159,9 @@ footer {
     <div class="cert-grid reveal">
 
       <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/cuvet-hackathon-2026.jpg')">
+          <img src="images/cuvet-hackathon-2026.jpg" alt="CUVET Hackathon 2026">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">CU</div>
           <div class="cert-issuer-name">Chulalongkorn University</div>
@@ -1158,6 +1174,9 @@ footer {
       </div>
 
       <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/google-prompts.jpg')">
+          <img src="images/google-prompts.jpg" alt="Google Prompts Certificate">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">G</div>
           <div class="cert-issuer-name">Google</div>
@@ -1170,6 +1189,9 @@ footer {
       </div>
 
       <div class="cert-card cert-purple">
+        <div class="cert-img-wrap" onclick="openLB('images/bocconi-pe-vc.jpg')">
+          <img src="images/bocconi-pe-vc.jpg" alt="Bocconi PE & VC Certificate">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">UB</div>
           <div class="cert-issuer-name">Università Bocconi</div>
@@ -1182,6 +1204,9 @@ footer {
       </div>
 
       <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/datarockie-data-analyst.jpg')">
+          <img src="images/datarockie-data-analyst.jpg" alt="Certified Professional Data Analyst">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">DR</div>
           <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
@@ -1194,6 +1219,9 @@ footer {
       </div>
 
       <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/social-case-2025.jpg')">
+          <img src="images/social-case-2025.jpg" alt="Social Case Competition 2025">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">SC</div>
           <div class="cert-issuer-name">Social Case Competition</div>
@@ -1206,6 +1234,9 @@ footer {
       </div>
 
       <div class="cert-card cert-purple">
+        <div class="cert-img-wrap" onclick="openLB('images/datarockie-mental-model.jpg')">
+          <img src="images/datarockie-mental-model.jpg" alt="Mental Model Practitioners">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">DR</div>
           <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
@@ -1218,6 +1249,9 @@ footer {
       </div>
 
       <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/w3-statistics.jpg')">
+          <img src="images/w3-statistics.jpg" alt="Statistics Certification">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">W3</div>
           <div class="cert-issuer-name">w3schools.com</div>
@@ -1230,6 +1264,9 @@ footer {
       </div>
 
       <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/w3-r.jpg')">
+          <img src="images/w3-r.jpg" alt="R Certification">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">W3</div>
           <div class="cert-issuer-name">w3schools.com</div>
@@ -1242,6 +1279,9 @@ footer {
       </div>
 
       <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/w3-sql.jpg')">
+          <img src="images/w3-sql.jpg" alt="SQL Certification">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">W3</div>
           <div class="cert-issuer-name">w3schools.com</div>
@@ -1254,6 +1294,9 @@ footer {
       </div>
 
       <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/w3-excel.jpg')">
+          <img src="images/w3-excel.jpg" alt="Excel Certification">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">W3</div>
           <div class="cert-issuer-name">w3schools.com</div>
@@ -1266,6 +1309,9 @@ footer {
       </div>
 
       <div class="cert-card cert-purple">
+        <div class="cert-img-wrap" onclick="openLB('images/datarockie-one-person-biz.jpg')">
+          <img src="images/datarockie-one-person-biz.jpg" alt="One Person Business 101">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">DR</div>
           <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
@@ -1278,6 +1324,9 @@ footer {
       </div>
 
       <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/datarockie-da-manifesto.jpg')">
+          <img src="images/datarockie-da-manifesto.jpg" alt="Data Analyst Manifesto">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">DR</div>
           <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
@@ -1290,6 +1339,9 @@ footer {
       </div>
 
       <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/pmi-gen-ai.jpg')">
+          <img src="images/pmi-gen-ai.jpg" alt="Generative AI for Project Managers">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">PM</div>
           <div class="cert-issuer-name">Project Management Institute</div>
@@ -1302,6 +1354,9 @@ footer {
       </div>
 
       <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/hack-a-change-2022.jpg')">
+          <img src="images/hack-a-change-2022.jpg" alt="Hack a Change 2022">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">SC</div>
           <div class="cert-issuer-name">SHAKE A CHANGE</div>
@@ -1314,6 +1369,9 @@ footer {
       </div>
 
       <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/ku-startup-2022.jpg')">
+          <img src="images/ku-startup-2022.jpg" alt="KU StartUp League 2022">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">KU</div>
           <div class="cert-issuer-name">KU Startup</div>
@@ -1326,6 +1384,9 @@ footer {
       </div>
 
       <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/social-case-2021.jpg')">
+          <img src="images/social-case-2021.jpg" alt="Social Case Competition 2021">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">SC</div>
           <div class="cert-issuer-name">Social Case Competition</div>
@@ -1338,6 +1399,9 @@ footer {
       </div>
 
       <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/ku-startup-2021.jpg')">
+          <img src="images/ku-startup-2021.jpg" alt="KU StartUp League 2021">
+        </div>
         <div class="cert-issuer">
           <div class="cert-issuer-badge">KU</div>
           <div class="cert-issuer-name">KU Startup</div>
