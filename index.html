@@ -93,6 +93,52 @@ nav {
   transition: color 0.2s, background 0.2s;
 }
 .nav-menu a:hover { color: var(--text); background: var(--glass); }
+.nav-menu a.active { color: var(--text); background: var(--glass); }
+
+/* Hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px; width: 40px; height: 40px;
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 1.5px;
+  background: var(--sub); border-radius: 2px;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Mobile drawer */
+.nav-drawer {
+  display: none;
+  position: fixed; top: 66px; left: 0; right: 0; z-index: 499;
+  background: rgba(7,9,15,0.96);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-bottom: 1px solid var(--gb);
+  flex-direction: column; padding: 1rem 1.5rem 1.5rem;
+  transform: translateY(-8px); opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  pointer-events: none;
+}
+.nav-drawer.open {
+  transform: translateY(0); opacity: 1;
+  pointer-events: auto;
+}
+.nav-drawer a {
+  text-decoration: none;
+  font-size: 0.82rem; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--sub); padding: 0.85rem 0;
+  border-bottom: 1px solid var(--gb);
+  transition: color 0.2s;
+}
+.nav-drawer a:last-child { border-bottom: none; }
+.nav-drawer a:hover, .nav-drawer a.active { color: var(--text); }
+
 .nav-cta {
   text-decoration: none;
   font-size: 0.72rem; font-weight: 600;
@@ -765,6 +811,8 @@ footer {
 @media (max-width: 960px) {
   nav { padding: 0 1.5rem; }
   .nav-menu { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-drawer { display: flex; }
   .hero { padding: 5rem 1.5rem 4rem; }
   .hero-layout { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; justify-items: center; }
   .hero-text-col { text-align: center; }
@@ -804,6 +852,20 @@ footer {
     <li><a href="#certifications">Certifications</a></li>
   </ul>
   <a href="mailto:anuphong3502@gmail.com" class="nav-cta">Contact</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<nav class="nav-drawer" id="drawer">
+  <a href="#profile">Profile</a>
+  <a href="#experience">Experience</a>
+  <a href="#volunteering">Volunteering</a>
+  <a href="#skills">Skills</a>
+  <a href="#education">Education</a>
+  <a href="#certifications">Certifications</a>
+  <a href="#contact">Contact</a>
 </nav>
 
 <!-- HERO -->
@@ -1454,11 +1516,13 @@ footer {
 </footer>
 
 <script>
+  // Scroll reveal
   const io = new IntersectionObserver(es => {
     es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.06 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+  // Lightbox
   function openLB(src) {
     document.getElementById('lb-img').src = src;
     document.getElementById('lb').classList.add('open');
@@ -1468,6 +1532,39 @@ footer {
     document.getElementById('lb-img').src = '';
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const drawer = document.getElementById('drawer');
+  hamburger.addEventListener('click', () => {
+    const isOpen = drawer.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+  });
+  // Close drawer on link click
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+
+  // Scroll-spy
+  const sections = ['home','profile','experience','volunteering','skills','education','certifications','contact'];
+  const navLinks = document.querySelectorAll('.nav-menu a, .nav-drawer a');
+  const spyObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) spyObserver.observe(el);
+  });
 </script>
 </body>
 </html>
