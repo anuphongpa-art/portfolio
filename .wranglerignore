@@ -1,0 +1,6 @@
+.git
+.github
+.claude
+.wrangler
+wrangler.toml
+node_modules
