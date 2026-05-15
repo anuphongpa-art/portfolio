@@ -80,6 +80,15 @@ body::after {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
 
+/* Scroll progress bar */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; z-index: 9998;
+  height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--teal), var(--purple), var(--amber));
+  transition: width 0.08s linear;
+  pointer-events: none;
+}
+
 /* ==============================
    NAV
 ============================== */
@@ -894,6 +903,9 @@ footer {
 </head>
 <body>
 
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
 <!-- LIGHTBOX -->
 <div id="lb">
   <button id="lb-close" onclick="closeLB()">✕</button>
@@ -1586,6 +1598,14 @@ footer {
 </footer>
 
 <script>
+  // Scroll progress bar
+  const progressBar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (scrolled / total * 100) + '%';
+  }, { passive: true });
+
   // Scroll reveal
   const io = new IntersectionObserver(es => {
     es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
