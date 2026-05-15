@@ -13,11 +13,10 @@ jobs:
       - name: Prepare deploy folder
         run: |
           mkdir dist
-          cp index.html favicon.svg wrangler.toml dist/
+          cp index.html favicon.svg dist/
           cp -r images dist/
 
       - uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 91fa96aa18a0bb0836f188ce5048d18a
-          workingDirectory: dist
