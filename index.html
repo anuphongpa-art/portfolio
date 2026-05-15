@@ -235,31 +235,25 @@ nav {
 
 /* Photo column */
 .hero-photo-col { flex-shrink: 0; }
-.hero-photo-wrap {
-  width: 340px; height: 500px;
-  position: relative;
-  -webkit-mask-image: linear-gradient(
-    to right,
-    black 0%, black 18%,
-    rgba(0,0,0,0.92) 35%,
-    rgba(0,0,0,0.65) 52%,
-    rgba(0,0,0,0.25) 68%,
-    transparent 82%
-  );
-  mask-image: linear-gradient(
-    to right,
-    black 0%, black 18%,
-    rgba(0,0,0,0.92) 35%,
-    rgba(0,0,0,0.65) 52%,
-    rgba(0,0,0,0.25) 68%,
-    transparent 82%
-  );
+.hero-photo-ring {
+  width: 270px; height: 270px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--purple) 50%, var(--amber) 100%);
+  box-shadow: 0 0 50px rgba(56,201,176,0.22), 0 0 100px rgba(139,124,246,0.14);
+  animation: photoGlow 4s ease-in-out infinite alternate;
 }
-.hero-photo-wrap img {
+.hero-photo-ring img {
   width: 100%; height: 100%;
+  border-radius: 50%;
   object-fit: cover;
   object-position: center top;
   display: block;
+  background: var(--bg2);
+}
+@keyframes photoGlow {
+  from { box-shadow: 0 0 40px rgba(56,201,176,0.18), 0 0 80px rgba(139,124,246,0.1); }
+  to   { box-shadow: 0 0 70px rgba(56,201,176,0.38), 0 0 140px rgba(139,124,246,0.22); }
 }
 
 /* Text column */
@@ -999,7 +993,7 @@ footer {
   .hero { padding: 5rem 1.5rem 4rem; }
   .hero-layout { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; justify-items: center; }
   .hero-text-col { text-align: center; }
-  .hero-photo-wrap { width: 240px; height: 320px; }
+  .hero-photo-ring { width: 180px; height: 180px; }
   .hero-actions { justify-content: center; }
   .pillars { margin: 0 auto 3rem; }
   .hero-bio { margin: 0 auto 2.5rem; }
@@ -1069,8 +1063,8 @@ footer {
   <div class="hero-layout">
     <!-- Photo -->
     <div class="hero-photo-col">
-      <div class="hero-photo-wrap">
-        <img src="images/profile.png" alt="Anuphong Payopat">
+      <div class="hero-photo-ring">
+        <img src="images/profile.jpg" alt="Anuphong Payopat">
       </div>
     </div>
     <!-- Text -->
