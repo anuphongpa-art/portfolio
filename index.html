@@ -158,12 +158,17 @@ nav {
 /* Mobile drawer */
 .nav-drawer {
   display: none;
-  position: fixed; top: 66px; left: 0; right: 0; bottom: 0; z-index: 499;
+  position: fixed; top: 66px; left: 0; right: 0;
+  height: calc(100vh - 66px);
+  z-index: 499;
   background: #07090F;
   border-top: 1px solid var(--gb);
-  flex-direction: column; padding: 1rem 1.5rem 1.5rem;
-  transform: translateY(-8px); opacity: 0;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.25rem;
+  padding: 2rem 2rem 3rem;
+  transform: translateY(-12px); opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   pointer-events: none;
   overflow-y: auto;
 }
@@ -173,14 +178,14 @@ nav {
 }
 .nav-drawer a {
   text-decoration: none;
-  font-size: 0.82rem; font-weight: 500;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--sub); padding: 0.85rem 0;
-  border-bottom: 1px solid var(--gb);
-  transition: color 0.2s;
+  font-size: 1.1rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--sub); padding: 0.75rem 2rem;
+  width: 100%; text-align: center;
+  border-radius: var(--rs);
+  transition: color 0.2s, background 0.2s;
 }
-.nav-drawer a:last-child { border-bottom: none; }
-.nav-drawer a:hover, .nav-drawer a.active { color: var(--text); }
+.nav-drawer a:hover, .nav-drawer a.active { color: var(--text); background: var(--glass2); }
 
 /* ==============================
    HERO
