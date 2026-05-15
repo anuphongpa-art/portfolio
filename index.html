@@ -774,11 +774,11 @@ nav {
 .edu-row {
   background: var(--glass); backdrop-filter: blur(18px);
   padding: 2rem 2.25rem;
-  display: grid; grid-template-columns: 1fr auto;
-  gap: 1.5rem; align-items: center;
+  display: flex; flex-direction: column; gap: 1rem;
   transition: background 0.22s;
 }
 .edu-row:hover { background: var(--glass2); }
+.edu-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .edu-left { display: flex; align-items: center; gap: 1.25rem; }
 .edu-logo {
   width: 64px; height: 64px; flex-shrink: 0;
@@ -802,12 +802,31 @@ nav {
 .edu-period { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.38rem; }
 .edu-deg    { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text); line-height: 1.3; }
 .edu-inst   { font-size: 0.78rem; color: var(--sub); margin-top: 0.2rem; }
+.edu-grade  { font-size: 0.72rem; color: var(--muted); margin-top: 0.28rem; }
 .edu-pill {
   font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 0.3rem 0.9rem; border-radius: 100px; border: 1px solid; white-space: nowrap;
+  padding: 0.3rem 0.9rem; border-radius: 100px; border: 1px solid; white-space: nowrap; flex-shrink: 0;
 }
 .pill-active { border-color: rgba(56,201,176,0.38); color: var(--teal);  background: rgba(56,201,176,0.06); }
 .pill-done   { border-color: var(--dim);             color: var(--muted); }
+.edu-desc {
+  font-size: 0.875rem; color: var(--sub); line-height: 1.85;
+  padding-left: calc(64px + 1.25rem);
+}
+.edu-skills {
+  display: flex; flex-wrap: wrap; gap: 0.35rem;
+  padding-left: calc(64px + 1.25rem);
+}
+.edu-skill-tag {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.04em;
+  padding: 0.2rem 0.65rem; border-radius: 4px;
+  border: 1px solid var(--gb); color: var(--muted);
+  transition: color 0.18s, border-color 0.18s;
+}
+.edu-row:hover .edu-skill-tag { color: var(--sub); border-color: var(--gbhi); }
+@media (max-width: 960px) {
+  .edu-desc, .edu-skills { padding-left: 0; }
+}
 
 /* ==============================
    CONTACT
@@ -930,7 +949,8 @@ footer {
   .skills-grid { grid-template-columns: 1fr; }
   footer { flex-direction: column; gap: 0.75rem; padding: 1.5rem; text-align: center; }
   .f-pillars { justify-content: center; }
-  .edu-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .edu-header { flex-wrap: wrap; }
+  .edu-desc, .edu-skills { padding-left: 0; }
   .tl-card { padding: 1.25rem 1.25rem; }
   .cert-grid { grid-template-columns: 1fr; }
   .photo-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1298,46 +1318,68 @@ footer {
     </div>
     <div class="edu-list reveal">
       <div class="edu-row">
-        <div class="edu-left">
-          <div class="edu-logo" id="logo-ku-1">
-            <img src="images/logo-ku.jpg" alt="KU" onerror="this.closest('.edu-logo').classList.add('no-img')">
-            <span>KU</span>
+        <div class="edu-header">
+          <div class="edu-left">
+            <div class="edu-logo">
+              <img src="images/logo-ku.jpg" alt="KU" onerror="this.closest('.edu-logo').classList.add('no-img')">
+              <span>KU</span>
+            </div>
+            <div>
+              <div class="edu-period">Jun 2024 — Present</div>
+              <div class="edu-deg">Master's degree — Biochemistry</div>
+              <div class="edu-inst">Kasetsart University</div>
+            </div>
           </div>
-          <div>
-            <div class="edu-period">Jun 2024 — Present</div>
-            <div class="edu-deg">Master's degree — Biochemistry</div>
-            <div class="edu-inst">Kasetsart University</div>
-          </div>
+          <span class="edu-pill pill-active">In Progress</span>
         </div>
-        <span class="edu-pill pill-active">In Progress</span>
+        <p class="edu-desc">Studying Biochemistry at the Master's degree, focusing on the chemical processes within living organisms, including metabolism, enzyme functions, molecular genetics, and the structure of biomolecules. Also collaborated on a fish vaccine project at Kasetsart Vaccines and Biologies Innovation Centre.</p>
+        <div class="edu-skills">
+          <span class="edu-skill-tag">Research Skills</span>
+          <span class="edu-skill-tag">Presentations</span>
+          <span class="edu-skill-tag">Biochemistry</span>
+          <span class="edu-skill-tag">Molecular Biology</span>
+        </div>
       </div>
       <div class="edu-row">
-        <div class="edu-left">
-          <div class="edu-logo">
-            <img src="images/logo-ku.jpg" alt="KU" onerror="this.closest('.edu-logo').classList.add('no-img')">
-            <span>KU</span>
+        <div class="edu-header">
+          <div class="edu-left">
+            <div class="edu-logo">
+              <img src="images/logo-ku.jpg" alt="KU" onerror="this.closest('.edu-logo').classList.add('no-img')">
+              <span>KU</span>
+            </div>
+            <div>
+              <div class="edu-period">Jun 2020 — Mar 2024</div>
+              <div class="edu-deg">Bachelor's degree — Veterinary Technology</div>
+              <div class="edu-inst">Kasetsart University</div>
+              <div class="edu-grade">Grade: 3.58 · First Class Honours</div>
+            </div>
           </div>
-          <div>
-            <div class="edu-period">Jun 2020 — Mar 2024</div>
-            <div class="edu-deg">Bachelor's degree — Veterinary Technology</div>
-            <div class="edu-inst">Kasetsart University</div>
-          </div>
+          <span class="edu-pill pill-done">Completed</span>
         </div>
-        <span class="edu-pill pill-done">Completed</span>
+        <p class="edu-desc">Acquired a fundamental understanding of animal science related to Biochemistry, Genetics, and Molecular Biology, developing proficiency in laboratory equipment operation and various techniques, while conducting research and presenting on a special problem titled "Development of Enrofloxacin Residue Testing in Pork by Spectrophotometry."</p>
+        <div class="edu-skills">
+          <span class="edu-skill-tag">Research Skills</span>
+          <span class="edu-skill-tag">Animal Health</span>
+          <span class="edu-skill-tag">Veterinary Technology</span>
+          <span class="edu-skill-tag">Laboratory Techniques</span>
+        </div>
       </div>
       <div class="edu-row">
-        <div class="edu-left">
-          <div class="edu-logo">
-            <img src="images/logo-debsirin.jpg" alt="DS" onerror="this.closest('.edu-logo').classList.add('no-img')">
-            <span>DS</span>
+        <div class="edu-header">
+          <div class="edu-left">
+            <div class="edu-logo">
+              <img src="images/logo-debsirin.jpg" alt="DS" onerror="this.closest('.edu-logo').classList.add('no-img')">
+              <span>DS</span>
+            </div>
+            <div>
+              <div class="edu-period">Jun 2017 — Mar 2020</div>
+              <div class="edu-deg">Intensive English Program</div>
+              <div class="edu-inst">Debsirin School</div>
+              <div class="edu-grade">Grade: 3.71</div>
+            </div>
           </div>
-          <div>
-            <div class="edu-period">Jun 2017 — Mar 2020</div>
-            <div class="edu-deg">Intensive English Program</div>
-            <div class="edu-inst">Debsirin School</div>
-          </div>
+          <span class="edu-pill pill-done">Completed</span>
         </div>
-        <span class="edu-pill pill-done">Completed</span>
       </div>
     </div>
   </div>
