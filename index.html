@@ -12,14 +12,15 @@
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Anuphong Payopat — Science · Business · Technology">
 <meta property="og:description" content="Researcher and entrepreneur with a background in life sciences, strategic business, and emerging technology. Published in Animal Bioscience. International experience at The University of Tokyo.">
-<meta property="og:image" content="images/profile.png">
+<meta property="og:image" content="https://anuphongpa-art.github.io/portfolio/images/profile.png">
+<meta property="og:url" content="https://anuphongpa-art.github.io/portfolio/">
 <meta property="og:locale" content="en_US">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Anuphong Payopat — Science · Business · Technology">
 <meta name="twitter:description" content="Researcher and entrepreneur with a background in life sciences, strategic business, and emerging technology.">
-<meta name="twitter:image" content="images/profile.png">
+<meta name="twitter:image" content="https://anuphongpa-art.github.io/portfolio/images/profile.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -437,6 +438,27 @@ nav {
   background:
     radial-gradient(ellipse 80% 35% at 50% 0%, rgba(56,201,176,0.06) 0%, transparent 65%);
 }
+
+/* Cert filter bar */
+.cert-filters {
+  display: flex; flex-wrap: wrap; gap: 0.45rem;
+  margin-bottom: 1.75rem; position: relative; z-index: 2;
+}
+.cf-btn {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-size: 0.67rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.4rem 1rem; border-radius: 100px;
+  border: 1px solid var(--gb); background: var(--glass);
+  color: var(--muted); cursor: pointer; font-family: var(--sans);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.cf-btn:hover { color: var(--text); border-color: var(--gbhi); }
+.cf-btn.active { color: var(--text); border-color: var(--gbhi); background: var(--glass2); }
+.cf-count {
+  font-size: 0.58rem; padding: 0.08rem 0.42rem;
+  border-radius: 100px; background: var(--gb);
+}
+.cert-card.cf-hidden { display: none; }
 
 /* Certifications — amber/purple mesh */
 #certifications { background: var(--bg); overflow: hidden; }
@@ -1259,6 +1281,13 @@ footer {
       <h2 class="sec-name">Licenses &amp; Certifications</h2>
       <div class="sec-rule" style="background:linear-gradient(90deg,var(--amber),transparent);"></div>
     </div>
+    <div class="cert-filters reveal">
+      <button class="cf-btn active" data-filter="all">All <span class="cf-count">17</span></button>
+      <button class="cf-btn" data-filter="competition">Competition <span class="cf-count">6</span></button>
+      <button class="cf-btn" data-filter="data">Data <span class="cf-count">6</span></button>
+      <button class="cf-btn" data-filter="business">Business <span class="cf-count">3</span></button>
+      <button class="cf-btn" data-filter="ai">AI <span class="cf-count">2</span></button>
+    </div>
     <div class="cert-grid reveal">
 
       <div class="cert-card cert-teal">
@@ -1628,6 +1657,42 @@ footer {
     a.addEventListener('click', () => {
       drawer.classList.remove('open');
       hamburger.classList.remove('open');
+    });
+  });
+
+  // Cert filter — assign categories via image filename, then wire up buttons
+  const certCategoryMap = {
+    'cuvet-hackathon-2026':   'competition',
+    'google-prompts':         'ai',
+    'bocconi-pe-vc':          'business',
+    'datarockie-data-analyst':'data',
+    'social-case-2025':       'competition',
+    'datarockie-mental-model':'business',
+    'w3-statistics':          'data',
+    'w3-r':                   'data',
+    'w3-sql':                 'data',
+    'w3-excel':               'data',
+    'datarockie-one-person-biz':'business',
+    'datarockie-da-manifesto':'data',
+    'pmi-gen-ai':             'ai',
+    'hack-a-change-2022':     'competition',
+    'ku-startup-2022':        'competition',
+    'social-case-2021':       'competition',
+    'ku-startup-2021':        'competition',
+  };
+  document.querySelectorAll('.cert-card').forEach(card => {
+    const src = card.querySelector('img')?.src || '';
+    const key = Object.keys(certCategoryMap).find(k => src.includes(k));
+    if (key) card.dataset.category = certCategoryMap[key];
+  });
+  document.querySelectorAll('.cf-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cf-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.cert-card').forEach(card => {
+        card.classList.toggle('cf-hidden', filter !== 'all' && card.dataset.category !== filter);
+      });
     });
   });
 
