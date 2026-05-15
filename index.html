@@ -305,38 +305,51 @@ nav {
 .pillars {
   display: grid; grid-template-columns: repeat(3,1fr);
   max-width: 600px; width: 100%;
-  gap: 1px; background: var(--gb);
-  border: 1px solid var(--gb);
-  border-radius: var(--r); overflow: hidden;
+  gap: 0.6rem;
   margin: 0 0 3rem;
   opacity: 0; animation: up 0.7s 0.42s ease forwards;
 }
 .pillar {
   background: var(--glass);
-  backdrop-filter: blur(16px);
-  padding: 1.6rem 1.25rem;
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--gb);
+  border-radius: var(--r);
+  padding: 1.75rem 1.2rem 1.6rem;
   text-align: center; cursor: default;
-  transition: background 0.25s;
   position: relative; overflow: hidden;
+  transition: background 0.25s, transform 0.28s, box-shadow 0.28s, border-color 0.25s;
 }
-.pillar::after {
+/* Gradient top line — always visible */
+.pillar::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.35s cubic-bezier(.4,0,.2,1);
 }
-.pillar:hover::after { transform: scaleX(1); }
-.p-sci::after  { background: var(--teal); }
-.p-biz::after  { background: var(--purple); }
-.p-tech::after { background: var(--amber); }
-.p-sci:hover  { background: rgba(56,201,176,0.07); }
-.p-biz:hover  { background: rgba(139,124,246,0.07); }
-.p-tech:hover { background: rgba(232,148,58,0.07); }
-.pillar-icon  { font-size: 1.4rem; margin-bottom: 0.55rem; }
-.pillar-name  { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.38rem; }
+.p-sci::before  { background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+.p-biz::before  { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
+.p-tech::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
+/* Hover: lift + colored glow */
+.p-sci:hover  { background: rgba(56,201,176,0.06);  border-color: rgba(56,201,176,0.28);  transform: translateY(-3px); box-shadow: 0 10px 36px rgba(56,201,176,0.14); }
+.p-biz:hover  { background: rgba(139,124,246,0.06); border-color: rgba(139,124,246,0.28); transform: translateY(-3px); box-shadow: 0 10px 36px rgba(139,124,246,0.14); }
+.p-tech:hover { background: rgba(232,148,58,0.06);  border-color: rgba(232,148,58,0.28);  transform: translateY(-3px); box-shadow: 0 10px 36px rgba(232,148,58,0.14); }
+/* Icon container */
+.pillar-icon-wrap {
+  width: 48px; height: 48px; border-radius: 14px;
+  margin: 0 auto 1rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.35rem;
+  transition: box-shadow 0.28s;
+}
+.p-sci  .pillar-icon-wrap { background: rgba(56,201,176,0.1);  box-shadow: 0 0 18px rgba(56,201,176,0.15);  color: var(--teal); }
+.p-biz  .pillar-icon-wrap { background: rgba(139,124,246,0.1); box-shadow: 0 0 18px rgba(139,124,246,0.15); color: var(--purple); }
+.p-tech .pillar-icon-wrap { background: rgba(232,148,58,0.1);  box-shadow: 0 0 18px rgba(232,148,58,0.15);  color: var(--amber); }
+.p-sci:hover  .pillar-icon-wrap { box-shadow: 0 0 32px rgba(56,201,176,0.35); }
+.p-biz:hover  .pillar-icon-wrap { box-shadow: 0 0 32px rgba(139,124,246,0.35); }
+.p-tech:hover .pillar-icon-wrap { box-shadow: 0 0 32px rgba(232,148,58,0.35); }
+.pillar-icon-wrap svg { width: 22px; height: 22px; }
+.pillar-name  { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.42rem; }
 .p-sci  .pillar-name { color: var(--teal); }
 .p-biz  .pillar-name { color: var(--purple); }
 .p-tech .pillar-name { color: var(--amber); }
-.pillar-desc { font-size: 0.68rem; color: var(--muted); line-height: 1.55; }
+.pillar-desc { font-size: 0.68rem; color: var(--muted); line-height: 1.6; }
 
 .hero-bio {
   font-size: 0.97rem; color: var(--sub); line-height: 1.9;
@@ -1028,17 +1041,32 @@ footer {
       <p class="hero-tagline">M.S. Biochemistry · Kasetsart University · Researcher &amp; Entrepreneur</p>
       <div class="pillars">
         <div class="pillar p-sci">
-          <div class="pillar-icon">🔬</div>
+          <div class="pillar-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="2"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              <path d="M2 12h20"/>
+            </svg>
+          </div>
           <div class="pillar-name">Science</div>
           <div class="pillar-desc">Biochemistry · Genetics<br>Veterinary Technology</div>
         </div>
         <div class="pillar p-biz">
-          <div class="pillar-icon">📈</div>
+          <div class="pillar-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+              <polyline points="16 7 22 7 22 13"/>
+            </svg>
+          </div>
           <div class="pillar-name">Business</div>
           <div class="pillar-desc">Entrepreneurship<br>PE · Venture Capital</div>
         </div>
         <div class="pillar p-tech">
-          <div class="pillar-icon">⚙️</div>
+          <div class="pillar-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+            </svg>
+          </div>
           <div class="pillar-name">Technology</div>
           <div class="pillar-desc">Artificial Intelligence<br>Research &amp; Innovation</div>
         </div>
