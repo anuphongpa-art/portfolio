@@ -80,6 +80,21 @@ body::after {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
 
+/* Back to top button */
+#back-to-top {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 490;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--glass2); border: 1px solid var(--gb);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  color: var(--sub); font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s, color 0.2s;
+  pointer-events: none;
+}
+#back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#back-to-top:hover { background: var(--gbhi); color: var(--text); }
+
 /* Scroll progress bar */
 #scroll-progress {
   position: fixed; top: 0; left: 0; z-index: 9998;
@@ -903,6 +918,9 @@ footer {
 </head>
 <body>
 
+<!-- BACK TO TOP -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
 <!-- SCROLL PROGRESS -->
 <div id="scroll-progress"></div>
 
@@ -1598,12 +1616,14 @@ footer {
 </footer>
 
 <script>
-  // Scroll progress bar
+  // Scroll progress bar + back to top visibility
   const progressBar = document.getElementById('scroll-progress');
+  const backToTop = document.getElementById('back-to-top');
   window.addEventListener('scroll', () => {
     const scrolled = window.scrollY;
     const total = document.documentElement.scrollHeight - window.innerHeight;
     progressBar.style.width = (scrolled / total * 100) + '%';
+    backToTop.classList.toggle('visible', scrolled > 400);
   }, { passive: true });
 
   // Scroll reveal
