@@ -657,6 +657,24 @@ nav {
   position: absolute; left: 0; top: 8px; bottom: 0; width: 1px;
   background: linear-gradient(180deg, transparent 0%, var(--gb) 8%, var(--gb) 92%, transparent 100%);
 }
+/* Year marker */
+.tl-year {
+  padding: 0 0 1rem 2.5rem;
+  position: relative; display: flex; align-items: center; gap: 0.7rem;
+}
+.tl-year::before {
+  content: '';
+  position: absolute; left: -4px; top: 8px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--bg); border: 1.5px solid var(--dim);
+}
+.tl-year-label {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); padding: 0.2rem 0.72rem;
+  border-radius: 100px; border: 1px solid var(--dim); background: var(--bg2);
+}
+.tl-year-rule { flex: 1; height: 1px; background: var(--gb); }
+
 .tl-item { padding: 0 0 2.25rem 2.5rem; position: relative; }
 /* Node dot */
 .tl-item::before {
@@ -1125,6 +1143,7 @@ footer {
     </div>
     <div class="timeline">
 
+      <div class="tl-year reveal"><span class="tl-year-label">2024</span><div class="tl-year-rule"></div></div>
       <div class="tl-item exp-accent reveal">
         <div class="tl-card">
           <div class="tl-meta">
@@ -1152,6 +1171,7 @@ footer {
         </div>
       </div>
 
+      <div class="tl-year reveal"><span class="tl-year-label">2023</span><div class="tl-year-rule"></div></div>
       <div class="tl-item exp-accent reveal" style="transition-delay:.07s">
         <div class="tl-card">
           <div class="tl-meta">
@@ -1200,6 +1220,7 @@ footer {
         </div>
       </div>
 
+      <div class="tl-year reveal"><span class="tl-year-label">2022</span><div class="tl-year-rule"></div></div>
       <div class="tl-item exp-accent reveal" style="transition-delay:.18s">
         <div class="tl-card">
           <div class="tl-meta">
@@ -1237,6 +1258,7 @@ footer {
     </div>
     <div class="timeline">
 
+      <div class="tl-year reveal"><span class="tl-year-label">2024</span><div class="tl-year-rule"></div></div>
       <div class="tl-item vol-accent reveal">
         <div class="tl-card">
           <div class="tl-meta">
@@ -1261,6 +1283,7 @@ footer {
         </div>
       </div>
 
+      <div class="tl-year reveal"><span class="tl-year-label">2023</span><div class="tl-year-rule"></div></div>
       <div class="tl-item vol-accent reveal" style="transition-delay:.08s">
         <div class="tl-card">
           <div class="tl-meta">
