@@ -760,19 +760,16 @@ nav {
 .p-sci  .sk-label { color: var(--teal); }
 .p-biz  .sk-label { color: var(--purple); }
 .p-tech .sk-label { color: var(--amber); }
-.sk-list { list-style: none; padding: 0.75rem 2rem 2rem; }
-.sk-list li {
-  font-size: 0.855rem; color: var(--sub);
-  padding: 0.65rem 0;
-  border-bottom: 1px solid var(--gb);
-  display: flex; align-items: center; justify-content: space-between;
-  transition: color 0.18s;
+.sk-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 1.25rem 1.75rem 1.75rem; }
+.sk-tag {
+  font-size: 0.67rem; font-weight: 600; letter-spacing: 0.04em;
+  padding: 0.3rem 0.75rem; border-radius: 6px;
+  border: 1px solid; transition: opacity 0.2s;
 }
-.sk-list li:last-child { border-bottom: none; }
-.p-sci  .sk-list li:hover { color: var(--teal); }
-.p-biz  .sk-list li:hover { color: var(--purple); }
-.p-tech .sk-list li:hover { color: var(--amber); }
-.sk-list li::after { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--gb); flex-shrink: 0; }
+.sk-tag:hover { opacity: 0.75; }
+.p-sci  .sk-tag { color: var(--teal);   border-color: rgba(56,201,176,0.22);  background: rgba(56,201,176,0.05); }
+.p-biz  .sk-tag { color: var(--purple); border-color: rgba(139,124,246,0.22); background: rgba(139,124,246,0.05); }
+.p-tech .sk-tag { color: var(--amber);  border-color: rgba(232,148,58,0.22);  background: rgba(232,148,58,0.05); }
 
 /* ==============================
    EDUCATION
@@ -1318,24 +1315,36 @@ footer {
     <div class="skills-grid reveal">
       <div class="sk-col p-sci">
         <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Science</div></div>
-        <ul class="sk-list">
-          <li>PCR &amp; SNP Analysis</li><li>ELISA</li><li>Parasite Identification</li>
-          <li>Genetic Diversity Research</li><li>Antibiotic Residue Testing</li><li>Animal Necropsy</li>
-        </ul>
+        <div class="sk-tags">
+          <span class="sk-tag">PCR &amp; SNP Analysis</span>
+          <span class="sk-tag">ELISA</span>
+          <span class="sk-tag">Parasite Identification</span>
+          <span class="sk-tag">Genetic Diversity Research</span>
+          <span class="sk-tag">Antibiotic Residue Testing</span>
+          <span class="sk-tag">Animal Necropsy</span>
+        </div>
       </div>
       <div class="sk-col p-biz">
         <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Business</div></div>
-        <ul class="sk-list">
-          <li>Private Equity</li><li>Venture Capital</li><li>Entrepreneurship</li>
-          <li>Project Management</li><li>Business Case Competitions</li><li>Leadership &amp; Communication</li>
-        </ul>
+        <div class="sk-tags">
+          <span class="sk-tag">Private Equity</span>
+          <span class="sk-tag">Venture Capital</span>
+          <span class="sk-tag">Entrepreneurship</span>
+          <span class="sk-tag">Project Management</span>
+          <span class="sk-tag">Business Case Competitions</span>
+          <span class="sk-tag">Leadership &amp; Communication</span>
+        </div>
       </div>
       <div class="sk-col p-tech">
         <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Technology</div></div>
-        <ul class="sk-list">
-          <li>Artificial Intelligence (AI)</li><li>Research &amp; Development</li><li>Analytical Instruments</li>
-          <li>Research Writing</li><li>Data Analysis</li><li>Cross-cultural Adaptability</li>
-        </ul>
+        <div class="sk-tags">
+          <span class="sk-tag">Artificial Intelligence</span>
+          <span class="sk-tag">Research &amp; Development</span>
+          <span class="sk-tag">Analytical Instruments</span>
+          <span class="sk-tag">Research Writing</span>
+          <span class="sk-tag">Data Analysis</span>
+          <span class="sk-tag">Cross-cultural Adaptability</span>
+        </div>
       </div>
     </div>
   </div>
