@@ -675,6 +675,35 @@ nav {
 }
 .tl-year-rule { flex: 1; height: 1px; background: var(--gb); }
 
+/* Section peek / show-all */
+.sec-peek {
+  position: relative;
+  max-height: var(--ph, 420px);
+  overflow: hidden;
+  transition: max-height 0.55s cubic-bezier(0.4,0,0.2,1);
+}
+.sec-peek::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 110px;
+  background: linear-gradient(to bottom, transparent, #07090F);
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.sec-peek.open::after { opacity: 0; }
+.show-all-btn {
+  display: flex; align-items: center; gap: 0.45rem;
+  margin: 1.1rem auto 0;
+  padding: 0.52rem 1.6rem;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); background: none;
+  border: 1px solid var(--dim); border-radius: 100px;
+  cursor: pointer; transition: all 0.2s;
+}
+.show-all-btn:hover { color: var(--text); border-color: var(--gb); background: var(--glass); }
+.show-all-btn .arr { display: inline-block; transition: transform 0.35s; font-style: normal; }
+.show-all-btn.open .arr { transform: rotate(180deg); }
+
 .tl-item { padding: 0 0 2.25rem 2.5rem; position: relative; }
 /* Node dot */
 .tl-item::before {
@@ -1141,6 +1170,7 @@ footer {
       <h2 class="sec-name">Work &amp; Research</h2>
       <div class="sec-rule" style="background:linear-gradient(90deg,var(--teal),transparent);"></div>
     </div>
+    <div class="sec-peek" style="--ph:460px">
     <div class="timeline">
 
       <div class="tl-year reveal"><span class="tl-year-label">2024</span><div class="tl-year-rule"></div></div>
@@ -1243,6 +1273,8 @@ footer {
       </div>
 
     </div>
+    </div>
+    <button class="show-all-btn" onclick="togglePeek(this)">Show all <span class="arr">↓</span></button>
   </div>
 </section>
 
@@ -1256,6 +1288,7 @@ footer {
       <h2 class="sec-name">Community &amp; Leadership</h2>
       <div class="sec-rule" style="background:linear-gradient(90deg,var(--pink),transparent);"></div>
     </div>
+    <div class="sec-peek" style="--ph:440px">
     <div class="timeline">
 
       <div class="tl-year reveal"><span class="tl-year-label">2024</span><div class="tl-year-rule"></div></div>
@@ -1324,6 +1357,8 @@ footer {
       </div>
 
     </div>
+    </div>
+    <button class="show-all-btn" onclick="togglePeek(this)">Show all <span class="arr">↓</span></button>
   </div>
 </section>
 
@@ -1335,6 +1370,7 @@ footer {
       <h2 class="sec-name">Capabilities</h2>
       <div class="sec-rule" style="background:linear-gradient(90deg,var(--purple),transparent);"></div>
     </div>
+    <div class="sec-peek" style="--ph:210px">
     <div class="skills-grid reveal">
       <div class="sk-col p-sci">
         <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Science</div></div>
@@ -1370,6 +1406,8 @@ footer {
         </div>
       </div>
     </div>
+    </div>
+    <button class="show-all-btn" onclick="togglePeek(this)">Show all <span class="arr">↓</span></button>
   </div>
 </section>
 
@@ -1381,6 +1419,7 @@ footer {
       <h2 class="sec-name">Academic Background</h2>
       <div class="sec-rule" style="background:linear-gradient(90deg,var(--amber),transparent);"></div>
     </div>
+    <div class="sec-peek" style="--ph:280px">
     <div class="edu-list reveal">
       <div class="edu-row">
         <div class="edu-header">
@@ -1447,6 +1486,8 @@ footer {
         </div>
       </div>
     </div>
+    </div>
+    <button class="show-all-btn" onclick="togglePeek(this)">Show all <span class="arr">↓</span></button>
   </div>
 </section>
 
@@ -1465,6 +1506,7 @@ footer {
       <button class="cf-btn" data-filter="business">Business <span class="cf-count">3</span></button>
       <button class="cf-btn" data-filter="ai">AI <span class="cf-count">2</span></button>
     </div>
+    <div class="sec-peek" style="--ph:360px">
     <div class="cert-grid reveal">
 
       <div class="cert-card cert-teal">
@@ -1723,6 +1765,8 @@ footer {
       </div>
 
     </div>
+    </div>
+    <button class="show-all-btn" onclick="togglePeek(this)">Show all <span class="arr">↓</span></button>
   </div>
 </section>
 
@@ -1772,6 +1816,24 @@ footer {
     progressBar.style.width = (scrolled / total * 100) + '%';
     backToTop.classList.toggle('visible', scrolled > 400);
   }, { passive: true });
+
+  // Section peek toggle
+  function togglePeek(btn) {
+    const peek = btn.previousElementSibling;
+    const isOpen = peek.classList.contains('open');
+    if (isOpen) {
+      peek.style.maxHeight = '';
+      peek.classList.remove('open');
+      btn.classList.remove('open');
+      btn.innerHTML = 'Show all <span class="arr">↓</span>';
+      peek.closest('.sec').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      peek.style.maxHeight = peek.scrollHeight + 'px';
+      peek.classList.add('open');
+      btn.classList.add('open');
+      btn.innerHTML = 'Show less <span class="arr">↑</span>';
+    }
+  }
 
   // Scroll reveal
   const io = new IntersectionObserver(es => {
