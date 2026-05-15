@@ -473,16 +473,6 @@ nav {
   );
 }
 
-/* Skills — purple/amber gradient mesh */
-#skills { background: var(--bg); overflow: hidden; }
-#skills::before {
-  content: '';
-  position: absolute; inset: 0; z-index: 0;
-  background:
-    radial-gradient(ellipse 55% 65% at 95% 10%, rgba(139,124,246,0.1) 0%, transparent 60%),
-    radial-gradient(ellipse 45% 55% at 5%  90%, rgba(232,148,58,0.08) 0%, transparent 60%);
-}
-
 /* Education — clean dark with faint teal top */
 #education { background: var(--bg2); overflow: hidden; }
 #education::before {
@@ -798,41 +788,6 @@ nav {
 .photo-item:hover::after { opacity: 1; }
 
 /* ==============================
-   SKILLS
-============================== */
-.skills-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1px; background: var(--gb);
-  border: 1px solid var(--gb);
-  border-radius: var(--r); overflow: hidden;
-  position: relative; z-index: 2;
-}
-.sk-col { background: var(--glass); backdrop-filter: blur(18px); }
-.sk-head {
-  padding: 1.5rem 2rem 1.1rem;
-  border-bottom: 1px solid var(--gb);
-  display: flex; align-items: center; gap: 0.65rem;
-}
-.sk-dot { width: 5px; height: 5px; border-radius: 50%; }
-.p-sci  .sk-dot { background: var(--teal); }
-.p-biz  .sk-dot { background: var(--purple); }
-.p-tech .sk-dot { background: var(--amber); }
-.sk-label { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
-.p-sci  .sk-label { color: var(--teal); }
-.p-biz  .sk-label { color: var(--purple); }
-.p-tech .sk-label { color: var(--amber); }
-.sk-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 1.25rem 1.75rem 1.75rem; }
-.sk-tag {
-  font-size: 0.67rem; font-weight: 600; letter-spacing: 0.04em;
-  padding: 0.3rem 0.75rem; border-radius: 6px;
-  border: 1px solid; transition: opacity 0.2s;
-}
-.sk-tag:hover { opacity: 0.75; }
-.p-sci  .sk-tag { color: var(--teal);   border-color: rgba(56,201,176,0.22);  background: rgba(56,201,176,0.05); }
-.p-biz  .sk-tag { color: var(--purple); border-color: rgba(139,124,246,0.22); background: rgba(139,124,246,0.05); }
-.p-tech .sk-tag { color: var(--amber);  border-color: rgba(232,148,58,0.22);  background: rgba(232,148,58,0.05); }
-
-/* ==============================
    EDUCATION
 ============================== */
 .edu-list {
@@ -1044,7 +999,6 @@ footer {
   .hero-bio { margin: 0 auto 2.5rem; }
   .sec { padding: 5rem 1.5rem; }
   .profile-grid { grid-template-columns: 1fr; }
-  .skills-grid { grid-template-columns: 1fr; }
   footer { flex-direction: column; gap: 0.75rem; padding: 1.5rem; text-align: center; }
   .f-pillars { justify-content: center; }
   .edu-header { flex-wrap: wrap; }
@@ -1080,7 +1034,6 @@ footer {
     <li><a href="#profile">Profile</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#volunteering">Activities</a></li>
-    <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -1095,7 +1048,6 @@ footer {
   <a href="#profile">Profile</a>
   <a href="#experience">Experience</a>
   <a href="#volunteering">Activities</a>
-  <a href="#skills">Skills</a>
   <a href="#education">Education</a>
   <a href="#certifications">Certifications</a>
   <a href="#contact">Contact</a>
@@ -1421,51 +1373,6 @@ footer {
   </div>
 </section>
 
-<!-- SKILLS -->
-<section class="sec" id="skills">
-  <div class="sec-inner">
-    <div class="sec-head reveal">
-      <div class="sec-label">03 — Skills</div>
-      <h2 class="sec-name">Capabilities</h2>
-      <div class="sec-rule" style="background:linear-gradient(90deg,var(--purple),transparent);"></div>
-    </div>
-    <div class="skills-grid reveal">
-      <div class="sk-col p-sci">
-        <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Science</div></div>
-        <div class="sk-tags">
-          <span class="sk-tag">PCR &amp; SNP Analysis</span>
-          <span class="sk-tag">ELISA</span>
-          <span class="sk-tag">Parasite Identification</span>
-          <span class="sk-tag">Genetic Diversity Research</span>
-          <span class="sk-tag">Antibiotic Residue Testing</span>
-          <span class="sk-tag">Animal Necropsy</span>
-        </div>
-      </div>
-      <div class="sk-col p-biz">
-        <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Business</div></div>
-        <div class="sk-tags">
-          <span class="sk-tag">Private Equity</span>
-          <span class="sk-tag">Venture Capital</span>
-          <span class="sk-tag">Entrepreneurship</span>
-          <span class="sk-tag">Project Management</span>
-          <span class="sk-tag">Business Case Competitions</span>
-          <span class="sk-tag">Leadership &amp; Communication</span>
-        </div>
-      </div>
-      <div class="sk-col p-tech">
-        <div class="sk-head"><div class="sk-dot"></div><div class="sk-label">Technology</div></div>
-        <div class="sk-tags">
-          <span class="sk-tag">Artificial Intelligence</span>
-          <span class="sk-tag">Research &amp; Development</span>
-          <span class="sk-tag">Analytical Instruments</span>
-          <span class="sk-tag">Research Writing</span>
-          <span class="sk-tag">Data Analysis</span>
-          <span class="sk-tag">Cross-cultural Adaptability</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- EDUCATION -->
 <section class="sec" id="education">
