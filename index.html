@@ -779,18 +779,25 @@ nav {
   transition: background 0.22s;
 }
 .edu-row:hover { background: var(--glass2); }
-.edu-left { display: flex; align-items: center; gap: 1.1rem; }
+.edu-left { display: flex; align-items: center; gap: 1.25rem; }
 .edu-logo {
-  width: 42px; height: 42px; flex-shrink: 0;
-  border-radius: 10px; border: 1px solid var(--gb);
-  background: rgba(255,255,255,0.04);
+  width: 58px; height: 58px; flex-shrink: 0;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: #fff;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35), 0 1px 3px rgba(0,0,0,0.2);
+  transition: box-shadow 0.25s, transform 0.25s;
 }
-.edu-logo img { width: 100%; height: 100%; object-fit: contain; padding: 5px; display: block; }
-.edu-logo span { display: none; font-size: 0.6rem; font-weight: 800; color: var(--muted); }
+.edu-row:hover .edu-logo {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.25);
+  transform: scale(1.04);
+}
+.edu-logo img { width: 100%; height: 100%; object-fit: contain; padding: 7px; display: block; }
+.edu-logo span { display: none; font-size: 0.62rem; font-weight: 800; color: var(--muted); }
 .edu-logo.no-img img { display: none; }
-.edu-logo.no-img span { display: block; }
+.edu-logo.no-img span { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
 
 .edu-period { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.38rem; }
 .edu-deg    { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text); line-height: 1.3; }
