@@ -13,8 +13,9 @@ jobs:
       - name: Prepare deploy folder
         run: |
           mkdir dist
-          cp index.html about.html blog.html style.css script.js favicon.svg dist/
+          cp index.html about.html blog.html editor.html post.html style.css script.js favicon.svg dist/
           cp -r images dist/
+          if [ -d posts ]; then cp -r posts dist/; else mkdir -p dist/posts; fi
 
       - uses: cloudflare/wrangler-action@v3
         with:
