@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post — Bee Anuphong</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+#post-page { min-height: calc(100vh - 66px); padding: 5.5rem 2rem 5rem; }
+.post-wrap { max-width: 720px; margin: 0 auto; }
+
+.post-breadcrumb {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-bottom: 2.5rem; font-size: 0.8rem; color: var(--muted);
+}
+.post-breadcrumb a { color: var(--sub); text-decoration: none; transition: color 0.2s; }
+.post-breadcrumb a:hover { color: var(--text); }
+.post-breadcrumb-sep { opacity: 0.4; }
+
+.btn-edit-post {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.35rem 0.75rem; border-radius: var(--rs);
+  background: var(--glass2); border: 1px solid var(--gb);
+  color: var(--sub); font-size: 0.75rem; font-weight: 500;
+  text-decoration: none; transition: background 0.2s, color 0.2s;
+  margin-left: auto; flex-shrink: 0;
+}
+.btn-edit-post:hover { background: var(--gbhi); color: var(--text); }
+
+.post-header { margin-bottom: 2.5rem; }
+.post-meta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+.post-date { font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.post-tag {
+  display: inline-block; font-size: 0.7rem; font-weight: 500;
+  padding: 0.15rem 0.55rem; border-radius: 100px;
+  background: var(--glass); border: 1px solid var(--dim); color: var(--sub);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.post-title {
+  font-family: var(--serif); font-size: clamp(1.8rem,5vw,2.8rem); font-weight: 700;
+  color: var(--text); letter-spacing: -0.02em; line-height: 1.2;
+}
+.post-header-divider { margin-top: 2rem; height: 1px; background: var(--dim); }
+
+/* Article typography */
+.post-body { font-size: 1rem; line-height: 1.85; color: var(--text); }
+.post-body > * + * { margin-top: 1.4em; }
+.post-body h2 { font-family:var(--serif); font-size:1.6rem; font-weight:700; color:var(--text); letter-spacing:-0.02em; line-height:1.25; margin-top:2.5em; }
+.post-body h3 { font-family:var(--serif); font-size:1.25rem; font-weight:600; color:var(--text); letter-spacing:-0.01em; line-height:1.3; margin-top:2em; }
+.post-body h4 { font-family:var(--sans); font-size:0.8rem; font-weight:600; color:var(--sub); text-transform:uppercase; letter-spacing:0.08em; margin-top:1.8em; }
+.post-body p { color:var(--text); }
+.post-body a { color:var(--teal); text-decoration:underline; text-underline-offset:3px; }
+.post-body a:hover { color:var(--text); }
+.post-body strong,.post-body b { font-weight:600; color:var(--text); }
+.post-body em,.post-body i { font-style:italic; color:var(--sub); }
+.post-body code {
+  font-family:'Courier New','Fira Code',monospace; font-size:0.85em;
+  padding:0.15em 0.4em; border-radius:4px;
+  background:rgba(255,255,255,0.07); color:var(--teal); border:1px solid var(--dim);
+}
+.post-body ul,.post-body ol { padding-left:1.6em; color:var(--text); }
+.post-body li+li { margin-top:0.35em; }
+.post-body ul li { list-style:disc; }
+.post-body ol li { list-style:decimal; }
+.post-body blockquote {
+  border-left:3px solid var(--teal); padding:0.5rem 0 0.5rem 1.25rem;
+  margin-left:0; color:var(--sub); font-style:italic;
+}
+.post-body blockquote cite { display:block; margin-top:0.5rem; font-size:0.82rem; font-style:normal; color:var(--muted); }
+.post-body pre {
+  background:rgba(255,255,255,0.03); border:1px solid var(--dim);
+  border-radius:var(--rs); padding:1.1rem 1.25rem; overflow-x:auto;
+}
+.post-body pre code { background:none; border:none; padding:0; font-size:0.85rem; color:#b5cea8; }
+.post-body hr.post-delimiter { border:none; text-align:center; margin:2.5em 0; color:var(--muted); }
+.post-body hr.post-delimiter::before { content:'* * *'; letter-spacing:0.5em; font-size:1rem; }
+
+.post-draft-banner {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.6rem 1rem; border-radius: var(--rs);
+  background: rgba(232,148,58,0.1); border: 1px solid rgba(232,148,58,0.25);
+  color: var(--amber); font-size: 0.8rem; margin-bottom: 2rem;
+}
+
+.post-footer {
+  margin-top:4rem; padding-top:2rem; border-top:1px solid var(--dim);
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+}
+.post-footer-back {
+  display:inline-flex; align-items:center; gap:0.4rem;
+  font-size:0.85rem; color:var(--sub); text-decoration:none; transition:color 0.2s;
+}
+.post-footer-back:hover { color:var(--text); }
+
+.post-loading { display:flex; align-items:center; gap:0.5rem; color:var(--muted); font-size:0.85rem; padding:2rem 0; }
+.spinner { width:14px; height:14px; border:2px solid var(--dim); border-top-color:var(--sub); border-radius:50%; animation:spin 0.7s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+.post-not-found { text-align:center; padding:5rem 2rem; }
+.post-not-found p { font-family:var(--serif); font-size:1.4rem; font-style:italic; color:var(--sub); margin-bottom:1.5rem; }
+
+@media (max-width:600px) { #post-page { padding:5rem 1.25rem 4rem; } }
+</style>
+</head>
+<body>
+
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<div id="scroll-progress"></div>
+
+<nav>
+  <a href="index.html" class="nav-brand">Bee Anuphong</a>
+  <ul class="nav-menu">
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li class="nav-has-dropdown">
+      <a href="about.html">About Me</a>
+      <ul class="nav-dropdown">
+        <li><a href="about.html#profile">Profile</a></li>
+        <li><a href="about.html#experience">Experience</a></li>
+        <li><a href="about.html#volunteering">Activities</a></li>
+        <li><a href="about.html#education">Education</a></li>
+        <li><a href="about.html#certifications">Certifications</a></li>
+        <li><a href="about.html#contact">Contact</a></li>
+      </ul>
+    </li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<nav class="nav-drawer" id="drawer">
+  <a href="blog.html" class="active">Blog</a>
+  <div class="drawer-divider"><span>About Me</span></div>
+  <a href="about.html#profile" class="drawer-sub">Profile</a>
+  <a href="about.html#experience" class="drawer-sub">Experience</a>
+  <a href="about.html#volunteering" class="drawer-sub">Activities</a>
+  <a href="about.html#education" class="drawer-sub">Education</a>
+  <a href="about.html#certifications" class="drawer-sub">Certifications</a>
+  <a href="about.html#contact" class="drawer-sub">Contact</a>
+</nav>
+
+<section id="post-page">
+  <div class="post-wrap" id="post-wrap">
+    <div class="post-loading"><div class="spinner"></div>Loading…</div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Bee Anuphong</div>
+  <div class="f-social">
+    <a href="mailto:anuphong3502@gmail.com">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      anuphong3502@gmail.com
+    </a>
+    <a href="https://www.instagram.com/beeyopatt" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+      @beeyopatt
+    </a>
+  </div>
+  <span class="f-copy">© 2026 · Bangkok, Thailand</span>
+</footer>
+
+<script src="script.js"></script>
+<script>
+(function () {
+  var wrap = document.getElementById('post-wrap');
+  var params = new URLSearchParams(window.location.search);
+  var id = params.get('id');
+
+  function escHtml(s) {
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function formatDate(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  }
+  function getLocalPost(pid) {
+    try {
+      var posts = JSON.parse(localStorage.getItem('blog_posts')||'[]');
+      return posts.find(function(p){return p.id===pid;})||null;
+    } catch(e){ return null; }
+  }
+
+  function renderBlocks(blocks) {
+    if (!blocks||!blocks.length) return '<p style="color:var(--muted);font-style:italic">No content.</p>';
+    return blocks.map(function(block){
+      var d = block.data||{};
+      switch(block.type){
+        case 'paragraph':
+          return '<p>'+(d.text||'')+'</p>';
+        case 'header':
+          var lvl = Math.min(Math.max(parseInt(d.level)||2,2),4);
+          return '<h'+lvl+'>'+(d.text||'')+'</h'+lvl+'>';
+        case 'list': {
+          var tag = d.style==='ordered'?'ol':'ul';
+          var items=(d.items||[]).map(function(item){
+            var text=typeof item==='string'?item:(item.content||'');
+            return '<li>'+text+'</li>';
+          }).join('');
+          return '<'+tag+'>'+items+'</'+tag+'>';
+        }
+        case 'code':
+          return '<pre><code>'+escHtml(d.code||'')+'</code></pre>';
+        case 'quote': {
+          var cite=d.caption?'<cite>'+d.caption+'</cite>':'';
+          return '<blockquote><p>'+(d.text||'')+'</p>'+cite+'</blockquote>';
+        }
+        case 'delimiter':
+          return '<hr class="post-delimiter">';
+        default: return '';
+      }
+    }).filter(Boolean).join('\n');
+  }
+
+  function renderPost(post, isDraft) {
+    document.title = (post.title||'Post')+' — Bee Anuphong';
+    var tags=(post.tags||[]).map(function(t){return '<span class="post-tag">'+escHtml(t)+'</span>';}).join('');
+    var blocks=(post.content&&post.content.blocks)?post.content.blocks:[];
+    var draftBanner = isDraft
+      ? '<div class="post-draft-banner"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>This is a draft preview — not yet published.</div>'
+      : '';
+    wrap.innerHTML =
+      '<nav class="post-breadcrumb">'+
+        '<a href="blog.html">Blog</a>'+
+        '<span class="post-breadcrumb-sep">/</span>'+
+        '<span>'+escHtml(post.title||'Untitled')+'</span>'+
+        '<a href="editor.html?id='+encodeURIComponent(id)+'" class="btn-edit-post">'+
+          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit'+
+        '</a>'+
+      '</nav>'+
+      draftBanner+
+      '<header class="post-header">'+
+        '<div class="post-meta-row">'+
+          '<time class="post-date">'+formatDate(post.created_at)+'</time>'+tags+
+        '</div>'+
+        '<h1 class="post-title">'+escHtml(post.title||'Untitled')+'</h1>'+
+        '<div class="post-header-divider"></div>'+
+      '</header>'+
+      '<article class="post-body">'+renderBlocks(blocks)+'</article>'+
+      '<footer class="post-footer">'+
+        '<a href="blog.html" class="post-footer-back">'+
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to Blog'+
+        '</a>'+
+        '<a href="editor.html?id='+encodeURIComponent(id)+'" class="btn-edit-post">'+
+          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit post'+
+        '</a>'+
+      '</footer>';
+  }
+
+  function renderNotFound() {
+    wrap.innerHTML =
+      '<div class="post-not-found">'+
+        '<p>Post not found.</p>'+
+        '<a href="blog.html" class="post-footer-back">'+
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to Blog'+
+        '</a>'+
+      '</div>';
+  }
+
+  if (!id) { renderNotFound(); return; }
+
+  /* Try to fetch published post from static file first */
+  fetch('posts/'+encodeURIComponent(id)+'.json?v='+Date.now())
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function(post){ renderPost(post, false); })
+    .catch(function(){
+      /* Fallback: check localStorage (draft preview) */
+      var local = getLocalPost(id);
+      if (local) { renderPost(local, true); }
+      else { renderNotFound(); }
+    });
+})();
+</script>
+</body>
+</html>

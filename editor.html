@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor — Bee Anuphong</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.30.2/dist/editorjs.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@2.8.7/dist/header.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@1.10.0/dist/list.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/code@2.9.3/dist/code.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@2.6.0/dist/quote.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@1.4.2/dist/delimiter.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@1.5.0/dist/inline-code.umd.min.js"></script>
+<style>
+/* ── Token setup overlay ── */
+.token-overlay {
+  position: fixed; inset: 0; z-index: 900;
+  background: rgba(7,9,15,0.92);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem;
+}
+.token-card {
+  background: var(--bg2);
+  border: 1px solid var(--gb);
+  border-radius: 16px;
+  padding: 2.5rem;
+  max-width: 480px; width: 100%;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+}
+.token-card-title {
+  font-family: var(--serif); font-size: 1.4rem; font-weight: 700;
+  color: var(--text); margin-bottom: 0.5rem;
+}
+.token-card-sub { font-size: 0.85rem; color: var(--sub); line-height: 1.6; margin-bottom: 1.75rem; }
+.token-card-sub a { color: var(--teal); text-decoration: underline; }
+.token-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--sub); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+.token-input {
+  width: 100%; padding: 0.65rem 0.9rem;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--gb);
+  border-radius: var(--rs); color: var(--text); font-family: var(--sans);
+  font-size: 0.9rem; outline: none; transition: border-color 0.2s;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 0.5rem;
+}
+.token-input:focus { border-color: var(--teal); }
+.token-hint { font-size: 0.75rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.5; }
+.token-hint a { color: var(--teal); }
+.token-error { font-size: 0.78rem; color: #e06b8b; margin-bottom: 1rem; display: none; }
+.btn-token-save {
+  width: 100%; padding: 0.7rem;
+  background: var(--teal); border: none;
+  border-radius: var(--rs); color: #07090F;
+  font-family: var(--sans); font-size: 0.9rem; font-weight: 600;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.btn-token-save:hover { opacity: 0.85; }
+.btn-token-save:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Editor topbar ── */
+.editor-topbar {
+  position: fixed; top: 66px; left: 0; right: 0; height: 48px; z-index: 400;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+  background: rgba(7,9,15,0.88);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--dim); gap: 1rem;
+}
+.topbar-left { display: flex; align-items: center; gap: 1rem; }
+.topbar-back { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--sub); text-decoration: none; transition: color 0.2s; }
+.topbar-back:hover { color: var(--text); }
+.topbar-divider { width: 1px; height: 16px; background: var(--dim); }
+.topbar-status { font-size: 0.75rem; color: var(--muted); min-width: 110px; transition: color 0.3s; }
+.topbar-status.saving { color: var(--amber); }
+.topbar-status.saved  { color: var(--teal); }
+.topbar-status.error  { color: #e06b8b; }
+.topbar-right { display: flex; align-items: center; gap: 0.6rem; }
+
+/* publish toggle */
+.publish-toggle { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.78rem; color: var(--sub); user-select: none; }
+.publish-toggle input { display: none; }
+.toggle-track { width: 34px; height: 18px; border-radius: 100px; background: var(--dim); position: relative; transition: background 0.2s; flex-shrink: 0; border: 1px solid transparent; }
+.toggle-thumb { position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--sub); transition: transform 0.2s, background 0.2s; }
+.publish-toggle input:checked + .toggle-track { background: rgba(56,201,176,0.2); border-color: var(--teal); }
+.publish-toggle input:checked + .toggle-track .toggle-thumb { transform: translateX(16px); background: var(--teal); }
+.publish-label { transition: color 0.2s; }
+.publish-toggle input:checked ~ .publish-label { color: var(--teal); }
+
+.btn-topbar {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.4rem 0.85rem; border-radius: var(--rs);
+  font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
+  cursor: pointer; transition: background 0.2s, color 0.2s; border: 1px solid var(--gb);
+}
+.btn-save { background: var(--glass2); color: var(--text); }
+.btn-save:hover { background: var(--gbhi); }
+.btn-save:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-icon { background: transparent; color: var(--muted); border-color: transparent; padding: 0.4rem 0.5rem; }
+.btn-icon:hover { background: var(--glass2); color: var(--sub); }
+.btn-delete { background: transparent; color: var(--muted); border-color: transparent; }
+.btn-delete:hover { color: #e06b8b; background: rgba(224,107,139,0.08); border-color: rgba(224,107,139,0.2); }
+
+/* ── Editor main ── */
+#editor-main {
+  padding-top: calc(66px + 48px + 3rem);
+  padding-bottom: 6rem; padding-left: 2rem; padding-right: 2rem;
+  min-height: 100vh;
+}
+.editor-container { max-width: 720px; margin: 0 auto; }
+
+.editor-title-input {
+  width: 100%; background: transparent; border: none; outline: none;
+  font-family: var(--serif); font-size: clamp(1.8rem,5vw,2.8rem);
+  font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1.2;
+  resize: none; overflow: hidden; min-height: 1.2em; margin-bottom: 0.5rem;
+}
+.editor-title-input::placeholder { color: var(--muted); }
+
+.editor-tags-row {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem;
+  margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--dim);
+}
+.tags-label { font-size: 0.75rem; color: var(--muted); flex-shrink: 0; }
+.tag-pill {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.55rem;
+  border-radius: 100px; border: 1px solid var(--dim);
+  background: var(--glass); color: var(--sub); cursor: pointer;
+  user-select: none; text-transform: uppercase; letter-spacing: 0.04em;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.tag-pill.active { background: rgba(56,201,176,0.12); border-color: rgba(56,201,176,0.35); color: var(--teal); }
+.tag-custom-input {
+  background: transparent; border: none; outline: none;
+  font-family: var(--sans); font-size: 0.75rem; color: var(--sub); width: 110px;
+}
+.tag-custom-input::placeholder { color: var(--muted); }
+
+/* ── Editor.js dark theme ── */
+#editorjs { min-height: 300px; }
+.codex-editor { color: var(--text) !important; }
+.codex-editor__redactor { padding-bottom: 300px !important; }
+.ce-toolbar__plus,.ce-toolbar__settings-btn { color: var(--sub) !important; background: var(--glass2) !important; border: 1px solid var(--dim) !important; }
+.ce-toolbar__plus:hover,.ce-toolbar__settings-btn:hover { color: var(--text) !important; background: var(--gbhi) !important; }
+.ce-block__content,.ce-toolbar__content { max-width: 100% !important; }
+.ce-paragraph { color: var(--text) !important; font-size: 1rem; line-height: 1.8; }
+.ce-paragraph[data-placeholder]:empty::before { color: var(--muted) !important; }
+.ce-header { color: var(--text) !important; font-family: var(--serif) !important; font-weight: 700 !important; letter-spacing: -0.02em !important; }
+.ce-inline-toolbar { background: var(--bg2) !important; border: 1px solid var(--gb) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.7) !important; border-radius: 8px !important; }
+.ce-inline-toolbar__dropdown { background: var(--bg2) !important; border: 1px solid var(--gb) !important; }
+.ce-inline-tool { color: var(--sub) !important; }
+.ce-inline-tool:hover,.ce-inline-tool--active { color: var(--text) !important; background: var(--glass2) !important; }
+.ce-inline-toolbar__toggler-and-button-wrapper { border-color: var(--dim) !important; }
+.ce-conversion-toolbar { background: var(--bg2) !important; border: 1px solid var(--gb) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.7) !important; }
+.ce-conversion-tool { color: var(--text) !important; }
+.ce-conversion-tool:hover { background: var(--glass2) !important; }
+.ce-conversion-tool__icon { background: var(--glass2) !important; }
+.ce-popover,.ce-popover--inline { background: var(--bg2) !important; border: 1px solid var(--gb) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.7) !important; border-radius: var(--r) !important; }
+.ce-popover__item { color: var(--text) !important; }
+.ce-popover__item:hover,.ce-popover__item--focused { background: var(--glass2) !important; }
+.ce-popover__item-icon { background: var(--glass2) !important; border-radius: 6px !important; }
+.ce-popover__item-secondary-label { color: var(--muted) !important; }
+.ce-popover-header__text { color: var(--sub) !important; }
+.cdx-search-field { background: rgba(255,255,255,0.04) !important; border-color: var(--dim) !important; }
+.cdx-search-field__input { color: var(--text) !important; background: transparent !important; }
+.cdx-search-field__icon { color: var(--muted) !important; }
+.ce-settings { background: var(--bg2) !important; border: 1px solid var(--gb) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.7) !important; }
+.ce-settings__button,.cdx-settings-button { color: var(--sub) !important; }
+.ce-settings__button:hover,.cdx-settings-button:hover { background: var(--glass2) !important; color: var(--text) !important; }
+.cdx-input { background: rgba(255,255,255,0.03) !important; border-color: var(--dim) !important; color: var(--text) !important; box-shadow: none !important; }
+.cdx-input:focus { border-color: var(--teal) !important; }
+.cdx-code { background: rgba(255,255,255,0.03) !important; border-color: var(--dim) !important; border-radius: var(--rs) !important; }
+.ce-code__textarea { color: #b5cea8 !important; background: transparent !important; font-family: 'Courier New', monospace !important; font-size: 0.85rem !important; }
+.cdx-quote__text { border-left: 3px solid var(--teal) !important; color: var(--text) !important; font-style: italic !important; padding-left: 1rem !important; background: transparent !important; border-radius: 0 !important; }
+.cdx-quote__caption { color: var(--muted) !important; font-size: 0.85rem !important; }
+.ce-delimiter::before { color: var(--dim) !important; font-size: 1.5rem !important; letter-spacing: 0.5rem !important; }
+.cdx-list__item,.cdx-list { color: var(--text) !important; }
+
+@media (max-width: 600px) {
+  #editor-main { padding-left: 1rem; padding-right: 1rem; }
+  .editor-topbar { padding: 0 1rem; }
+  .btn-delete { display: none; }
+  .topbar-status { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">Bee Anuphong</a>
+  <ul class="nav-menu">
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li class="nav-has-dropdown">
+      <a href="about.html">About Me</a>
+      <ul class="nav-dropdown">
+        <li><a href="about.html#profile">Profile</a></li>
+        <li><a href="about.html#experience">Experience</a></li>
+        <li><a href="about.html#volunteering">Activities</a></li>
+        <li><a href="about.html#education">Education</a></li>
+        <li><a href="about.html#certifications">Certifications</a></li>
+        <li><a href="about.html#contact">Contact</a></li>
+      </ul>
+    </li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<nav class="nav-drawer" id="drawer">
+  <a href="blog.html" class="active">Blog</a>
+  <div class="drawer-divider"><span>About Me</span></div>
+  <a href="about.html#profile" class="drawer-sub">Profile</a>
+  <a href="about.html#experience" class="drawer-sub">Experience</a>
+  <a href="about.html#volunteering" class="drawer-sub">Activities</a>
+  <a href="about.html#education" class="drawer-sub">Education</a>
+  <a href="about.html#certifications" class="drawer-sub">Certifications</a>
+  <a href="about.html#contact" class="drawer-sub">Contact</a>
+</nav>
+
+<!-- GitHub Token setup overlay -->
+<div id="token-overlay" class="token-overlay" style="display:none">
+  <div class="token-card">
+    <h2 class="token-card-title">Connect to GitHub</h2>
+    <p class="token-card-sub">
+      เพื่อ publish post ขึ้น site จริง ต้องใช้ GitHub Personal Access Token (PAT)
+      ที่มีสิทธิ์ <strong>Contents → Read &amp; Write</strong> บน repo นี้เท่านั้น
+    </p>
+    <label class="token-label" for="token-input">GitHub Token</label>
+    <input type="password" id="token-input" class="token-input" placeholder="github_pat_…" autocomplete="off" spellcheck="false">
+    <p class="token-hint">
+      สร้าง token ที่
+      <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">
+        github.com/settings/personal-access-tokens/new
+      </a><br>
+      เลือก <em>Fine-grained</em> → Repository: <strong>portfolio</strong> → Contents: <strong>Read &amp; Write</strong><br>
+      Token จะเก็บเฉพาะใน browser นี้ (localStorage)
+    </p>
+    <p id="token-error" class="token-error"></p>
+    <button id="btn-token-save" class="btn-token-save">Verify &amp; Save Token</button>
+  </div>
+</div>
+
+<!-- EDITOR TOPBAR -->
+<div class="editor-topbar">
+  <div class="topbar-left">
+    <a href="blog.html" class="topbar-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Blog
+    </a>
+    <div class="topbar-divider"></div>
+    <span id="save-status" class="topbar-status">Draft</span>
+  </div>
+  <div class="topbar-right">
+    <!-- settings / token -->
+    <button class="btn-topbar btn-icon" id="btn-token-settings" title="GitHub token settings">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+    <!-- preview link -->
+    <a id="btn-preview" href="#" target="_blank" class="btn-topbar btn-icon" title="Preview post" style="display:none">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+    <label class="publish-toggle" title="Publish to site">
+      <input type="checkbox" id="publish-toggle">
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+      <span class="publish-label" id="publish-label">Draft</span>
+    </label>
+    <button class="btn-topbar btn-save" id="btn-save">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      Save
+    </button>
+    <button class="btn-topbar btn-delete" id="btn-delete" style="display:none" title="Delete post">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- EDITOR MAIN -->
+<main id="editor-main">
+  <div class="editor-container">
+    <textarea id="editor-title" class="editor-title-input" placeholder="Post title…" rows="1" spellcheck="true"></textarea>
+    <div class="editor-tags-row">
+      <span class="tags-label">Tags:</span>
+      <span class="tag-pill" data-tag="Science">Science</span>
+      <span class="tag-pill" data-tag="Business">Business</span>
+      <span class="tag-pill" data-tag="Technology">Technology</span>
+      <span class="tag-pill" data-tag="Personal">Personal</span>
+      <input type="text" class="tag-custom-input" id="tag-custom" placeholder="+ custom tag" maxlength="30">
+    </div>
+    <div id="editorjs"></div>
+  </div>
+</main>
+
+<script src="script.js"></script>
+<script>
+(function () {
+  /* ── Config ── */
+  var GH_OWNER  = 'anuphongpa-art';
+  var GH_REPO   = 'portfolio';
+  var GH_BRANCH = 'main';
+  var GH_API    = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/';
+
+  /* ── State ── */
+  var currentId   = null;
+  var isPublished = false;
+  var activeTags  = [];
+  var editor      = null;
+  var autoTimer   = null;
+  var wasPublishedOnGH = false; /* track if this post is already on GitHub */
+
+  /* ── DOM ── */
+  var titleEl    = document.getElementById('editor-title');
+  var statusEl   = document.getElementById('save-status');
+  var toggleEl   = document.getElementById('publish-toggle');
+  var labelEl    = document.getElementById('publish-label');
+  var btnSave    = document.getElementById('btn-save');
+  var btnDelete  = document.getElementById('btn-delete');
+  var btnPreview = document.getElementById('btn-preview');
+  var overlay    = document.getElementById('token-overlay');
+
+  /* ── Token helpers ── */
+  function getToken() { return localStorage.getItem('gh_token') || ''; }
+  function setToken(t) { localStorage.setItem('gh_token', t); }
+
+  /* ── localStorage helpers ── */
+  function getPosts() { try { return JSON.parse(localStorage.getItem('blog_posts')||'[]'); } catch(e){ return []; } }
+  function setPosts(arr) { localStorage.setItem('blog_posts', JSON.stringify(arr)); }
+  function getLocalPost(id) { return getPosts().find(function(p){return p.id===id;})||null; }
+  function uid() { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+
+  function extractExcerpt(blocks) {
+    for (var i=0;i<blocks.length;i++) {
+      var b=blocks[i];
+      if ((b.type==='paragraph'||b.type==='header') && b.data && b.data.text) {
+        var plain=b.data.text.replace(/<[^>]+>/g,'').trim();
+        if (plain) return plain.slice(0,160);
+      }
+    }
+    return '';
+  }
+
+  function autoResize(el) { el.style.height='auto'; el.style.height=el.scrollHeight+'px'; }
+  function setStatus(msg,cls) { statusEl.textContent=msg; statusEl.className='topbar-status'+(cls?' '+cls:''); }
+
+  /* ── GitHub API ── */
+  function toBase64(str) {
+    /* encode Unicode safely */
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+  function fromBase64(str) {
+    return decodeURIComponent(escape(atob(str.replace(/\n/g,''))));
+  }
+
+  function ghFetch(path, opts) {
+    return fetch(GH_API + path, Object.assign({
+      headers: {
+        'Authorization': 'Bearer ' + getToken(),
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      }
+    }, opts));
+  }
+
+  function ghGet(path) {
+    return ghFetch(path).then(function(r){
+      if (r.status===404) return null;
+      if (!r.ok) return r.json().then(function(e){ throw new Error(e.message||('GitHub '+r.status)); });
+      return r.json();
+    });
+  }
+
+  function ghPut(path, content, message, sha) {
+    var body = { message: message, content: toBase64(JSON.stringify(content, null, 2)), branch: GH_BRANCH };
+    if (sha) body.sha = sha;
+    return ghFetch(path, { method:'PUT', body: JSON.stringify(body) }).then(function(r){
+      if (!r.ok) return r.json().then(function(e){ throw new Error(e.message||('GitHub '+r.status)); });
+      return r.json();
+    });
+  }
+
+  function ghDelete(path, message, sha) {
+    return ghFetch(path, {
+      method: 'DELETE',
+      body: JSON.stringify({ message: message, sha: sha, branch: GH_BRANCH })
+    }).then(function(r){ return r.ok; });
+  }
+
+  /* ── Publish to GitHub ── */
+  async function publishToGitHub(post) {
+    var postPath  = 'posts/' + post.id + '.json';
+    var indexPath = 'posts/index.json';
+
+    /* 1. Upsert post file */
+    var existingPost = await ghGet(postPath);
+    var postSha = existingPost ? existingPost.sha : null;
+    await ghPut(postPath, post, (postSha ? 'Update' : 'Add') + ' post: ' + post.title, postSha);
+
+    /* 2. Upsert index */
+    var existingIndex = await ghGet(indexPath);
+    var indexSha  = existingIndex ? existingIndex.sha : null;
+    var indexData = [];
+    if (existingIndex && existingIndex.content) {
+      try { indexData = JSON.parse(fromBase64(existingIndex.content)); } catch(e){}
+    }
+    var meta = { id:post.id, title:post.title, excerpt:post.excerpt, tags:post.tags, created_at:post.created_at, updated_at:post.updated_at };
+    var idx = indexData.findIndex(function(p){ return p.id===post.id; });
+    if (idx>=0) indexData[idx]=meta; else indexData.unshift(meta);
+    await ghPut(indexPath, indexData, 'Update blog index', indexSha);
+
+    wasPublishedOnGH = true;
+  }
+
+  /* ── Unpublish from GitHub ── */
+  async function unpublishFromGitHub(postId) {
+    var postPath  = 'posts/' + postId + '.json';
+    var indexPath = 'posts/index.json';
+
+    /* Delete post file */
+    var existingPost = await ghGet(postPath);
+    if (existingPost) await ghDelete(postPath, 'Remove post: ' + postId, existingPost.sha);
+
+    /* Remove from index */
+    var existingIndex = await ghGet(indexPath);
+    if (existingIndex && existingIndex.content) {
+      var indexData = [];
+      try { indexData = JSON.parse(fromBase64(existingIndex.content)); } catch(e){}
+      indexData = indexData.filter(function(p){ return p.id!==postId; });
+      await ghPut(indexPath, indexData, 'Update blog index', existingIndex.sha);
+    }
+
+    wasPublishedOnGH = false;
+  }
+
+  /* ── Save ── */
+  async function save() {
+    if (!editor) return;
+    btnSave.disabled = true;
+    setStatus('Saving…', 'saving');
+    try {
+      var output  = await editor.save();
+      var posts   = getPosts();
+      var now     = new Date().toISOString();
+      var prevIdx = currentId ? posts.findIndex(function(p){ return p.id===currentId; }) : -1;
+      var post = {
+        id:          currentId || uid(),
+        title:       titleEl.value.trim() || 'Untitled',
+        excerpt:     extractExcerpt(output.blocks),
+        content:     output,
+        tags:        activeTags.slice(),
+        published:   isPublished,
+        created_at:  (prevIdx>=0 ? posts[prevIdx].created_at : null) || now,
+        updated_at:  now
+      };
+      if (prevIdx>=0) posts[prevIdx]=post; else posts.unshift(post);
+      setPosts(posts);
+      currentId = post.id;
+      history.replaceState(null,'','editor.html?id='+currentId);
+      btnDelete.style.display = '';
+      btnPreview.href = 'post.html?id='+currentId;
+      btnPreview.style.display = '';
+
+      /* If published → also commit to GitHub */
+      if (isPublished) {
+        setStatus('Publishing…', 'saving');
+        if (!getToken()) { showTokenOverlay(); btnSave.disabled=false; return; }
+        await publishToGitHub(post);
+        var t=new Date();
+        setStatus('Published ✓ — deploying (~1 min)', 'saved');
+        setTimeout(function(){ setStatus('Published'); },5000);
+      } else {
+        /* If toggled off and was on GitHub, remove it */
+        if (wasPublishedOnGH && getToken()) {
+          setStatus('Unpublishing…', 'saving');
+          await unpublishFromGitHub(post.id);
+        }
+        var t2=new Date();
+        setStatus('Draft saved ' + t2.getHours()+':'+String(t2.getMinutes()).padStart(2,'0'), 'saved');
+        setTimeout(function(){ setStatus('Draft'); },3000);
+      }
+    } catch(err) {
+      console.error(err);
+      setStatus('Error: ' + (err.message||err), 'error');
+    }
+    btnSave.disabled = false;
+  }
+
+  function scheduleAutoSave() {
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(function(){ save(); }, 4000);
+  }
+
+  /* ── Delete ── */
+  btnDelete.addEventListener('click', async function() {
+    if (!currentId) return;
+    if (!confirm('Delete this post? This cannot be undone.')) return;
+    try {
+      if (wasPublishedOnGH && getToken()) {
+        setStatus('Deleting…','saving');
+        await unpublishFromGitHub(currentId);
+      }
+      setPosts(getPosts().filter(function(p){ return p.id!==currentId; }));
+      window.location.href = 'blog.html';
+    } catch(err) {
+      setStatus('Error: '+(err.message||err),'error');
+    }
+  });
+
+  btnSave.addEventListener('click', function(){ save(); });
+
+  /* ── Publish toggle ── */
+  toggleEl.addEventListener('change', function(){
+    isPublished = this.checked;
+    labelEl.textContent = isPublished ? 'Publish' : 'Draft';
+  });
+
+  /* ── Tags ── */
+  document.querySelectorAll('.tag-pill').forEach(function(pill){
+    pill.addEventListener('click', function(){
+      var tag=this.dataset.tag;
+      if (activeTags.includes(tag)) { activeTags=activeTags.filter(function(t){return t!==tag;}); this.classList.remove('active'); }
+      else { activeTags.push(tag); this.classList.add('active'); }
+    });
+  });
+  var customInput=document.getElementById('tag-custom');
+  customInput.addEventListener('keydown', function(e){
+    if ((e.key==='Enter'||e.key===',') && this.value.trim()) {
+      e.preventDefault();
+      var val=this.value.trim().replace(/,/g,'');
+      if (val && !activeTags.includes(val)) {
+        activeTags.push(val);
+        var pill=document.createElement('span');
+        pill.className='tag-pill active'; pill.dataset.tag=val; pill.textContent=val;
+        pill.addEventListener('click',function(){ activeTags=activeTags.filter(function(t){return t!==val;}); pill.remove(); });
+        customInput.parentNode.insertBefore(pill,customInput);
+      }
+      this.value='';
+    }
+  });
+  titleEl.addEventListener('input', function(){ autoResize(this); scheduleAutoSave(); });
+
+  /* ── Token overlay ── */
+  function showTokenOverlay() { overlay.style.display='flex'; }
+  function hideTokenOverlay() { overlay.style.display='none'; }
+  document.getElementById('btn-token-settings').addEventListener('click', showTokenOverlay);
+  document.getElementById('btn-token-save').addEventListener('click', async function(){
+    var inp    = document.getElementById('token-input');
+    var errEl  = document.getElementById('token-error');
+    var btn    = this;
+    var token  = inp.value.trim();
+    if (!token) { errEl.textContent='กรุณาใส่ token'; errEl.style.display='block'; return; }
+    btn.disabled=true; btn.textContent='Verifying…'; errEl.style.display='none';
+    try {
+      /* Verify token by reading the repo */
+      var res = await fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO, {
+        headers:{ 'Authorization':'Bearer '+token, 'Accept':'application/vnd.github.v3+json' }
+      });
+      if (!res.ok) throw new Error('Token ไม่ถูกต้องหรือไม่มีสิทธิ์ ('+res.status+')');
+      setToken(token);
+      hideTokenOverlay();
+      /* retry save if pending */
+      save();
+    } catch(err) {
+      errEl.textContent = err.message || 'ไม่สามารถยืนยัน token ได้';
+      errEl.style.display='block';
+    }
+    btn.disabled=false; btn.textContent='Verify & Save Token';
+  });
+
+  /* ── Load existing post ── */
+  var params = new URLSearchParams(window.location.search);
+  var loadId = params.get('id');
+  var initialData = undefined;
+
+  if (loadId) {
+    var existing = getLocalPost(loadId);
+    if (existing) {
+      currentId        = loadId;
+      titleEl.value    = existing.title || '';
+      autoResize(titleEl);
+      isPublished      = !!existing.published;
+      wasPublishedOnGH = isPublished;
+      toggleEl.checked = isPublished;
+      labelEl.textContent = isPublished ? 'Publish' : 'Draft';
+      activeTags = (existing.tags||[]).slice();
+      activeTags.forEach(function(tag){
+        var pill=document.querySelector('.tag-pill[data-tag="'+tag+'"]');
+        if (pill) { pill.classList.add('active'); }
+        else {
+          var np=document.createElement('span'); np.className='tag-pill active';
+          np.dataset.tag=tag; np.textContent=tag;
+          np.addEventListener('click',function(){ activeTags=activeTags.filter(function(t){return t!==tag;}); np.remove(); });
+          customInput.parentNode.insertBefore(np,customInput);
+        }
+      });
+      initialData = existing.content;
+      btnDelete.style.display='';
+      btnPreview.href='post.html?id='+currentId; btnPreview.style.display='';
+    }
+  }
+
+  /* ── Init Editor.js ── */
+  editor = new EditorJS({
+    holder: 'editorjs',
+    placeholder: 'Start writing… (type / for blocks)',
+    autofocus: !loadId,
+    data: initialData,
+    onChange: function(){ scheduleAutoSave(); },
+    tools: {
+      header:     { class: Header, config:{ levels:[2,3,4], defaultLevel:2 }, inlineToolbar:true },
+      list:       { class: List,   inlineToolbar:true, config:{ defaultStyle:'unordered' } },
+      code:       { class: CodeTool },
+      quote:      { class: Quote,  inlineToolbar:true },
+      delimiter:  Delimiter,
+      inlineCode: { class: InlineCode, shortcut:'CMD+SHIFT+C' }
+    }
+  });
+
+  editor.isReady.then(function(){
+    setStatus(currentId ? (isPublished ? 'Published' : 'Draft') : 'Draft');
+    /* Show token overlay if no token and no existing post */
+    if (!getToken() && !loadId) {
+      setTimeout(showTokenOverlay, 600);
+    }
+  });
+})();
+</script>
+</body>
+</html>
