@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="build" content="v2">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Bee Anuphong</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="images/profile.png">
+<meta name="description" content="Blog by Bee Anuphong — thoughts at the intersection of Science, Business, and Technology. Coming soon.">
+<meta name="author" content="Bee Anuphong">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog — Bee Anuphong">
+<meta property="og:description" content="Thoughts at the intersection of Science, Business, and Technology. Coming soon.">
+<meta property="og:image" content="https://anuphongpa-art.github.io/portfolio/images/profile.png">
+<meta property="og:url" content="https://anuphongpa-art.github.io/portfolio/blog.html">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog — Bee Anuphong">
+<meta name="twitter:description" content="Thoughts at the intersection of Science, Business, and Technology. Coming soon.">
+<meta name="twitter:image" content="https://anuphongpa-art.github.io/portfolio/images/profile.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  #blog {
+    min-height: calc(100vh - 66px - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .blog-coming-soon-label {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--sub);
+    letter-spacing: 0.02em;
+  }
+</style>
+</head>
+<body>
+
+<!-- BACK TO TOP -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">Bee Anuphong</a>
+  <ul class="nav-menu">
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li class="nav-has-dropdown">
+      <a href="about.html">About Me</a>
+      <ul class="nav-dropdown">
+        <li><a href="about.html#profile">Profile</a></li>
+        <li><a href="about.html#experience">Experience</a></li>
+        <li><a href="about.html#volunteering">Activities</a></li>
+        <li><a href="about.html#education">Education</a></li>
+        <li><a href="about.html#certifications">Certifications</a></li>
+        <li><a href="about.html#contact">Contact</a></li>
+      </ul>
+    </li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<nav class="nav-drawer" id="drawer">
+  <a href="blog.html" class="active">Blog</a>
+  <div class="drawer-divider"><span>About Me</span></div>
+  <a href="about.html#profile" class="drawer-sub">Profile</a>
+  <a href="about.html#experience" class="drawer-sub">Experience</a>
+  <a href="about.html#volunteering" class="drawer-sub">Activities</a>
+  <a href="about.html#education" class="drawer-sub">Education</a>
+  <a href="about.html#certifications" class="drawer-sub">Certifications</a>
+  <a href="about.html#contact" class="drawer-sub">Contact</a>
+</nav>
+
+<!-- BLOG COMING SOON -->
+<section id="blog">
+  <p class="blog-coming-soon-label">Coming Soon</p>
+</section>
+
+<footer>
+  <div class="f-brand">Bee Anuphong</div>
+  <div class="f-social">
+    <a href="mailto:anuphong3502@gmail.com">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      anuphong3502@gmail.com
+    </a>
+    <a href="https://www.instagram.com/beeyopatt" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+      @beeyopatt
+    </a>
+  </div>
+  <span class="f-copy">© 2026 · Bangkok, Thailand</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

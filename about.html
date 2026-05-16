@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="build" content="v2">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me — Bee Anuphong</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="images/profile.png">
+<meta name="description" content="About Bee Anuphong — M.Sc. Biochemistry candidate at Kasetsart University. Researcher, entrepreneur, and lifelong learner at the intersection of Science, Business, and Technology.">
+<meta name="author" content="Bee Anuphong">
+
+<!-- Open Graph -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="About Me — Bee Anuphong">
+<meta property="og:description" content="Researcher and entrepreneur with a background in life sciences, strategic business, and emerging technology. International experience at The University of Tokyo.">
+<meta property="og:image" content="https://anuphongpa-art.github.io/portfolio/images/profile.png">
+<meta property="og:url" content="https://anuphongpa-art.github.io/portfolio/about.html">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About Me — Bee Anuphong">
+<meta name="twitter:description" content="Researcher and entrepreneur with a background in life sciences, strategic business, and emerging technology.">
+<meta name="twitter:image" content="https://anuphongpa-art.github.io/portfolio/images/profile.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- BACK TO TOP -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
+<!-- LIGHTBOX -->
+<div id="lb">
+  <button id="lb-close" onclick="closeLB()">✕</button>
+  <button id="lb-prev" onclick="moveLB(-1)">&#8592;</button>
+  <img id="lb-img" src="" alt="">
+  <button id="lb-next" onclick="moveLB(1)">&#8594;</button>
+  <div id="lb-counter"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">Bee Anuphong</a>
+  <ul class="nav-menu">
+    <li><a href="blog.html">Blog</a></li>
+    <li class="nav-has-dropdown">
+      <a href="about.html" class="active">About Me</a>
+      <ul class="nav-dropdown">
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#volunteering">Activities</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<nav class="nav-drawer" id="drawer">
+  <a href="blog.html">Blog</a>
+  <div class="drawer-divider"><span>About Me</span></div>
+  <a href="#profile" class="drawer-sub">Profile</a>
+  <a href="#experience" class="drawer-sub">Experience</a>
+  <a href="#volunteering" class="drawer-sub">Activities</a>
+  <a href="#education" class="drawer-sub">Education</a>
+  <a href="#certifications" class="drawer-sub">Certifications</a>
+  <a href="#contact" class="drawer-sub">Contact</a>
+</nav>
+
+<!-- PROFILE -->
+<section class="sec" id="profile" style="padding-top: 9rem;">
+  <div class="sec-inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">00 — Profile</div>
+      <h2 class="sec-name">Who I Am</h2>
+      <div class="sec-rule" style="background:linear-gradient(90deg,var(--teal),transparent);"></div>
+    </div>
+    <div class="profile-grid reveal">
+      <div class="profile-col p-sci">
+        <div class="pc-label"><div class="pc-dot"></div>Science</div>
+        <p class="pc-body">Diverse academic and practical background in biochemistry, veterinary technology, and genetics. Research covers genetic diversity in Thai Indigenous chickens and antibiotic residue testing in pork.</p>
+        <div class="pc-tags">
+          <span class="pc-tag">Biochemistry</span><span class="pc-tag">Genetics</span>
+          <span class="pc-tag">Vet Technology</span>
+        </div>
+      </div>
+      <div class="profile-col p-biz">
+        <div class="pc-label"><div class="pc-dot"></div>Business</div>
+        <p class="pc-body">Actively involved in entrepreneurship through the KU Startup Club and business case competitions. Passionate about innovation and the intersection of technology and business, with strong project management and leadership capabilities.</p>
+        <div class="pc-tags">
+          <span class="pc-tag">Entrepreneurship</span><span class="pc-tag">Startup</span>
+          <span class="pc-tag">Leadership</span>
+        </div>
+      </div>
+      <div class="profile-col p-tech">
+        <div class="pc-label"><div class="pc-dot"></div>Technology</div>
+        <p class="pc-body">Passionate about the role of artificial intelligence and emerging technologies in advancing scientific research and business innovation. Experienced in applying analytical tools to complex problems in genomics and animal health.</p>
+        <div class="pc-tags">
+          <span class="pc-tag">Artificial Intelligence</span><span class="pc-tag">Innovation</span><span class="pc-tag">R&amp;D</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="sec" id="experience">
+  <div class="exp-bg"></div>
+  <div class="exp-overlay"></div>
+  <div class="sec-inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">01 — Experience</div>
+      <h2 class="sec-name">Work &amp; Research</h2>
+      <div class="sec-rule" style="background:linear-gradient(90deg,var(--teal),transparent);"></div>
+    </div>
+    <div class="sec-peek" style="--ph:700px">
+    <div class="timeline">
+
+      <div class="tl-year reveal"><span class="tl-year-label">2024</span><div class="tl-year-rule"></div></div>
+      <div class="tl-item exp-accent reveal">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">Animal Genomics &amp; Bioresource</span>
+            <span class="tl-period">Dec 2023 — Mar 2024</span>
+            <span class="tl-dur">4 mo</span>
+          </div>
+          <div class="tl-role">Research Assistant Intern</div>
+          <div class="tl-loc">Bangkok, Thailand · On-site</div>
+          <p class="tl-desc">Gained practical experience in genetic laboratory techniques including PCR and SNP analysis. Contributed to a research paper published in Animal Bioscience and assisted in organizing the 2nd Animal Genomics and Bioresource for ESG &amp; SDG Seminar.</p>
+          <div class="photo-grid">
+            <div class="photo-item" data-caption="2nd Animal Genomics Seminar" onclick="openLB(this)">
+              <img src="images/exp1-1.jpg?v=20260515" alt="2nd Animal Genomics Seminar">
+            </div>
+            <div class="photo-item" data-caption="Animal Bioscience Publication" onclick="openLB(this)">
+              <img src="images/exp1-2.jpg?v=20260515" alt="Animal Bioscience publication">
+            </div>
+            <div class="photo-item" data-caption="Research Poster" onclick="openLB(this)">
+              <img src="images/exp1-3.jpg?v=20260515" alt="Research poster">
+            </div>
+            <div class="photo-item" data-caption="Seminar Event" onclick="openLB(this)">
+              <img src="images/exp1-4.jpg?v=20260515" alt="Seminar event">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-year reveal"><span class="tl-year-label">2023</span><div class="tl-year-rule"></div></div>
+      <div class="tl-item exp-accent reveal" style="transition-delay:.07s">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">The University of Tokyo</span>
+            <span class="tl-period">Nov 2023</span>
+            <span class="tl-dur">1 mo</span>
+          </div>
+          <div class="tl-role">Exchange Student</div>
+          <div class="tl-loc">Tokyo, Japan · On-site</div>
+          <p class="tl-desc">Engaged in the Animal Resource Science and Management program, focusing on key research areas within Zoology while developing proficiency in adaptability and communication in an international academic environment.</p>
+          <div class="photo-grid">
+            <div class="photo-item" data-caption="University of Tokyo Campus" onclick="openLB(this)">
+              <img src="images/exp2-1.jpg?v=20260515" alt="University of Tokyo campus">
+            </div>
+            <div class="photo-item" data-caption="Classroom Session" onclick="openLB(this)">
+              <img src="images/exp2-2.jpg?v=20260515" alt="Classroom session">
+            </div>
+            <div class="photo-item" data-caption="Animal Science Field Work" onclick="openLB(this)">
+              <img src="images/exp2-3.jpg?v=20260515" alt="Animal science field work">
+            </div>
+            <div class="photo-item" data-caption="Lab Group" onclick="openLB(this)">
+              <img src="images/exp2-4.jpg?v=20260515" alt="Lab group">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item exp-accent reveal" style="transition-delay:.13s">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">Kasetsart University</span>
+            <span class="tl-period">Apr — May 2023</span>
+            <span class="tl-dur">2 mo</span>
+          </div>
+          <div class="tl-role">Veterinary Technologist Intern</div>
+          <div class="tl-loc">Bangkok, Thailand · On-site</div>
+          <p class="tl-desc">Managed analytical instruments and conducted routine chemical testing including ELISA and PCR. Enhanced clinical lab skills in isolating, identifying, typing, and grouping parasites in body fluids.</p>
+          <div class="photo-grid">
+            <div class="photo-item" data-caption="Lab Team" onclick="openLB(this)">
+              <img src="images/exp3-1.jpg?v=20260515" alt="Lab team">
+            </div>
+            <div class="photo-item" data-caption="Microscope Work" onclick="openLB(this)">
+              <img src="images/exp3-2.jpg?v=20260515" alt="Microscope work">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-year reveal"><span class="tl-year-label">2022</span><div class="tl-year-rule"></div></div>
+      <div class="tl-item exp-accent reveal" style="transition-delay:.18s">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">Bonanza Exotic Zoo</span>
+            <span class="tl-period">Apr 2022</span>
+            <span class="tl-dur">1 mo</span>
+          </div>
+          <div class="tl-role">Veterinary Technologist Intern</div>
+          <div class="tl-loc">Nakhon Ratchasima, Thailand · On-site</div>
+          <p class="tl-desc">Acquired experience in zoo management and animal care including animal restraint, first aid, and necropsy, while developing and implementing specialized care plans focused on nutrition and health.</p>
+          <div class="photo-grid">
+            <div class="photo-item" data-caption="Zoo Team with Certificates" onclick="openLB(this)">
+              <img src="images/exp4-1.jpg?v=20260515" alt="Zoo team with certificates">
+            </div>
+            <div class="photo-item" data-caption="Animal Necropsy Practice" onclick="openLB(this)">
+              <img src="images/exp4-2.jpg?v=20260515" alt="Animal necropsy practice">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+    <button class="show-all-btn" onclick="togglePeek(this)">Show all <span class="arr">↓</span></button>
+  </div>
+</section>
+
+<!-- VOLUNTEERING -->
+<section class="sec" id="volunteering">
+  <div class="vol-bg"></div>
+  <div class="vol-overlay"></div>
+  <div class="sec-inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">02 — Activities</div>
+      <h2 class="sec-name">Community &amp; Leadership</h2>
+      <div class="sec-rule" style="background:linear-gradient(90deg,var(--pink),transparent);"></div>
+    </div>
+    <div class="sec-peek" style="--ph:680px">
+    <div class="timeline">
+
+      <div class="tl-year reveal"><span class="tl-year-label">2026</span><div class="tl-year-rule"></div></div>
+      <div class="tl-item vol-accent reveal">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">VetXCase</span>
+            <span class="tl-period">Mar — May 2026</span>
+            <span class="tl-dur">3 mo</span>
+          </div>
+          <div class="tl-role">Hackathon Competitor</div>
+          <div class="tl-loc">EdTech · AI</div>
+          <p class="tl-desc">Led team UniX in VetXCase, a veterinary clinical simulation platform for veterinary students, achieving Top 30 Finalist at CUVET Hackathon 2026 organized by Chulalongkorn University's Faculty of Veterinary Science. Simultaneously recognized as TOP 10 Finalist in Thailand at the AI Ready ASEAN Youth Challenge 2026 organized by AI Singapore, competing with teams across Southeast Asia.</p>
+          <div class="photo-grid">
+            <div class="photo-item" data-caption="VetXCase Team" onclick="openLB(this)">
+              <img src="images/vetxcase-1.jpg" alt="VetXCase team">
+            </div>
+            <div class="photo-item" data-caption="VetXCase Competition" onclick="openLB(this)">
+              <img src="images/vetxcase-2.jpg" alt="VetXCase competition">
+            </div>
+            <div class="photo-item" data-caption="VetXCase Finalist" onclick="openLB(this)">
+              <img src="images/vetxcase-3.jpg" alt="VetXCase finalist">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item vol-accent reveal">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">NovaSciKU</span>
+            <span class="tl-period">Jan 2026</span>
+          </div>
+          <div class="tl-role">Academic Presenter</div>
+          <div class="tl-loc">Science · Academic</div>
+          <p class="tl-desc">Presented "Oral Bacterial Ghost Vaccine Against Nervous Necrosis Virus in Grouper Fish" at Grad NovaSciKU, a forum organized by the Faculty of Science, Kasetsart University for students to showcase academic work, share research experiences, and exchange knowledge from the NovaSciKU project — attended by faculty members and guests.</p>
+          <div class="photo-grid">
+            <div class="photo-item" data-caption="Grad NovaSciKU — Academic Presentation" onclick="openLB(this)">
+              <img src="images/nova-1.jpg" alt="Grad NovaSciKU presentation">
+            </div>
+            <div class="photo-item" data-caption="Grad NovaSciKU — Faculty of Science, Kasetsart University" onclick="openLB(this)">
+              <img src="images/nova-2.jpg" alt="Grad NovaSciKU event">
+            </div>
+            <div class="photo-item" data-caption="Grad NovaSciKU — Faculty of Science, Kasetsart University" onclick="openLB(this)">
+              <img src="images/nova-3.jpg" alt="Grad NovaSciKU event">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-year reveal"><span class="tl-year-label">2024</span><div class="tl-year-rule"></div></div>
+      <div class="tl-item vol-accent reveal">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">KU Startup</span>
+            <span class="tl-period">Jun 2023 — May 2024</span>
+            <span class="tl-dur">1 yr</span>
+          </div>
+          <div class="tl-role">Staff of Build Startup Team</div>
+          <div class="tl-loc">Science and Technology</div>
+          <p class="tl-desc">Involved in organizing events such as Pitch&amp;Sandwich and KU Startup BOOTCAMP 2024 in partnership with KUBIC and NIA, managing over 100 Kasetsart University students. Represented KU as a participant in the Startup Thailand League 2024: Coaching Camp at Panyapiwat Institute of Management.</p>
+          <div class="photo-grid">
+            <div class="photo-item" data-caption="Startup Thailand League 2024 Coaching Camp" onclick="openLB(this)">
+              <img src="images/vol1-1.jpg" alt="Startup Thailand League 2024 Coaching Camp">
+            </div>
+            <div class="photo-item" data-caption="KU Startup BOOTCAMP 2024" onclick="openLB(this)">
+              <img src="images/vol1-2.jpg" alt="KU Startup BOOTCAMP 2024">
+            </div>
+            <div class="photo-item" data-caption="Pitch &amp; Sandwich Event" onclick="openLB(this)">
+              <img src="images/vol1-3.jpg" alt="Pitch and Sandwich Event">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-year reveal"><span class="tl-year-label">2023</span><div class="tl-year-rule"></div></div>
+      <div class="tl-item vol-accent reveal" style="transition-delay:.08s">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">TEDxKasetsartU</span>
+            <span class="tl-period">Apr 2022 — May 2023</span>
+            <span class="tl-dur">1 yr 2 mo</span>
+          </div>
+          <div class="tl-role">Staff of Financial &amp; Sponsor Team</div>
+          <div class="tl-loc">Education</div>
+          <p class="tl-desc">Managed financial statements and partnered with sponsors including Thai Beverage Public Company Limited and MuvMi for TEDxKasetsartU2023, while enhancing teamwork and project management skills through collaboration, resource allocation, and conflict resolution.</p>
+          <div class="photo-grid">
+            <div class="photo-item" data-caption="TEDxKasetsartU Team" onclick="openLB(this)">
+              <img src="images/vol2-1.jpg" alt="TEDxKasetsartU team">
+            </div>
+            <div class="photo-item" data-caption="TEDxKasetsartU Event" onclick="openLB(this)">
+              <img src="images/vol2-2.jpg" alt="TEDxKasetsartU event">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item vol-accent reveal" style="transition-delay:.15s">
+        <div class="tl-card">
+          <div class="tl-meta">
+            <span class="tl-org-badge">Student Club · Vet Tech</span>
+            <span class="tl-period">May 2022 — Mar 2023</span>
+            <span class="tl-dur">11 mo</span>
+          </div>
+          <div class="tl-role">Head of Quality Evaluation Team</div>
+          <div class="tl-loc">Education</div>
+          <p class="tl-desc">Identified pain points and developed solutions for student club activities through member feedback analysis, while improving leadership and communication skills.</p>
+          <div class="photo-grid">
+            <div class="photo-item" data-caption="Veterinary Technology Student Club" onclick="openLB(this)">
+              <img src="images/vol3-1.jpg" alt="Veterinary Technology student club">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+    <button class="show-all-btn" onclick="togglePeek(this)">Show all <span class="arr">↓</span></button>
+  </div>
+</section>
+
+
+<!-- EDUCATION -->
+<section class="sec" id="education">
+  <div class="sec-inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">03 — Education</div>
+      <h2 class="sec-name">Academic Background</h2>
+      <div class="sec-rule" style="background:linear-gradient(90deg,var(--amber),transparent);"></div>
+    </div>
+    <div class="sec-peek" style="--ph:400px">
+    <div class="edu-list reveal">
+      <div class="edu-row">
+        <div class="edu-header">
+          <div class="edu-left">
+            <div class="edu-logo">
+              <img src="images/logo-ku.jpg" alt="KU" onerror="this.closest('.edu-logo').classList.add('no-img')">
+              <span>KU</span>
+            </div>
+            <div>
+              <div class="edu-period">Jun 2024 — Present</div>
+              <div class="edu-deg">Master's degree — Biochemistry</div>
+              <div class="edu-inst">Kasetsart University</div>
+            </div>
+          </div>
+          <span class="edu-pill pill-active">In Progress</span>
+        </div>
+        <p class="edu-desc">Studying Biochemistry at the Master's degree, focusing on the chemical processes within living organisms, including metabolism, enzyme functions, molecular genetics, and the structure of biomolecules. Also collaborated on a fish vaccine project at Kasetsart Vaccines and Biologies Innovation Centre.</p>
+        <div class="edu-skills">
+          <span class="edu-skill-tag">Research Skills</span>
+          <span class="edu-skill-tag">Presentations</span>
+          <span class="edu-skill-tag">Biochemistry</span>
+          <span class="edu-skill-tag">Molecular Biology</span>
+        </div>
+      </div>
+      <div class="edu-row">
+        <div class="edu-header">
+          <div class="edu-left">
+            <div class="edu-logo">
+              <img src="images/logo-ku.jpg" alt="KU" onerror="this.closest('.edu-logo').classList.add('no-img')">
+              <span>KU</span>
+            </div>
+            <div>
+              <div class="edu-period">Jun 2020 — Mar 2024</div>
+              <div class="edu-deg">Bachelor's degree — Veterinary Technology</div>
+              <div class="edu-inst">Kasetsart University</div>
+              <div class="edu-grade">Grade: 3.58 &nbsp;<span class="edu-honour">First Class Honours</span></div>
+            </div>
+          </div>
+          <span class="edu-pill pill-done">Completed</span>
+        </div>
+        <p class="edu-desc">Acquired a fundamental understanding of animal science related to Biochemistry, Genetics, and Molecular Biology, developing proficiency in laboratory equipment operation and various techniques, while conducting research and presenting on a special problem titled "Development of Enrofloxacin Residue Testing in Pork by Spectrophotometry."</p>
+        <div class="edu-skills">
+          <span class="edu-skill-tag">Research Skills</span>
+          <span class="edu-skill-tag">Animal Health</span>
+          <span class="edu-skill-tag">Veterinary Technology</span>
+          <span class="edu-skill-tag">Laboratory Techniques</span>
+        </div>
+      </div>
+      <div class="edu-row">
+        <div class="edu-header">
+          <div class="edu-left">
+            <div class="edu-logo">
+              <img src="images/logo-debsirin.jpg" alt="DS" onerror="this.closest('.edu-logo').classList.add('no-img')">
+              <span>DS</span>
+            </div>
+            <div>
+              <div class="edu-period">Jun 2017 — Mar 2020</div>
+              <div class="edu-deg">Intensive English Program</div>
+              <div class="edu-inst">Debsirin School</div>
+              <div class="edu-grade">Grade: 3.71</div>
+            </div>
+          </div>
+          <span class="edu-pill pill-done">Completed</span>
+        </div>
+      </div>
+    </div>
+    </div>
+    <button class="show-all-btn" onclick="togglePeek(this)">Show all <span class="arr">↓</span></button>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="sec" id="certifications">
+  <div class="sec-inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">04 — Certifications</div>
+      <h2 class="sec-name">Licenses &amp; Certifications</h2>
+      <div class="sec-rule" style="background:linear-gradient(90deg,var(--amber),transparent);"></div>
+    </div>
+    <div class="cert-filters reveal">
+      <button class="cf-btn active" data-filter="all">All <span class="cf-count">17</span></button>
+      <button class="cf-btn" data-filter="competition">Competition <span class="cf-count">6</span></button>
+      <button class="cf-btn" data-filter="data">Data <span class="cf-count">6</span></button>
+      <button class="cf-btn" data-filter="business">Business <span class="cf-count">3</span></button>
+      <button class="cf-btn" data-filter="ai">AI <span class="cf-count">2</span></button>
+    </div>
+    <div class="sec-peek" style="--ph:640px">
+    <div class="cert-grid reveal">
+
+      <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/cuvet-hackathon-2026.jpg')">
+          <img src="images/cuvet-hackathon-2026.jpg" alt="CUVET Hackathon 2026">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">CU</div>
+          <div class="cert-issuer-name">Chulalongkorn University</div>
+        </div>
+        <div class="cert-name">Finalist 30 Innovation of CUVET Hackathon 2026</div>
+        <div class="cert-date">Feb 2026</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Startups</span><span class="cert-tag">Artificial Intelligence</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/google-prompts.jpg')">
+          <img src="images/google-prompts.jpg" alt="Google Prompts Certificate">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">G</div>
+          <div class="cert-issuer-name">Google</div>
+        </div>
+        <div class="cert-name">Start Writing Prompts like a Pro</div>
+        <div class="cert-date">Aug 2025 · ID A9N2K0A8P7ZP</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Prompt Engineering</span><span class="cert-tag">AI</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-purple">
+        <div class="cert-img-wrap" onclick="openLB('images/bocconi-pe-vc.jpg')">
+          <img src="images/bocconi-pe-vc.jpg" alt="Bocconi PE & VC Certificate">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">UB</div>
+          <div class="cert-issuer-name">Università Bocconi</div>
+        </div>
+        <div class="cert-name">Private Equity and Venture Capital</div>
+        <div class="cert-date">Jul 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Private Equity</span><span class="cert-tag">Venture Capital</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/datarockie-data-analyst.jpg')">
+          <img src="images/datarockie-data-analyst.jpg" alt="Certified Professional Data Analyst">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">DR</div>
+          <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
+        </div>
+        <div class="cert-name">Certified Professional Data Analyst</div>
+        <div class="cert-date">May 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">R</span><span class="cert-tag">Statistics</span><span class="cert-tag">Data Science</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/social-case-2025.jpg')">
+          <img src="images/social-case-2025.jpg" alt="Social Case Competition 2025">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">SC</div>
+          <div class="cert-issuer-name">Social Case Competition</div>
+        </div>
+        <div class="cert-name">Social Case Competition 2025</div>
+        <div class="cert-date">Apr 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Project Management</span><span class="cert-tag">Research Skills</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-purple">
+        <div class="cert-img-wrap" onclick="openLB('images/datarockie-mental-model.jpg')">
+          <img src="images/datarockie-mental-model.jpg" alt="Mental Model Practitioners">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">DR</div>
+          <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
+        </div>
+        <div class="cert-name">Mental Model Practitioners</div>
+        <div class="cert-date">Mar 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Mental Models</span><span class="cert-tag">Economics</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/w3-statistics.jpg')">
+          <img src="images/w3-statistics.jpg" alt="Statistics Certification">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">W3</div>
+          <div class="cert-issuer-name">w3schools.com</div>
+        </div>
+        <div class="cert-name">Statistics Certification</div>
+        <div class="cert-date">Mar 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Statistical Analysis</span><span class="cert-tag">Data Analytics</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/w3-r.jpg')">
+          <img src="images/w3-r.jpg" alt="R Certification">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">W3</div>
+          <div class="cert-issuer-name">w3schools.com</div>
+        </div>
+        <div class="cert-name">R Certification</div>
+        <div class="cert-date">Feb 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">R</span><span class="cert-tag">Data Analytics</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/w3-sql.jpg')">
+          <img src="images/w3-sql.jpg" alt="SQL Certification">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">W3</div>
+          <div class="cert-issuer-name">w3schools.com</div>
+        </div>
+        <div class="cert-name">SQL Certification</div>
+        <div class="cert-date">Feb 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">SQL</span><span class="cert-tag">Data Analytics</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/w3-excel.jpg')">
+          <img src="images/w3-excel.jpg" alt="Excel Certification">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">W3</div>
+          <div class="cert-issuer-name">w3schools.com</div>
+        </div>
+        <div class="cert-name">Excel Certification</div>
+        <div class="cert-date">Feb 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Microsoft Excel</span><span class="cert-tag">Data Analytics</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-purple">
+        <div class="cert-img-wrap" onclick="openLB('images/datarockie-one-person-biz.jpg')">
+          <img src="images/datarockie-one-person-biz.jpg" alt="One Person Business 101">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">DR</div>
+          <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
+        </div>
+        <div class="cert-name">One Person Business 101</div>
+        <div class="cert-date">Jan 2025</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Business</span><span class="cert-tag">Generalism</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/datarockie-da-manifesto.jpg')">
+          <img src="images/datarockie-da-manifesto.jpg" alt="Data Analyst Manifesto">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">DR</div>
+          <div class="cert-issuer-name">DataRockie · The School of Generalist</div>
+        </div>
+        <div class="cert-name">Data Analyst Manifesto</div>
+        <div class="cert-date">Dec 2024</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Data Analysis</span><span class="cert-tag">Data Science</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-amber">
+        <div class="cert-img-wrap" onclick="openLB('images/pmi-gen-ai.jpg')">
+          <img src="images/pmi-gen-ai.jpg" alt="Generative AI for Project Managers">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">PM</div>
+          <div class="cert-issuer-name">Project Management Institute</div>
+        </div>
+        <div class="cert-name">Generative AI Overview for Project Managers</div>
+        <div class="cert-date">Dec 2024</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Generative AI</span><span class="cert-tag">Project Management</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/hack-a-change-2022.jpg')">
+          <img src="images/hack-a-change-2022.jpg" alt="Hack a Change 2022">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">SC</div>
+          <div class="cert-issuer-name">SHAKE A CHANGE</div>
+        </div>
+        <div class="cert-name">Social Case Competition — Hack a Change Program</div>
+        <div class="cert-date">Jan 2022</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Problem Solving</span><span class="cert-tag">Product Presentation</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/ku-startup-2022.jpg')">
+          <img src="images/ku-startup-2022.jpg" alt="KU StartUp League 2022">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">KU</div>
+          <div class="cert-issuer-name">KU Startup</div>
+        </div>
+        <div class="cert-name">KU StartUp League 2022</div>
+        <div class="cert-date">Jan 2022</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Product Presentation</span><span class="cert-tag">Presentations</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/social-case-2021.jpg')">
+          <img src="images/social-case-2021.jpg" alt="Social Case Competition 2021">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">SC</div>
+          <div class="cert-issuer-name">Social Case Competition</div>
+        </div>
+        <div class="cert-name">Social Case Competition 2021</div>
+        <div class="cert-date">Jun 2021</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Problem Solving</span><span class="cert-tag">Teamwork</span>
+        </div>
+      </div>
+
+      <div class="cert-card cert-teal">
+        <div class="cert-img-wrap" onclick="openLB('images/ku-startup-2021.jpg')">
+          <img src="images/ku-startup-2021.jpg" alt="KU StartUp League 2021">
+        </div>
+        <div class="cert-issuer">
+          <div class="cert-issuer-badge">KU</div>
+          <div class="cert-issuer-name">KU Startup</div>
+        </div>
+        <div class="cert-name">KU StartUp League 2021</div>
+        <div class="cert-date">Feb 2021</div>
+        <div class="cert-tags">
+          <span class="cert-tag">Product Presentation</span><span class="cert-tag">Presentations</span>
+        </div>
+      </div>
+
+    </div>
+    </div>
+    <button class="show-all-btn" onclick="togglePeek(this)">Show all <span class="arr">↓</span></button>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="contact-wrap">
+    <div class="reveal">
+      <h2 class="contact-heading">Let's work<br><em>together.</em></h2>
+      <p class="contact-body">Open to research collaborations, entrepreneurship ventures, and conversations at the intersection of Science, Business, and Technology.</p>
+    </div>
+    <div class="contact-links reveal" style="transition-delay:.12s">
+      <button class="clink clink-copy" onclick="copyEmail(this)">
+        <div class="clink-left">
+          <div class="clink-icon">✉</div>
+          <div><div class="clink-label">Email</div><div class="clink-val">anuphong3502@gmail.com</div></div>
+        </div>
+        <span class="clink-arrow clink-copy-hint">Copy</span>
+      </button>
+      <a href="https://www.linkedin.com/in/anuphong-payopat" class="clink" target="_blank" rel="noopener">
+        <div class="clink-left">
+          <div class="clink-icon" style="font-family:var(--sans);font-weight:700;font-size:0.75rem;letter-spacing:0;">in</div>
+          <div><div class="clink-label">LinkedIn</div><div class="clink-val">linkedin.com/in/anuphong-payopat</div></div>
+        </div>
+        <span class="clink-arrow">→</span>
+      </a>
+      <a href="https://www.instagram.com/beeyopatt" class="clink" target="_blank" rel="noopener">
+        <div class="clink-left">
+          <div class="clink-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div><div class="clink-label">Instagram</div><div class="clink-val">@beeyopatt</div></div>
+        </div>
+        <span class="clink-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Bee Anuphong</div>
+  <div class="f-pillars">
+    <span class="fp-sci">Science</span>
+    <span class="fp-biz">Business</span>
+    <span class="fp-tech">Technology</span>
+  </div>
+  <span class="f-copy">© 2026 · Bangkok, Thailand</span>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Lightbox
+  let lbGallery = [], lbIdx = 0;
+
+  function openLB(srcOrEl) {
+    if (typeof srcOrEl === 'string') {
+      const allImgs = Array.from(document.querySelectorAll('.cert-img-wrap img'));
+      lbGallery = allImgs.map(img => img.src);
+      const name = srcOrEl.split('/').pop();
+      lbIdx = lbGallery.findIndex(s => s.endsWith(name));
+      if (lbIdx === -1) lbIdx = 0;
+    } else if (srcOrEl.classList.contains('photo-item')) {
+      const imgs = Array.from(srcOrEl.closest('.photo-grid').querySelectorAll('.photo-item img'));
+      lbGallery = imgs.map(img => img.src);
+      lbIdx = imgs.indexOf(srcOrEl.querySelector('img'));
+    } else {
+      const allImgs = Array.from(document.querySelectorAll('.cert-img-wrap img'));
+      lbGallery = allImgs.map(img => img.src);
+      lbIdx = allImgs.indexOf(srcOrEl.querySelector('img'));
+      if (lbIdx === -1) lbIdx = 0;
+    }
+    showLBAt(lbIdx);
+    document.getElementById('lb').classList.add('open');
+  }
+
+  function showLBAt(idx) {
+    lbIdx = idx;
+    document.getElementById('lb-img').src = lbGallery[lbIdx];
+    document.getElementById('lb-prev').disabled = lbIdx === 0;
+    document.getElementById('lb-next').disabled = lbIdx === lbGallery.length - 1;
+    document.getElementById('lb-counter').textContent =
+      lbGallery.length > 1 ? (lbIdx + 1) + ' / ' + lbGallery.length : '';
+  }
+
+  function moveLB(dir) { if (lbIdx + dir >= 0 && lbIdx + dir < lbGallery.length) showLBAt(lbIdx + dir); }
+
+  function closeLB() {
+    document.getElementById('lb').classList.remove('open');
+    document.getElementById('lb-img').src = '';
+  }
+
+  document.getElementById('lb').addEventListener('click', e => { if (e.target === e.currentTarget) closeLB(); });
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lb').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLB();
+    if (e.key === 'ArrowLeft')  moveLB(-1);
+    if (e.key === 'ArrowRight') moveLB(1);
+  });
+
+  // Cert filter
+  const certCategoryMap = {
+    'cuvet-hackathon-2026':   'competition',
+    'google-prompts':         'ai',
+    'bocconi-pe-vc':          'business',
+    'datarockie-data-analyst':'data',
+    'social-case-2025':       'competition',
+    'datarockie-mental-model':'business',
+    'w3-statistics':          'data',
+    'w3-r':                   'data',
+    'w3-sql':                 'data',
+    'w3-excel':               'data',
+    'datarockie-one-person-biz':'business',
+    'datarockie-da-manifesto':'data',
+    'pmi-gen-ai':             'ai',
+    'hack-a-change-2022':     'competition',
+    'ku-startup-2022':        'competition',
+    'social-case-2021':       'competition',
+    'ku-startup-2021':        'competition',
+  };
+  document.querySelectorAll('.cert-card').forEach(card => {
+    const src = card.querySelector('img')?.src || '';
+    const key = Object.keys(certCategoryMap).find(k => src.includes(k));
+    if (key) card.dataset.category = certCategoryMap[key];
+  });
+  document.querySelectorAll('.cf-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cf-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.cert-card').forEach(card => {
+        card.classList.toggle('cf-hidden', filter !== 'all' && card.dataset.category !== filter);
+      });
+    });
+  });
+
+  // Scroll-spy for about.html sections
+  const aboutMeSections = new Set(['profile','experience','volunteering','education','certifications','contact']);
+  const sections = ['profile','experience','volunteering','education','certifications','contact'];
+  const navLinks = document.querySelectorAll('.nav-menu a, .nav-dropdown a, .nav-drawer a');
+  const aboutMeParent = document.querySelector('.nav-has-dropdown > a');
+  const spyObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+        if (aboutMeParent) {
+          aboutMeParent.classList.toggle('active', aboutMeSections.has(id));
+        }
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) spyObserver.observe(el);
+  });
+</script>
+</body>
+</html>
