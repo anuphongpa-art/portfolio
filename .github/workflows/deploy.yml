@@ -13,7 +13,7 @@ jobs:
       - name: Prepare deploy folder
         run: |
           mkdir dist
-          cp index.html favicon.svg dist/
+          cp index.html about.html blog.html style.css script.js favicon.svg dist/
           cp -r images dist/
 
       - uses: cloudflare/wrangler-action@v3
