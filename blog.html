@@ -147,7 +147,7 @@
         <h1 class="blog-page-title">Blog</h1>
         <p class="blog-page-subtitle">Thoughts at the intersection of Science, Business &amp; Technology</p>
       </div>
-      <a href="editor.html" class="btn-new-post">
+      <a href="editor.html" class="btn-new-post" id="btn-new-post" style="display:none">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
         New Post
       </a>
@@ -180,6 +180,11 @@
 <script src="script.js"></script>
 <script>
 (function () {
+  /* Show "New Post" only on author's device (has GitHub token) */
+  if (localStorage.getItem('gh_token')) {
+    document.getElementById('btn-new-post').style.display = '';
+  }
+
   var listEl = document.getElementById('post-list');
 
   function escHtml(s) {
