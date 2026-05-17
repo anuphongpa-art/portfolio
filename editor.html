@@ -190,6 +190,89 @@
 .ce-delimiter::before { color: var(--dim) !important; font-size: 1.5rem !important; letter-spacing: 0.5rem !important; }
 .cdx-list__item,.cdx-list { color: var(--text) !important; }
 
+/* ── Notion-style More menu (•••) ── */
+.more-menu {
+  position: fixed; top: 122px; right: 1.5rem;
+  width: 280px; background: #1f1f1f;
+  border: 1px solid rgba(255,255,255,0.094);
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.5), 0 10px 10px rgba(0,0,0,0.2);
+  padding: 4px; z-index: 500; font-size: 14px;
+}
+.more-search { padding: 6px 8px 4px; }
+.more-search input {
+  width: 100%; background: rgba(255,255,255,0.055);
+  border: 1px solid transparent; border-radius: 6px;
+  padding: 6px 10px; color: rgba(255,255,255,0.81);
+  font-family: var(--sans); font-size: 13px; outline: none;
+  box-sizing: border-box;
+}
+.more-search input::placeholder { color: rgba(255,255,255,0.4); }
+.more-search input:focus { border-color: rgba(56,201,176,0.4); background: rgba(255,255,255,0.075); }
+.more-font-row { display: flex; gap: 4px; padding: 4px 8px 8px; }
+.font-opt {
+  flex: 1; background: rgba(255,255,255,0.04);
+  border: 1px solid transparent; border-radius: 6px;
+  padding: 8px 4px; color: rgba(255,255,255,0.81);
+  cursor: pointer; text-align: center; transition: all 0.15s;
+  font-family: var(--sans);
+}
+.font-opt:hover { background: rgba(255,255,255,0.07); }
+.font-opt.active { background: rgba(56,201,176,0.08); border-color: rgba(56,201,176,0.3); color: var(--teal); }
+.font-opt-ag { display: block; font-size: 20px; font-weight: 600; margin-bottom: 2px; line-height: 1.1; }
+.font-opt-ag.font-serif { font-family: var(--serif); }
+.font-opt-ag.font-mono  { font-family: 'Courier New', monospace; }
+.font-opt-label { font-size: 11px; color: rgba(255,255,255,0.55); }
+.font-opt.active .font-opt-label { color: var(--teal); }
+.more-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 4px 0; }
+.more-items { padding: 2px; }
+.more-item {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 6px 8px; background: transparent; border: none;
+  border-radius: 6px; color: rgba(255,255,255,0.81);
+  font-family: var(--sans); font-size: 13px; text-align: left;
+  cursor: pointer; transition: background 0.15s;
+}
+.more-item:hover { background: rgba(255,255,255,0.055); }
+.more-item-danger { color: #e06b8b; }
+.more-item-danger:hover { background: rgba(224,107,139,0.08); }
+.more-item svg { width: 16px; height: 16px; flex-shrink: 0; color: rgba(255,255,255,0.55); }
+.more-item-danger svg { color: #e06b8b; }
+.more-item-label { flex: 1; }
+.more-shortcut { font-size: 11px; color: rgba(255,255,255,0.35); font-family: 'Courier New', monospace; flex-shrink: 0; }
+/* Toggle pill */
+.more-toggle-track {
+  width: 26px; height: 14px; border-radius: 100px;
+  background: rgba(255,255,255,0.1); position: relative; flex-shrink: 0;
+  transition: background 0.2s;
+}
+.more-toggle-thumb {
+  position: absolute; top: 2px; left: 2px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,0.55); transition: transform 0.2s, background 0.2s;
+}
+.more-toggle.active .more-toggle-track { background: rgba(56,201,176,0.3); }
+.more-toggle.active .more-toggle-thumb { transform: translateX(12px); background: var(--teal); }
+
+/* Post style classes — applied to body */
+body.font-serif .editor-title-input,
+body.font-serif #editorjs .ce-paragraph,
+body.font-serif #editorjs .ce-header,
+body.font-serif #editorjs .cdx-list,
+body.font-serif #editorjs .cdx-quote__text,
+body.font-serif #editorjs .cdx-checklist__item-text { font-family: var(--serif) !important; }
+body.font-mono .editor-title-input,
+body.font-mono #editorjs .ce-paragraph,
+body.font-mono #editorjs .ce-header,
+body.font-mono #editorjs .cdx-list,
+body.font-mono #editorjs .cdx-quote__text,
+body.font-mono #editorjs .cdx-checklist__item-text { font-family: 'Courier New', 'Fira Code', monospace !important; letter-spacing: -0.01em; }
+body.small-text #editorjs .ce-paragraph,
+body.small-text #editorjs .cdx-list,
+body.small-text #editorjs .cdx-checklist__item-text { font-size: 0.85rem !important; }
+body.small-text #editorjs .ce-header { font-size: 1.3rem !important; }
+body.full-width .editor-container { max-width: 1080px !important; }
+
 /* ── Notion-style slash menu ── */
 .ce-popover__container { min-width: 320px !important; max-width: 360px !important; padding: 8px !important; background: #1f1f1f !important; border: 1px solid rgba(255,255,255,0.094) !important; box-shadow: 0 14px 28px rgba(0,0,0,0.5), 0 10px 10px rgba(0,0,0,0.2) !important; border-radius: 10px !important; }
 .ce-popover__items { max-height: 380px !important; padding: 0 !important; overflow-y: auto !important; }
@@ -390,6 +473,70 @@
     <button class="btn-topbar btn-delete" id="btn-delete" style="display:none" title="Delete post">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
     </button>
+    <button class="btn-topbar btn-icon" id="btn-more" title="More options">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Notion-style More menu -->
+<div id="more-menu" class="more-menu" style="display:none">
+  <div class="more-search">
+    <input type="text" id="more-search-input" placeholder="Search actions..." autocomplete="off" spellcheck="false">
+  </div>
+  <div class="more-font-row">
+    <button class="font-opt" data-font="default" type="button">
+      <span class="font-opt-ag">Ag</span><span class="font-opt-label">Default</span>
+    </button>
+    <button class="font-opt" data-font="serif" type="button">
+      <span class="font-opt-ag font-serif">Ag</span><span class="font-opt-label">Serif</span>
+    </button>
+    <button class="font-opt" data-font="mono" type="button">
+      <span class="font-opt-ag font-mono">Ag</span><span class="font-opt-label">Mono</span>
+    </button>
+  </div>
+  <div class="more-divider"></div>
+  <div class="more-items">
+    <button class="more-item" data-act="copy-link" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      <span class="more-item-label">Copy link</span><span class="more-shortcut">⌥⌘L</span>
+    </button>
+    <button class="more-item" data-act="copy-content" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span class="more-item-label">Copy page contents</span>
+    </button>
+    <button class="more-item" data-act="duplicate" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      <span class="more-item-label">Duplicate</span><span class="more-shortcut">⌘D</span>
+    </button>
+  </div>
+  <div class="more-divider"></div>
+  <div class="more-items">
+    <button class="more-item more-toggle" data-act="small-text" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+      <span class="more-item-label">Small text</span>
+      <span class="more-toggle-track"><span class="more-toggle-thumb"></span></span>
+    </button>
+    <button class="more-item more-toggle" data-act="full-width" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><line x1="3" y1="3" x2="21" y2="3"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+      <span class="more-item-label">Full width</span>
+      <span class="more-toggle-track"><span class="more-toggle-thumb"></span></span>
+    </button>
+  </div>
+  <div class="more-divider"></div>
+  <div class="more-items">
+    <button class="more-item" data-act="undo" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-15-6.7L3 13"/></svg>
+      <span class="more-item-label">Undo</span><span class="more-shortcut">⌘Z</span>
+    </button>
+    <button class="more-item" data-act="export" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span class="more-item-label">Export</span>
+    </button>
+    <button class="more-item more-item-danger" data-act="trash" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+      <span class="more-item-label">Move to Trash</span>
+    </button>
   </div>
 </div>
 
@@ -425,6 +572,7 @@
   var editor      = null;
   var autoTimer   = null;
   var wasPublishedOnGH = false; /* track if this post is already on GitHub */
+  var currentStyle = { font: 'default', small: false, fullWidth: false };
 
   /* ── DOM ── */
   var titleEl    = document.getElementById('editor-title');
@@ -565,6 +713,7 @@
         excerpt:     extractExcerpt(output.blocks),
         content:     output,
         tags:        activeTags.slice(),
+        style:       Object.assign({}, currentStyle),
         published:   isPublished,
         created_at:  (prevIdx>=0 ? posts[prevIdx].created_at : null) || now,
         updated_at:  now
@@ -711,10 +860,164 @@
         }
       });
       initialData = existing.content;
+      if (existing.style) currentStyle = Object.assign({font:'default',small:false,fullWidth:false}, existing.style);
       btnDelete.style.display='';
       btnPreview.href='post.html?id='+currentId; btnPreview.style.display='';
     }
   }
+
+  /* ── More menu ── */
+  var moreMenuEl  = document.getElementById('more-menu');
+  var btnMore     = document.getElementById('btn-more');
+  var moreSearch  = document.getElementById('more-search-input');
+
+  function applyPostStyle() {
+    document.body.classList.toggle('font-serif', currentStyle.font === 'serif');
+    document.body.classList.toggle('font-mono',  currentStyle.font === 'mono');
+    document.body.classList.toggle('small-text', !!currentStyle.small);
+    document.body.classList.toggle('full-width', !!currentStyle.fullWidth);
+    moreMenuEl.querySelectorAll('.font-opt').forEach(function(b){
+      b.classList.toggle('active', b.dataset.font === currentStyle.font);
+    });
+    moreMenuEl.querySelector('[data-act="small-text"]').classList.toggle('active', !!currentStyle.small);
+    moreMenuEl.querySelector('[data-act="full-width"]').classList.toggle('active', !!currentStyle.fullWidth);
+  }
+  applyPostStyle();
+
+  btnMore.addEventListener('click', function(e){
+    e.stopPropagation();
+    var shown = moreMenuEl.style.display === 'block';
+    moreMenuEl.style.display = shown ? 'none' : 'block';
+    if (!shown) { moreSearch.value=''; filterMore(''); setTimeout(function(){ moreSearch.focus(); }, 50); }
+  });
+  document.addEventListener('click', function(e){
+    if (moreMenuEl.style.display !== 'block') return;
+    if (!moreMenuEl.contains(e.target) && !btnMore.contains(e.target)) {
+      moreMenuEl.style.display = 'none';
+    }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && moreMenuEl.style.display === 'block') {
+      moreMenuEl.style.display = 'none';
+    }
+  });
+
+  function filterMore(q) {
+    q = (q||'').toLowerCase().trim();
+    moreMenuEl.querySelectorAll('.more-item').forEach(function(it){
+      var label = (it.querySelector('.more-item-label')||{}).textContent || '';
+      it.style.display = (!q || label.toLowerCase().includes(q)) ? '' : 'none';
+    });
+  }
+  moreSearch.addEventListener('input', function(){ filterMore(this.value); });
+
+  /* Font selector */
+  moreMenuEl.querySelectorAll('.font-opt').forEach(function(b){
+    b.addEventListener('click', function(){
+      currentStyle.font = this.dataset.font;
+      applyPostStyle();
+      scheduleAutoSave();
+    });
+  });
+
+  /* Action items */
+  function flashStatus(msg) {
+    setStatus(msg, 'saved');
+    setTimeout(function(){ setStatus(currentId ? (isPublished ? 'Published' : 'Draft') : 'Draft'); }, 2000);
+  }
+
+  function doCopyLink() {
+    var url = window.location.origin + window.location.pathname.replace(/[^/]+$/, '') + 'post.html?id=' + currentId;
+    navigator.clipboard.writeText(url).then(function(){ flashStatus('Link copied ✓'); });
+  }
+  function blocksToPlainText(blocks) {
+    return blocks.map(function(b){
+      var d = b.data||{};
+      if (d.text)    return d.text.replace(/<[^>]+>/g,'');
+      if (d.code)    return d.code;
+      if (d.message) return (d.title?d.title+': ':'')+d.message.replace(/<[^>]+>/g,'');
+      if (d.items)   return d.items.map(function(i){ return typeof i==='string'?i:(i.content||i.text||''); }).join('\n');
+      if (d.content) return d.content.map(function(r){ return r.join(' | '); }).join('\n');
+      if (d.caption) return d.caption;
+      return '';
+    }).filter(Boolean).join('\n\n');
+  }
+  async function copyContent() {
+    if (!editor) return;
+    var out = await editor.save();
+    var txt = (titleEl.value || 'Untitled') + '\n\n' + blocksToPlainText(out.blocks);
+    await navigator.clipboard.writeText(txt);
+    flashStatus('Content copied ✓');
+  }
+  async function duplicatePost() {
+    if (!editor) return;
+    var out = await editor.save();
+    var posts = getPosts();
+    var now = new Date().toISOString();
+    var copy = {
+      id: uid(),
+      title: (titleEl.value.trim() || 'Untitled') + ' (copy)',
+      excerpt: extractExcerpt(out.blocks),
+      content: out,
+      tags: activeTags.slice(),
+      style: Object.assign({}, currentStyle),
+      published: false,
+      created_at: now, updated_at: now
+    };
+    posts.unshift(copy); setPosts(posts);
+    window.location.href = 'editor.html?id='+copy.id;
+  }
+  async function exportPost() {
+    if (!editor) return;
+    var out = await editor.save();
+    var post = {
+      id: currentId || uid(),
+      title: titleEl.value.trim() || 'Untitled',
+      content: out, tags: activeTags.slice(),
+      style: Object.assign({}, currentStyle),
+      created_at: new Date().toISOString()
+    };
+    var blob = new Blob([JSON.stringify(post,null,2)], { type:'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = (post.title.replace(/[^a-z0-9]+/gi,'_').toLowerCase().replace(/^_|_$/g,'') || 'post') + '.json';
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+  }
+
+  moreMenuEl.addEventListener('click', function(e){
+    var btn = e.target.closest('.more-item');
+    if (!btn) return;
+    var act = btn.dataset.act;
+    if (act === 'small-text') {
+      currentStyle.small = !currentStyle.small;
+      applyPostStyle(); scheduleAutoSave();
+      return;
+    }
+    if (act === 'full-width') {
+      currentStyle.fullWidth = !currentStyle.fullWidth;
+      applyPostStyle(); scheduleAutoSave();
+      return;
+    }
+    moreMenuEl.style.display = 'none';
+    if (act === 'copy-link') {
+      if (!currentId) { save().then(function(){ if (currentId) doCopyLink(); }); }
+      else doCopyLink();
+    } else if (act === 'copy-content') {
+      copyContent();
+    } else if (act === 'duplicate') {
+      duplicatePost();
+    } else if (act === 'export') {
+      exportPost();
+    } else if (act === 'undo') {
+      if (editor && editor.caret && typeof editor.caret.focus === 'function') {
+        try { editor.caret.focus(); } catch(err){}
+      }
+      document.execCommand('undo');
+    } else if (act === 'trash') {
+      btnDelete.click();
+    }
+  });
 
   /* ── Custom Header: expose H1/H2/H3/H4 as separate slash-menu items (Notion-style) ── */
   function hIcon(n) {

@@ -113,6 +113,17 @@
 .post-attaches-size { color:var(--muted); font-size:0.75rem; }
 /* Highlight / Marker */
 mark { background:rgba(255,220,50,0.22); border-radius:2px; color:var(--text); padding:0.05em 0.2em; }
+/* Post style options (from post.style) */
+body.font-serif .post-title,
+body.font-serif .post-body,
+body.font-serif .post-body p,
+body.font-serif .post-body li { font-family: var(--serif); }
+body.font-mono .post-title,
+body.font-mono .post-body,
+body.font-mono .post-body p,
+body.font-mono .post-body li { font-family: 'Courier New','Fira Code',monospace; letter-spacing:-0.01em; }
+body.small-text .post-body { font-size: 0.9rem; line-height: 1.7; }
+body.full-width .post-wrap { max-width: 1080px; }
 
 .post-draft-banner {
   display: flex; align-items: center; gap: 0.6rem;
@@ -327,7 +338,16 @@ mark { background:rgba(255,220,50,0.22); border-radius:2px; color:var(--text); p
     }).filter(Boolean).join('\n');
   }
 
+  function applyPostStyle(post) {
+    var s = post.style || {};
+    document.body.classList.toggle('font-serif', s.font === 'serif');
+    document.body.classList.toggle('font-mono',  s.font === 'mono');
+    document.body.classList.toggle('small-text', !!s.small);
+    document.body.classList.toggle('full-width', !!s.fullWidth);
+  }
+
   function renderPost(post, isDraft) {
+    applyPostStyle(post);
     document.title = (post.title||'Post')+' — Bee Anuphong';
     var tags=(post.tags||[]).map(function(t){return '<span class="post-tag">'+escHtml(t)+'</span>';}).join('');
     var blocks=(post.content&&post.content.blocks)?post.content.blocks:[];
