@@ -180,12 +180,24 @@
 <script src="script.js"></script>
 <script>
 (function () {
-  /* Show "New Post" only on author's device (has GitHub token) */
-  if (localStorage.getItem('gh_token')) {
+  var isAuthor = !!localStorage.getItem('gh_token');
+
+  if (isAuthor) {
     document.getElementById('btn-new-post').style.display = '';
   }
 
   var listEl = document.getElementById('post-list');
+
+  /* Visitors see Coming Soon instead of the post list */
+  if (!isAuthor) {
+    listEl.innerHTML =
+      '<div class="blog-empty">' +
+        '<svg class="blog-empty-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 6v6l4 2"/></svg>' +
+        '<p class="blog-empty-text">Coming Soon.</p>' +
+        '<p class="blog-empty-sub">Posts are on their way.</p>' +
+      '</div>';
+    return;
+  }
 
   function escHtml(s) {
     return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
