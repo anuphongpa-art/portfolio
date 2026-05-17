@@ -183,10 +183,87 @@
 .ce-settings__button:hover,.cdx-settings-button:hover { background: var(--glass2) !important; color: var(--text) !important; }
 .cdx-input { background: rgba(255,255,255,0.03) !important; border-color: var(--dim) !important; color: var(--text) !important; box-shadow: none !important; }
 .cdx-input:focus { border-color: var(--teal) !important; }
-.cdx-code { background: rgba(255,255,255,0.06) !important; border: none !important; border-radius: var(--rs) !important; }
-.ce-code__textarea { color: #b5cea8 !important; background: transparent !important; font-family: 'Courier New', monospace !important; font-size: 0.85rem !important; border: none !important; outline: none !important; }
-.cdx-quote__text { border: none !important; border-left: 3px solid var(--teal) !important; color: var(--text) !important; font-style: italic !important; padding-left: 1rem !important; background: transparent !important; border-radius: 0 !important; box-shadow: none !important; outline: none !important; }
-.cdx-quote__caption { color: var(--muted) !important; font-size: 0.85rem !important; }
+/* ── Notion-style code block ── */
+.cdx-code { background: rgba(255,255,255,0.05) !important; border: none !important; border-radius: 4px !important; padding: 14px 16px !important; }
+.ce-code__textarea {
+  color: #e6edf3 !important;
+  background: transparent !important;
+  font-family: 'SF Mono','Monaco','Menlo','Consolas','Courier New',monospace !important;
+  font-size: 0.875rem !important;
+  line-height: 1.55 !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+  min-height: 1.5em !important;
+  box-shadow: none !important;
+}
+.ce-code__textarea:focus { border: none !important; box-shadow: none !important; }
+
+/* ── Notion-style quote block (no box, only left bar) ── */
+.cdx-quote { background: transparent !important; border: none !important; padding: 2px 0 !important; }
+.cdx-quote__text {
+  background: transparent !important;
+  border: none !important;
+  border-left: 3px solid var(--text) !important;
+  border-radius: 0 !important;
+  padding: 4px 0 4px 14px !important;
+  font-style: normal !important;
+  font-size: 1.05rem !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+  outline: none !important;
+  min-height: auto !important;
+}
+.cdx-quote__text:focus { border-left-color: var(--text) !important; box-shadow: none !important; }
+.cdx-quote__caption {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 2px 0 2px 14px !important;
+  color: var(--muted) !important;
+  font-size: 0.85rem !important;
+  font-style: italic !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.cdx-quote__caption:focus { border: none !important; box-shadow: none !important; }
+
+/* ── Notion-style callout block ── */
+.cdx-callout {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: rgba(255,255,255,0.04);
+  border-radius: 4px;
+  padding: 14px 16px;
+  margin: 0;
+}
+.cdx-callout__emoji {
+  font-size: 1.25rem;
+  line-height: 1.55;
+  flex-shrink: 0;
+  min-width: 1.5em;
+  text-align: center;
+  outline: none;
+  cursor: text;
+  user-select: text;
+  border-radius: 4px;
+  padding: 0 2px;
+}
+.cdx-callout__emoji:hover { background: rgba(255,255,255,0.05); }
+.cdx-callout__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--text);
+  line-height: 1.6;
+  outline: none;
+  word-break: break-word;
+}
+.cdx-callout__text:empty::before {
+  content: attr(data-placeholder);
+  color: var(--muted);
+  pointer-events: none;
+}
 .ce-delimiter::before { color: var(--dim) !important; font-size: 1.5rem !important; letter-spacing: 0.5rem !important; }
 .cdx-list__item,.cdx-list { color: var(--text) !important; }
 
@@ -1052,6 +1129,59 @@ body.full-width .editor-container { max-width: 1080px !important; }
     };
   }
 
+  /* ── Custom Callout: Notion-style emoji + text block ── */
+  class NotionCallout {
+    static get toolbox() {
+      return {
+        title: 'Callout',
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.7.6 1 1.4 1 2.3v1h6v-1c0-.9.3-1.7 1-2.3A7 7 0 0 0 12 2z"/></svg>'
+      };
+    }
+    static get isReadOnlySupported() { return true; }
+    static get enableLineBreaks() { return true; }
+    static get sanitize() {
+      return { emoji: {}, text: { br: true, b: true, i: true, u: true, a: { href: true, target: true, rel: true }, code: {}, mark: {} } };
+    }
+    constructor(opts) {
+      var d = (opts && opts.data) || {};
+      this.data = { emoji: d.emoji || '💡', text: d.text || '' };
+    }
+    render() {
+      var wrap = document.createElement('div');
+      wrap.className = 'cdx-callout';
+
+      var emoji = document.createElement('span');
+      emoji.className = 'cdx-callout__emoji';
+      emoji.contentEditable = 'true';
+      emoji.spellcheck = false;
+      emoji.innerText = this.data.emoji;
+      emoji.title = 'Click to change emoji';
+
+      var text = document.createElement('div');
+      text.className = 'cdx-callout__text';
+      text.contentEditable = 'true';
+      text.innerHTML = this.data.text;
+      text.setAttribute('data-placeholder', 'Type something…');
+
+      wrap.appendChild(emoji);
+      wrap.appendChild(text);
+      this.wrap = wrap;
+      return wrap;
+    }
+    save() {
+      var emojiEl = this.wrap.querySelector('.cdx-callout__emoji');
+      var textEl  = this.wrap.querySelector('.cdx-callout__text');
+      var emoji = ((emojiEl && (emojiEl.innerText || emojiEl.textContent)) || '💡').trim() || '💡';
+      return { emoji: emoji, text: textEl ? textEl.innerHTML : '' };
+    }
+    static get conversionConfig() {
+      return {
+        export: function(d) { return d.text; },
+        import: function(s) { return { emoji: '💡', text: s }; }
+      };
+    }
+  }
+
   /* ── Init Editor.js ── */
   var editorTools = {
     /* Basic blocks */
@@ -1060,6 +1190,7 @@ body.full-width .editor-container { max-width: 1080px !important; }
     checklist: { class: Checklist, inlineToolbar:true },
     /* Content */
     quote:     { class: Quote, inlineToolbar:true },
+    callout:   { class: NotionCallout, inlineToolbar:true },
     warning:   { class: Warning, config:{ titlePlaceholder:'Title', messagePlaceholder:'Message…' } },
     delimiter: Delimiter,
     /* Media */
