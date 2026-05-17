@@ -190,6 +190,69 @@
 .ce-delimiter::before { color: var(--dim) !important; font-size: 1.5rem !important; letter-spacing: 0.5rem !important; }
 .cdx-list__item,.cdx-list { color: var(--text) !important; }
 
+/* ── Notion-style slash menu ── */
+.ce-popover__container { min-width: 320px !important; max-width: 360px !important; padding: 8px !important; background: #1f1f1f !important; border: 1px solid rgba(255,255,255,0.094) !important; box-shadow: 0 14px 28px rgba(0,0,0,0.5), 0 10px 10px rgba(0,0,0,0.2) !important; border-radius: 10px !important; }
+.ce-popover__items { max-height: 380px !important; padding: 0 !important; overflow-y: auto !important; }
+.ce-popover-header { margin-bottom: 6px !important; padding: 0 !important; }
+.ce-popover__nothing-found-message { color: rgba(255,255,255,0.4) !important; padding: 16px !important; text-align: center !important; font-size: 13px !important; }
+.cdx-search-field { background: rgba(255,255,255,0.055) !important; border: 1px solid transparent !important; border-radius: 6px !important; padding: 6px 10px !important; }
+.cdx-search-field__input { color: rgba(255,255,255,0.81) !important; font-size: 14px !important; }
+.cdx-search-field__input::placeholder { color: rgba(255,255,255,0.4) !important; }
+.cdx-search-field__icon { color: rgba(255,255,255,0.4) !important; width: 18px !important; height: 18px !important; }
+.cdx-search-field__icon svg { width: 14px !important; height: 14px !important; }
+.ce-popover-item { padding: 6px 8px !important; border-radius: 6px !important; margin: 1px 0 !important; position: relative !important; min-height: 0 !important; }
+.ce-popover-item__icon { background: rgba(255,255,255,0.055) !important; border: 1px solid rgba(255,255,255,0.094) !important; border-radius: 5px !important; width: 32px !important; height: 32px !important; min-width: 32px !important; margin-right: 10px !important; flex-shrink: 0 !important; color: rgba(255,255,255,0.81) !important; }
+.ce-popover-item__icon svg { width: 18px !important; height: 18px !important; }
+.ce-popover-item__title { font-size: 14px !important; font-weight: 400 !important; color: rgba(255,255,255,0.81) !important; line-height: 1.3 !important; }
+.ce-popover-item:hover, .ce-popover-item--focused { background: rgba(255,255,255,0.055) !important; }
+.ce-popover-item--no-hover { background: transparent !important; }
+.ce-popover-item__secondary-title { color: rgba(255,255,255,0.4) !important; font-size: 12px !important; }
+/* Section headers via pseudo-elements (inside the item's top padding so they aren't clipped) */
+.ce-popover-item[data-item-name="paragraph"],
+.ce-popover-item[data-item-name="image"],
+.ce-popover-item[data-item-name="code"] { padding-top: 28px !important; margin-top: 4px !important; position: relative !important; }
+.ce-popover-item[data-item-name="paragraph"]::before,
+.ce-popover-item[data-item-name="image"]::before,
+.ce-popover-item[data-item-name="code"]::before { position: absolute; top: 8px; left: 10px; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 0.04em; text-transform: none; }
+.ce-popover-item[data-item-name="paragraph"]::before { content: 'Basic blocks'; }
+.ce-popover-item[data-item-name="image"]::before    { content: 'Media'; }
+.ce-popover-item[data-item-name="code"]::before     { content: 'Advanced blocks'; }
+/* Shortcut hints on right (Notion-style) */
+.ce-popover-item[data-item-name="quote"]::after,
+.ce-popover-item[data-item-name="delimiter"]::after,
+.ce-popover-item[data-item-name="code"]::after,
+.ce-popover-item[data-item-name="warning"]::after,
+.ce-popover-item[data-item-name="table"]::after,
+.ce-popover-item[data-item-name="image"]::after,
+.ce-popover-item[data-item-name="raw"]::after,
+.ce-popover-item[data-item-name="checklist"]::after,
+.ce-popover-item[data-item-name="attaches"]::after { margin-left: auto; color: rgba(255,255,255,0.3); font-size: 12px; font-family: 'Courier New', monospace; padding-right: 6px; flex-shrink: 0; }
+.ce-popover-item[data-item-name="quote"]::after     { content: '"'; }
+.ce-popover-item[data-item-name="delimiter"]::after { content: '---'; }
+.ce-popover-item[data-item-name="code"]::after      { content: '</>'; }
+.ce-popover-item[data-item-name="warning"]::after   { content: '!'; }
+.ce-popover-item[data-item-name="table"]::after     { content: 'tbl'; }
+.ce-popover-item[data-item-name="image"]::after     { content: 'img'; }
+.ce-popover-item[data-item-name="raw"]::after       { content: '< >'; }
+.ce-popover-item[data-item-name="checklist"]::after { content: '[ ]'; }
+.ce-popover-item[data-item-name="attaches"]::after  { content: 'file'; }
+/* Heading items (4 of them) — hints via nth-of-type */
+.ce-popover-item[data-item-name="header"] { position: relative !important; }
+.ce-popover-item[data-item-name="header"]::after { margin-left: auto; color: rgba(255,255,255,0.3); font-size: 12px; font-family: 'Courier New', monospace; padding-right: 6px; flex-shrink: 0; }
+.ce-popover-item[data-item-name="header"]:nth-of-type(2)::after { content: '#'; }
+.ce-popover-item[data-item-name="header"]:nth-of-type(3)::after { content: '##'; }
+.ce-popover-item[data-item-name="header"]:nth-of-type(4)::after { content: '###'; }
+.ce-popover-item[data-item-name="header"]:nth-of-type(5)::after { content: '####'; }
+/* List items (2 of them) — hints; use adjacent sibling to distinguish them */
+.ce-popover-item[data-item-name="list"] { position: relative !important; }
+.ce-popover-item[data-item-name="list"]::after { margin-left: auto; color: rgba(255,255,255,0.3); font-size: 12px; font-family: 'Courier New', monospace; padding-right: 6px; flex-shrink: 0; }
+.ce-popover-item[data-item-name="header"] + .ce-popover-item[data-item-name="list"]::after { content: '-'; }
+.ce-popover-item[data-item-name="list"] + .ce-popover-item[data-item-name="list"]::after { content: '1.'; }
+/* Scrollbar */
+.ce-popover__items::-webkit-scrollbar { width: 6px; }
+.ce-popover__items::-webkit-scrollbar-track { background: transparent; }
+.ce-popover__items::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
 /* ── New block type styles ── */
 /* Warning / Callout */
 .cdx-warning { padding: 0.85rem 1rem 0.85rem 1.25rem !important; background: rgba(232,148,58,0.06) !important; border: 1px solid rgba(232,148,58,0.2) !important; border-radius: var(--rs) !important; border-left: 3px solid var(--amber) !important; }
@@ -653,11 +716,44 @@
     }
   }
 
+  /* ── Custom Header: expose H1/H2/H3/H4 as separate slash-menu items (Notion-style) ── */
+  function hIcon(n) {
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">'+
+      '<text x="9" y="14" font-family="Playfair Display,Georgia,serif" font-weight="800" '+
+      'text-anchor="middle" fill="currentColor" font-size="13" letter-spacing="-0.5">H'+n+'</text></svg>';
+  }
+  var NotionHeader = Header;
+  if (typeof Header !== 'undefined') {
+    NotionHeader = class extends Header {
+      static get toolbox() {
+        return [
+          { icon: hIcon(1), title: 'Heading 1', data: { level: 1 } },
+          { icon: hIcon(2), title: 'Heading 2', data: { level: 2 } },
+          { icon: hIcon(3), title: 'Heading 3', data: { level: 3 } },
+          { icon: hIcon(4), title: 'Heading 4', data: { level: 4 } }
+        ];
+      }
+    };
+  }
+
+  /* ── Custom List: expose Bulleted/Numbered as separate items ── */
+  var NotionList = List;
+  if (typeof List !== 'undefined') {
+    NotionList = class extends List {
+      static get toolbox() {
+        return [
+          { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="6" r="1.4" fill="currentColor"/><circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="5" cy="18" r="1.4" fill="currentColor"/><line x1="10" y1="6" x2="20" y2="6"/><line x1="10" y1="12" x2="20" y2="12"/><line x1="10" y1="18" x2="20" y2="18"/></svg>', title: 'Bulleted list', data: { style: 'unordered' } },
+          { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><text x="3" y="9" font-family="Inter,sans-serif" font-weight="700" font-size="6" fill="currentColor" stroke="none">1</text><text x="3" y="15" font-family="Inter,sans-serif" font-weight="700" font-size="6" fill="currentColor" stroke="none">2</text><text x="3" y="21" font-family="Inter,sans-serif" font-weight="700" font-size="6" fill="currentColor" stroke="none">3</text><line x1="10" y1="6" x2="20" y2="6"/><line x1="10" y1="12" x2="20" y2="12"/><line x1="10" y1="18" x2="20" y2="18"/></svg>', title: 'Numbered list', data: { style: 'ordered' } }
+        ];
+      }
+    };
+  }
+
   /* ── Init Editor.js ── */
   var editorTools = {
     /* Basic blocks */
-    header:    { class: Header, config:{ levels:[1,2,3,4], defaultLevel:2 }, inlineToolbar:true },
-    list:      { class: List,   inlineToolbar:true, config:{ defaultStyle:'unordered' } },
+    header:    { class: NotionHeader, config:{ levels:[1,2,3,4], defaultLevel:2 }, inlineToolbar:true },
+    list:      { class: NotionList, inlineToolbar:true, config:{ defaultStyle:'unordered' } },
     checklist: { class: Checklist, inlineToolbar:true },
     /* Content */
     quote:     { class: Quote, inlineToolbar:true },
