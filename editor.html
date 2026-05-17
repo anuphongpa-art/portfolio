@@ -206,27 +206,20 @@
   border: none !important;
   border-left: 3px solid var(--text) !important;
   border-radius: 0 !important;
-  padding: 4px 0 4px 14px !important;
+  padding: 2px 0 2px 14px !important;
+  margin: 0 !important;
   font-style: normal !important;
   font-size: 1.05rem !important;
+  line-height: 1.6 !important;
   color: var(--text) !important;
   box-shadow: none !important;
   outline: none !important;
-  min-height: auto !important;
+  min-height: 1.6em !important;
+  height: auto !important;
 }
 .cdx-quote__text:focus { border-left-color: var(--text) !important; box-shadow: none !important; }
-.cdx-quote__caption {
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 2px 0 2px 14px !important;
-  color: var(--muted) !important;
-  font-size: 0.85rem !important;
-  font-style: italic !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-.cdx-quote__caption:focus { border: none !important; box-shadow: none !important; }
+/* Hide caption — Notion-style quote has no caption field */
+.cdx-quote__caption { display: none !important; }
 
 /* ── Notion-style callout block ── */
 .cdx-callout {
