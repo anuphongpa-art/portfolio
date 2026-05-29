@@ -506,12 +506,12 @@ body.full-width .post-wrap { max-width: 1080px; }
       '</section>';
 
     wrap.innerHTML =
-      '<nav class="post-breadcrumb">'+
+      '<div class="post-breadcrumb">'+
         '<a href="blog.html">Blog</a>'+
         '<span class="post-breadcrumb-sep">/</span>'+
         '<span>'+escHtml(post.title||'Untitled')+'</span>'+
         editBtn+
-      '</nav>'+
+      '</div>'+
       draftBanner+
       '<header class="post-header">'+
         '<div class="post-meta-row">'+
