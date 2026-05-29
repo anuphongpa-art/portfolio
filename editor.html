@@ -140,8 +140,17 @@
 
 .editor-tags-row {
   display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.editor-cover-row {
+  display: flex; align-items: center; gap: 0.6rem;
   margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--dim);
 }
+.cover-url-input {
+  flex: 1; background: transparent; border: none; outline: none;
+  font-family: var(--sans); font-size: 0.75rem; color: var(--sub);
+}
+.cover-url-input::placeholder { color: var(--muted); }
 .tags-label { font-size: 0.75rem; color: var(--muted); flex-shrink: 0; }
 .tag-pill {
   display: inline-flex; align-items: center; gap: 0.3rem;
@@ -630,6 +639,10 @@ body.full-width .editor-container { max-width: 1080px !important; }
       <span class="tag-pill" data-tag="Personal">Personal</span>
       <input type="text" class="tag-custom-input" id="tag-custom" placeholder="+ custom tag" maxlength="30">
     </div>
+    <div class="editor-cover-row">
+      <span class="tags-label">Cover:</span>
+      <input type="url" id="editor-cover" class="cover-url-input" placeholder="https://…  (thumbnail image URL)" autocomplete="off" spellcheck="false">
+    </div>
     <div id="editorjs"></div>
   </div>
 </main>
@@ -654,6 +667,7 @@ body.full-width .editor-container { max-width: 1080px !important; }
 
   /* ── DOM ── */
   var titleEl    = document.getElementById('editor-title');
+  var coverEl    = document.getElementById('editor-cover');
   var statusEl   = document.getElementById('save-status');
   var toggleEl   = document.getElementById('publish-toggle');
   var labelEl    = document.getElementById('publish-label');
@@ -746,7 +760,7 @@ body.full-width .editor-container { max-width: 1080px !important; }
     if (existingIndex && existingIndex.content) {
       try { indexData = JSON.parse(fromBase64(existingIndex.content)); } catch(e){}
     }
-    var meta = { id:post.id, title:post.title, excerpt:post.excerpt, tags:post.tags, created_at:post.created_at, updated_at:post.updated_at };
+    var meta = { id:post.id, title:post.title, cover:post.cover||'', excerpt:post.excerpt, tags:post.tags, created_at:post.created_at, updated_at:post.updated_at };
     var idx = indexData.findIndex(function(p){ return p.id===post.id; });
     if (idx>=0) indexData[idx]=meta; else indexData.unshift(meta);
     await ghPut(indexPath, indexData, 'Update blog index', indexSha);
@@ -788,6 +802,7 @@ body.full-width .editor-container { max-width: 1080px !important; }
       var post = {
         id:          currentId || uid(),
         title:       titleEl.value.trim() || 'Untitled',
+        cover:       coverEl.value.trim() || '',
         excerpt:     extractExcerpt(output.blocks),
         content:     output,
         tags:        activeTags.slice(),
@@ -922,6 +937,7 @@ body.full-width .editor-container { max-width: 1080px !important; }
       currentId        = loadId;
       titleEl.value    = existing.title || '';
       autoResize(titleEl);
+      coverEl.value    = existing.cover || '';
       isPublished      = !!existing.published;
       wasPublishedOnGH = isPublished;
       toggleEl.checked = isPublished;
