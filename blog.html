@@ -81,10 +81,13 @@
 .post-card-thumb {
   width: 100%; aspect-ratio: 16/9;
   background: var(--glass2); overflow: hidden; flex-shrink: 0;
+  position: relative;
 }
 .post-card-thumb img {
+  position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover; display: block;
+  object-fit: cover; object-position: center;
+  display: block;
   transition: transform 0.35s ease;
 }
 .post-card:hover .post-card-thumb img { transform: scale(1.04); }
