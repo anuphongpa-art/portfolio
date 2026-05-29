@@ -222,15 +222,69 @@ body.full-width .post-wrap { max-width: 1080px; }
 }
 .post-nav-placeholder { visibility: hidden; }
 
-/* ── Giscus comments ── */
+/* ── Comment widget ── */
 .post-comments {
   margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--dim);
 }
-.post-comments-title {
-  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
-  margin-bottom: 1.25rem;
+.reply-heading {
+  font-family: var(--sans); font-size: 1.25rem; font-weight: 800;
+  color: var(--text); margin-bottom: 1.25rem; letter-spacing: -0.02em;
 }
+/* existing comment list */
+.comment-list { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 1.75rem; }
+.comment-item { display: flex; gap: 0.85rem; align-items: flex-start; }
+.comment-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: var(--glass2); border: 1px solid var(--gb); overflow: hidden;
+}
+.comment-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.comment-content { flex: 1; min-width: 0; }
+.comment-meta { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem; flex-wrap: wrap; }
+.comment-author { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+.comment-date { font-size: 0.72rem; color: var(--muted); }
+.comment-body { font-size: 0.875rem; color: var(--sub); line-height: 1.65; }
+.comment-empty { font-size: 0.82rem; color: var(--muted); font-style: italic; padding: 0.25rem 0 1rem; }
+/* reply form */
+.reply-box {
+  border: 1px solid var(--gb); border-radius: var(--r);
+  overflow: hidden; background: var(--bg2);
+}
+.reply-textarea {
+  width: 100%; padding: 1rem; min-height: 100px;
+  background: transparent; border: none; outline: none; resize: vertical;
+  font-family: var(--sans); font-size: 0.9rem; color: var(--text);
+  line-height: 1.65; border-bottom: 1px solid var(--gb);
+}
+.reply-textarea::placeholder { color: var(--muted); }
+.reply-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.6rem 1rem; gap: 0.75rem; flex-wrap: wrap;
+  background: var(--glass);
+}
+.reply-bar-left { display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap; }
+.reply-hint { font-size: 0.75rem; color: var(--muted); }
+.reply-user { display: flex; align-items: center; gap: 0.45rem; }
+.reply-user-avatar { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--gb); }
+.reply-user-name { font-size: 0.75rem; font-weight: 600; color: var(--sub); }
+.reply-login-btns { display: flex; gap: 0.35rem; }
+.reply-login-btn {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border: none; transition: opacity 0.18s, transform 0.18s;
+  flex-shrink: 0;
+}
+.reply-login-btn:hover { opacity: 0.85; transform: scale(1.08); }
+.reply-login-gh  { background: #24292e; color: #fff; }
+.reply-login-ano { background: #4a90d9; color: #fff; }
+.btn-post-comment {
+  padding: 0.42rem 1.2rem; border-radius: var(--rs);
+  background: #0e76a8; color: #fff;
+  font-family: var(--sans); font-size: 0.8rem; font-weight: 700;
+  border: none; cursor: pointer; transition: opacity 0.18s; flex-shrink: 0;
+}
+.btn-post-comment:hover { opacity: 0.88; }
+.btn-post-comment:disabled { opacity: 0.4; cursor: not-allowed; }
+.comment-loading { font-size: 0.78rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; }
 
 @media (max-width:600px) {
   #post-page { padding:5rem 1.25rem 4rem; }
@@ -490,19 +544,28 @@ body.full-width .post-wrap { max-width: 1080px; }
       : '<span class="post-nav-placeholder"></span>';
     var navHtml = '<nav class="post-nav">'+prevHtml+nextHtml+'</nav>';
 
-    /* Utterances comments (GitHub Issues) */
-    /* Setup: install app at https://utteranc.es/ → select repo anuphongpa-art/portfolio */
+    /* Custom comment widget backed by GitHub Issues */
     var commentsHtml =
-      '<section class="post-comments">'+
-        '<p class="post-comments-title">Comments</p>'+
-        '<script src="https://utteranc.es/client.js"'+
-          ' repo="anuphongpa-art/portfolio"'+
-          ' issue-term="pathname"'+
-          ' label="blog-comment"'+
-          ' theme="github-dark"'+
-          ' crossorigin="anonymous"'+
-          ' async>'+
-        '<\/script>'+
+      '<section class="post-comments" id="post-comments">'+
+        '<h3 class="reply-heading">Leave a Reply</h3>'+
+        '<div id="comment-list" class="comment-list">'+
+          '<span class="comment-loading"><div class="spinner"></div> Loading comments…</span>'+
+        '</div>'+
+        '<div class="reply-box">'+
+          '<textarea id="comment-textarea" class="reply-textarea" placeholder="Write a comment…" rows="4"></textarea>'+
+          '<div class="reply-bar">'+
+            '<div class="reply-bar-left">'+
+              '<span class="reply-hint">Leave a comment.</span>'+
+              '<div id="reply-user-info"></div>'+
+              '<div class="reply-login-btns" id="reply-login-btns">'+
+                '<button class="reply-login-btn reply-login-gh" id="btn-gh-login" title="Login with GitHub">'+
+                  '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>'+
+                '</button>'+
+              '</div>'+
+            '</div>'+
+            '<button class="btn-post-comment" id="btn-post-comment">Comment</button>'+
+          '</div>'+
+        '</div>'+
       '</section>';
 
     wrap.innerHTML =
@@ -546,6 +609,176 @@ body.full-width .post-wrap { max-width: 1080px; }
     }
   }
 
+  /* ── Comment system (GitHub Issues backend) ── */
+  var GH_API_BASE = 'https://api.github.com/repos/anuphongpa-art/portfolio';
+  var COMMENT_LABEL = 'blog-comment';
+
+  function ghToken() { return localStorage.getItem('gh_token') || ''; }
+
+  function ghHeaders(withAuth) {
+    var h = { 'Accept': 'application/vnd.github.v3+json' };
+    if (withAuth && ghToken()) h['Authorization'] = 'Bearer ' + ghToken();
+    return h;
+  }
+
+  function simpleMarkdown(text) {
+    return String(text||'')
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g,'<em>$1</em>')
+      .replace(/`(.+?)`/g,'<code>$1</code>')
+      .replace(/\n/g,'<br>');
+  }
+
+  function timeAgo(iso) {
+    var d = new Date(iso); var now = new Date();
+    var diff = Math.floor((now - d) / 1000);
+    if (diff < 60)   return diff + 's ago';
+    if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+    if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+    if (diff < 2592000) return Math.floor(diff/86400) + 'd ago';
+    return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  }
+
+  function renderCommentList(comments) {
+    var listEl = document.getElementById('comment-list');
+    if (!listEl) return;
+    if (!comments || comments.length === 0) {
+      listEl.innerHTML = '<p class="comment-empty">ยังไม่มี comment — เป็นคนแรกที่แสดงความคิดเห็น!</p>';
+      return;
+    }
+    listEl.innerHTML = comments.map(function(c) {
+      return '<div class="comment-item">'+
+        '<div class="comment-avatar"><img src="'+escHtml(c.user.avatar_url)+'" alt="'+escHtml(c.user.login)+'" loading="lazy"></div>'+
+        '<div class="comment-content">'+
+          '<div class="comment-meta">'+
+            '<span class="comment-author">'+escHtml(c.user.login)+'</span>'+
+            '<span class="comment-date">'+timeAgo(c.created_at)+'</span>'+
+          '</div>'+
+          '<div class="comment-body">'+simpleMarkdown(c.body)+'</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+
+  function initComments(post) {
+    var listEl  = document.getElementById('comment-list');
+    var textarea = document.getElementById('comment-textarea');
+    var submitBtn = document.getElementById('btn-post-comment');
+    var loginBtns = document.getElementById('reply-login-btns');
+    var userInfo  = document.getElementById('reply-user-info');
+    var ghLoginBtn = document.getElementById('btn-gh-login');
+    if (!listEl || !textarea || !submitBtn) return;
+
+    var currentIssueNumber = null;
+    var currentUser = null;
+
+    /* ── Check login state ── */
+    function refreshLoginUI() {
+      var token = ghToken();
+      if (token) {
+        fetch('https://api.github.com/user', { headers: ghHeaders(true) })
+          .then(function(r){ return r.ok ? r.json() : null; })
+          .then(function(u) {
+            if (!u) return;
+            currentUser = u;
+            if (loginBtns) loginBtns.style.display = 'none';
+            if (userInfo) userInfo.innerHTML =
+              '<div class="reply-user">'+
+                '<img class="reply-user-avatar" src="'+escHtml(u.avatar_url)+'" alt="">'+
+                '<span class="reply-user-name">'+escHtml(u.login)+'</span>'+
+              '</div>';
+            submitBtn.disabled = false;
+          });
+      } else {
+        submitBtn.disabled = true;
+        if (loginBtns) loginBtns.style.display = 'flex';
+      }
+    }
+
+    /* ── GitHub login button ── */
+    if (ghLoginBtn) {
+      ghLoginBtn.addEventListener('click', function() {
+        var overlay = document.getElementById('token-overlay');
+        if (overlay) { overlay.style.display = 'flex'; }
+      });
+    }
+
+    /* ── Find or create GitHub Issue for this post ── */
+    function findOrCreateIssue(cb) {
+      fetch(GH_API_BASE + '/issues?labels=' + COMMENT_LABEL + '&state=open&per_page=100', { headers: ghHeaders(false) })
+        .then(function(r){ return r.ok ? r.json() : []; })
+        .then(function(issues) {
+          var match = issues.find(function(i){ return i.body && i.body.indexOf('post.html?id=' + post.id) !== -1; });
+          if (match) { cb(match.number); return; }
+          /* No issue yet — create on first comment (needs token) */
+          cb(null);
+        })
+        .catch(function(){ cb(null); });
+    }
+
+    function fetchAndRenderComments(issueNumber) {
+      if (!issueNumber) { renderCommentList([]); return; }
+      fetch(GH_API_BASE + '/issues/' + issueNumber + '/comments?per_page=100', { headers: ghHeaders(false) })
+        .then(function(r){ return r.ok ? r.json() : []; })
+        .then(function(comments){ renderCommentList(comments); })
+        .catch(function(){ renderCommentList([]); });
+    }
+
+    function createIssue(cb) {
+      fetch(GH_API_BASE + '/issues', {
+        method: 'POST',
+        headers: Object.assign({'Content-Type':'application/json'}, ghHeaders(true)),
+        body: JSON.stringify({
+          title: post.title || 'Blog post',
+          body:  'Comments for: [' + escHtml(post.title||'') + '](https://anuphongpa-art.github.io/portfolio/post.html?id=' + encodeURIComponent(post.id) + ')',
+          labels: [COMMENT_LABEL]
+        })
+      })
+      .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+      .then(function(issue){ cb(issue.number); })
+      .catch(function(){ cb(null); });
+    }
+
+    /* ── Submit comment ── */
+    submitBtn.addEventListener('click', function() {
+      var text = textarea.value.trim();
+      if (!text || !ghToken()) return;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Posting…';
+
+      function postTo(issueNumber) {
+        if (!issueNumber) { submitBtn.disabled=false; submitBtn.textContent='Comment'; return; }
+        currentIssueNumber = issueNumber;
+        fetch(GH_API_BASE + '/issues/' + issueNumber + '/comments', {
+          method: 'POST',
+          headers: Object.assign({'Content-Type':'application/json'}, ghHeaders(true)),
+          body: JSON.stringify({ body: text })
+        })
+        .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+        .then(function() {
+          textarea.value = '';
+          fetchAndRenderComments(issueNumber);
+        })
+        .catch(function(){ alert('Failed to post comment. Please check your GitHub token.'); })
+        .finally(function(){ submitBtn.disabled = !ghToken(); submitBtn.textContent = 'Comment'; });
+      }
+
+      if (currentIssueNumber) {
+        postTo(currentIssueNumber);
+      } else {
+        createIssue(function(num){ postTo(num); });
+      }
+    });
+
+    /* ── Init ── */
+    refreshLoginUI();
+    findOrCreateIssue(function(num) {
+      currentIssueNumber = num;
+      fetchAndRenderComments(num);
+    });
+  }
+
   function renderNotFound() {
     wrap.innerHTML =
       '<div class="post-not-found">'+
@@ -573,12 +806,13 @@ body.full-width .post-wrap { max-width: 1080px; }
         var prev = i < index.length - 1 ? index[i + 1] : null;
         var next = i > 0               ? index[i - 1] : null;
         renderPost(post, false, prev, next);
+        initComments(post);
       });
     })
     .catch(function(){
       /* Fallback: localStorage draft */
       var local = getLocalPost(id);
-      if (local) { renderPost(local, true, null, null); }
+      if (local) { renderPost(local, true, null, null); initComments(local); }
       else { renderNotFound(); }
     });
 })();
