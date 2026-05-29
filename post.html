@@ -24,14 +24,10 @@
 .post-breadcrumb {
   display: flex; align-items: center; gap: 0.5rem;
   margin-bottom: 2.5rem; font-size: 0.8rem; color: var(--muted);
-  min-width: 0;
 }
-.post-breadcrumb a { color: var(--sub); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+.post-breadcrumb a { color: var(--sub); text-decoration: none; transition: color 0.2s; }
 .post-breadcrumb a:hover { color: var(--text); }
-.post-breadcrumb-sep { opacity: 0.4; flex-shrink: 0; }
-.post-breadcrumb > span:not(.post-breadcrumb-sep) {
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;
-}
+.post-breadcrumb-sep { opacity: 0.4; }
 
 .btn-edit-post {
   display: inline-flex; align-items: center; gap: 0.35rem;
