@@ -4,7 +4,7 @@
   "cover": "https://raw.githubusercontent.com/anuphongpa-art/portfolio/main/images/blog/blog-mpr3tufkf27s.jpg",
   "excerpt": "สรุป 8 ไอเดียจากบทสัมภาษณ์ของ Lewis Hamilton จากเด็กไร้ตัวตนในสังคม สู่นักแข่งรถฟอร์มูล่าวันระดับโลก | F1 Motivate&nbsp;",
   "content": {
-    "time": 1780070201538,
+    "time": 1780070212793,
     "blocks": [
       {
         "id": "22YuKzTRh8",
@@ -70,6 +70,13 @@
         }
       },
       {
+        "id": "NT8kLMjZgM",
+        "type": "paragraph",
+        "data": {
+          "text": "."
+        }
+      },
+      {
         "id": "_kcFjZmNRE",
         "type": "paragraph",
         "data": {
@@ -77,10 +84,24 @@
         }
       },
       {
+        "id": "iorI1yNp7P",
+        "type": "paragraph",
+        "data": {
+          "text": "."
+        }
+      },
+      {
         "id": "eF4Bse6JCv",
         "type": "paragraph",
         "data": {
           "text": "6. ในวัยเด็ก Lewis จะรู้สึกดีทุกครั้ง เมื่อได้สวมหมวกกันน็อคระหว่างขับรถโกคาร์ท เพราะเสมือนว่าตัวเองได้เป็นซูเปอร์แมน ที่เป็นฮีโร่สร้างแรงบันดาลใจให้กับเขาคอยผ่านพ้นช่วงเวลาที่ไม่น่าจดจำ"
+        }
+      },
+      {
+        "id": "ntfxTqm5oD",
+        "type": "paragraph",
+        "data": {
+          "text": "."
         }
       },
       {
@@ -328,5 +349,5 @@
   },
   "published": true,
   "created_at": "2026-05-29T09:17:19.183Z",
-  "updated_at": "2026-05-29T15:56:41.539Z"
+  "updated_at": "2026-05-29T15:56:52.793Z"
 }
