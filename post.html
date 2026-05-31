@@ -12,6 +12,18 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Post — Bee Anuphong</title>
+<meta name="description" content="">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Bee Anuphong">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:url" content="">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="">
+<link rel="canonical" href="">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -535,12 +547,37 @@ body.full-width .post-wrap { max-width: 1080px; }
     document.body.classList.toggle('full-width', !!s.fullWidth);
   }
 
+  function setMeta(sel, val) {
+    if (!val) return;
+    var el = document.querySelector(sel);
+    if (!el) return;
+    if (el.tagName === 'LINK') el.href = val;
+    else el.setAttribute('content', val);
+  }
+
   function renderPost(post, isDraft, prevPost, nextPost) {
     applyPostStyle(post);
     document.title = (post.title||'Post')+' — Bee Anuphong';
+
+    var base = 'https://beeanuphong.com/';
+    var desc = (post.excerpt||'').replace(/&nbsp;/g,' ').trim();
+    var coverRaw = post.cover||'';
+    var cover = coverRaw
+      ? (coverRaw.startsWith('http') ? coverRaw : base + coverRaw)
+      : base + 'images/profile.png';
+    var pageUrl = base + 'post.html?id=' + encodeURIComponent(id);
+
+    setMeta('meta[name="description"]', desc);
+    setMeta('meta[property="og:title"]', post.title||'Post');
+    setMeta('meta[property="og:description"]', desc);
+    setMeta('meta[property="og:image"]', cover);
+    setMeta('meta[property="og:url"]', pageUrl);
+    setMeta('meta[name="twitter:title"]', post.title||'Post');
+    setMeta('meta[name="twitter:description"]', desc);
+    setMeta('meta[name="twitter:image"]', cover);
+    setMeta('link[rel="canonical"]', pageUrl);
     var tags=(post.tags||[]).map(function(t){return '<span class="post-tag">'+escHtml(t)+'</span>';}).join('');
     var blocks=(post.content&&post.content.blocks)?post.content.blocks:[];
-    var pageUrl = window.location.href;
     var pageTitle = encodeURIComponent(post.title||'');
 
     var draftBanner = isDraft
