@@ -980,9 +980,8 @@ body.full-width .editor-container { max-width: 1080px !important; }
       var sha = existing ? existing.sha : null;
       await ghPutImage(imagePath, base64data, file.type, 'Add cover image: ' + filename, sha);
 
-      var rawUrl = 'https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/' + GH_BRANCH + '/' + imagePath;
-      coverEl.value = rawUrl;
-      updateCoverPreview(rawUrl);
+      coverEl.value = imagePath;
+      updateCoverPreview(imagePath);
       setStatus('Image uploaded ✓', 'saved');
       setTimeout(function(){ setStatus(isPublished ? 'Published' : 'Draft'); }, 3000);
     } catch(err) {
