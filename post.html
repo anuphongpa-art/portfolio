@@ -202,6 +202,34 @@ body.full-width .post-wrap { max-width: 1080px; }
 .share-copy  { background: var(--glass2); color: var(--sub); border-color: var(--gb); }
 .share-copy.copied { color: #4ade80; border-color: rgba(74,222,128,0.35); }
 
+/* ── Like bar ── */
+.post-like {
+  margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--dim);
+  display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;
+}
+.post-like-label {
+  font-size: 0.82rem; font-weight: 600; color: var(--sub); flex-shrink: 0;
+}
+.like-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.42rem 1rem; border-radius: var(--rs);
+  background: var(--glass2); border: 1px solid var(--gb);
+  color: var(--sub); font-size: 0.78rem; font-weight: 600;
+  cursor: pointer; font-family: var(--sans);
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.15s;
+}
+.like-btn:hover { background: var(--gbhi); color: var(--text); transform: translateY(-1px); }
+.like-btn.liked {
+  background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.35);
+  color: #f87171;
+}
+.like-btn.liked svg { fill: #f87171; }
+.like-btn svg { transition: fill 0.15s, transform 0.2s; }
+.like-btn.pop svg { transform: scale(1.4); }
+.like-count {
+  font-size: 0.82rem; color: var(--muted);
+}
+
 /* ── Prev / Next nav ── */
 .post-nav {
   margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--dim);
@@ -226,15 +254,80 @@ body.full-width .post-wrap { max-width: 1080px; }
 }
 .post-nav-placeholder { visibility: hidden; }
 
-/* ── Giscus comments ── */
+/* ── Comments ── */
 .post-comments {
   margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--dim);
 }
-.post-comments-title {
-  font-family: var(--sans); font-size: 0.72rem; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
-  margin-bottom: 1.25rem;
+.comments-heading {
+  font-family: var(--sans); font-size: 1.05rem; font-weight: 700;
+  color: var(--text); margin-bottom: 1.25rem;
 }
+.comment-form {
+  border: 1px solid var(--dim); border-radius: var(--rs);
+  overflow: hidden; margin-bottom: 2rem;
+}
+.comment-textarea {
+  width: 100%; box-sizing: border-box;
+  background: transparent; border: none; border-bottom: 1px solid var(--dim);
+  color: var(--text); font-family: var(--sans); font-size: 0.9rem;
+  padding: 0.85rem 1rem; resize: vertical; min-height: 90px; outline: none;
+}
+.comment-textarea::placeholder { color: var(--muted); }
+.comment-form-footer {
+  background: var(--glass); padding: 0.75rem 1rem;
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+}
+.comment-form-hint { font-size: 0.8rem; color: var(--sub); }
+.comment-form-actions {
+  display: flex; align-items: center; gap: 0.5rem; margin-left: auto;
+}
+.comment-name-input {
+  background: var(--glass2); border: 1px solid var(--gb);
+  border-radius: var(--rs); padding: 0.35rem 0.7rem;
+  color: var(--text); font-size: 0.78rem; font-family: var(--sans);
+  outline: none; width: 140px;
+}
+.comment-name-input::placeholder { color: var(--muted); }
+.comment-name-input:focus { border-color: var(--teal); }
+.comment-submit-btn {
+  background: var(--glass2); border: 1px solid var(--gb);
+  border-radius: var(--rs); padding: 0.38rem 1rem;
+  color: var(--sub); font-size: 0.78rem; font-weight: 600;
+  font-family: var(--sans); cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.comment-submit-btn:hover { background: var(--gbhi); color: var(--text); }
+.comments-list { display: flex; flex-direction: column; gap: 1.5rem; }
+.comment-item { display: flex; gap: 0.85rem; align-items: flex-start; }
+.comment-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.9rem; color: #07090F;
+}
+.comment-body { flex: 1; min-width: 0; }
+.comment-author { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-right: 0.4rem; }
+.comment-date { font-size: 0.75rem; color: var(--muted); }
+.comment-text { margin-top: 0.4rem; font-size: 0.88rem; color: var(--text); line-height: 1.65; white-space: pre-wrap; word-break: break-word; }
+.comment-actions { display: flex; align-items: center; gap: 0.85rem; margin-top: 0.5rem; }
+.comment-like-btn, .comment-reply-btn {
+  background: none; border: none; padding: 0;
+  font-size: 0.78rem; color: var(--muted); cursor: pointer;
+  font-family: var(--sans); display: inline-flex; align-items: center; gap: 0.3rem;
+  transition: color 0.15s;
+}
+.comment-like-btn:hover { color: var(--text); }
+.comment-like-btn.liked { color: #fbbf24; }
+.comment-like-btn.liked svg { fill: #fbbf24; }
+.comment-reply-btn:hover { color: var(--text); text-decoration: underline; }
+.comment-replies {
+  margin-top: 1rem; padding-left: 1rem;
+  border-left: 2px solid var(--dim);
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.comment-replies .comment-avatar { width: 30px; height: 30px; font-size: 0.75rem; }
+.reply-form-wrap { margin-top: 0.85rem; }
+.reply-textarea { min-height: 64px !important; border-radius: var(--rs); border: 1px solid var(--dim) !important; }
+.reply-form-actions { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; justify-content: flex-end; }
 
 @media (max-width:600px) {
   #post-page { padding:5rem 1.25rem 4rem; }
@@ -479,6 +572,22 @@ body.full-width .post-wrap { max-width: 1080px; }
         '</div>'+
       '</div>';
 
+    /* Like bar */
+    var likeKey = 'post_liked_' + id;
+    var countKey = 'post_likes_' + id;
+    var liked = !!localStorage.getItem(likeKey);
+    var likeCount = parseInt(localStorage.getItem(countKey) || '0', 10);
+    var likeHtml =
+      '<div class="post-like">'+
+        '<span class="post-like-label">Like this:</span>'+
+        '<button class="like-btn'+(liked?' liked':'')+'" id="btn-like">'+
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="'+(liked?'currentColor':'none')+'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+
+            '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>'+
+          '</svg>'+
+          'Like</button>'+
+        '<span class="like-count" id="like-count">'+likeCount+' '+( likeCount === 1 ? 'like' : 'likes')+'</span>'+
+      '</div>';
+
     /* Prev / Next */
     var prevHtml = prevPost
       ? '<a class="post-nav-link post-nav-link--prev" href="post.html?id='+encodeURIComponent(prevPost.id)+'">'+
@@ -494,19 +603,21 @@ body.full-width .post-wrap { max-width: 1080px; }
       : '<span class="post-nav-placeholder"></span>';
     var navHtml = '<div class="post-nav">'+prevHtml+nextHtml+'</div>';
 
-    /* Utterances comments (GitHub Issues) */
-    /* Setup: install app at https://utteranc.es/ → select repo anuphongpa-art/portfolio */
+    /* Custom comment system */
     var commentsHtml =
       '<section class="post-comments">'+
-        '<p class="post-comments-title">Comments</p>'+
-        '<script src="https://utteranc.es/client.js"'+
-          ' repo="anuphongpa-art/portfolio"'+
-          ' issue-term="pathname"'+
-          ' label="blog-comment"'+
-          ' theme="github-dark"'+
-          ' crossorigin="anonymous"'+
-          ' async>'+
-        '<\/script>'+
+        '<h3 class="comments-heading">Leave a Reply</h3>'+
+        '<div class="comment-form">'+
+          '<textarea class="comment-textarea" id="comment-text" placeholder="Write a comment..." rows="4"></textarea>'+
+          '<div class="comment-form-footer">'+
+            '<span class="comment-form-hint">Leave a comment. (log in optional)</span>'+
+            '<div class="comment-form-actions">'+
+              '<input class="comment-name-input" id="comment-name" placeholder="Your name (optional)">'+
+              '<button class="comment-submit-btn" id="btn-comment">Comment</button>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="comments-list" id="comments-list"></div>'+
       '</section>';
 
     wrap.innerHTML =
@@ -526,6 +637,7 @@ body.full-width .post-wrap { max-width: 1080px; }
       '</header>'+
       '<article class="post-body">'+renderBlocks(blocks)+'</article>'+
       shareHtml+
+      likeHtml+
       navHtml+
       commentsHtml+
       '<footer class="post-footer">'+
@@ -533,6 +645,31 @@ body.full-width .post-wrap { max-width: 1080px; }
           '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to Blog'+
         '</a>'+
       '</footer>';
+
+    /* Like button */
+    var likeBtn = document.getElementById('btn-like');
+    var likeCountEl = document.getElementById('like-count');
+    if (likeBtn && likeCountEl) {
+      likeBtn.addEventListener('click', function(){
+        var isLiked = !!localStorage.getItem(likeKey);
+        var count = parseInt(localStorage.getItem(countKey) || '0', 10);
+        if (isLiked) {
+          count = Math.max(0, count - 1);
+          localStorage.removeItem(likeKey);
+          likeBtn.classList.remove('liked');
+          likeBtn.querySelector('svg').setAttribute('fill', 'none');
+        } else {
+          count = count + 1;
+          localStorage.setItem(likeKey, '1');
+          likeBtn.classList.add('liked');
+          likeBtn.querySelector('svg').setAttribute('fill', 'currentColor');
+          likeBtn.classList.add('pop');
+          setTimeout(function(){ likeBtn.classList.remove('pop'); }, 200);
+        }
+        localStorage.setItem(countKey, String(count));
+        likeCountEl.textContent = count + ' ' + (count === 1 ? 'like' : 'likes');
+      });
+    }
 
     /* Copy link */
     var copyBtn = document.getElementById('btn-copy-link');
@@ -548,6 +685,126 @@ body.full-width .post-wrap { max-width: 1080px; }
         });
       });
     }
+
+    /* Init comments */
+    initComments(id);
+  }
+
+  function initComments(postId) {
+    var cKey = 'post_comments_' + postId;
+    var AVATAR_COLS = ['#4ade80','#60a5fa','#f87171','#fbbf24','#a78bfa','#34d399','#fb923c','#38bdf8'];
+
+    function loadCmts() {
+      try { return JSON.parse(localStorage.getItem(cKey) || '[]'); } catch(e) { return []; }
+    }
+    function saveCmts(list) { localStorage.setItem(cKey, JSON.stringify(list)); }
+
+    function avatarHtml(name, size) {
+      var n = (name || 'A').trim();
+      var col = AVATAR_COLS[n.charCodeAt(0) % AVATAR_COLS.length];
+      var sz = size || 38;
+      return '<div class="comment-avatar" style="background:'+col+';width:'+sz+'px;height:'+sz+'px">'+n[0].toUpperCase()+'</div>';
+    }
+    function fmtCmtDate(iso) {
+      return new Date(iso).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+    }
+
+    function renderList() {
+      var el = document.getElementById('comments-list');
+      if (!el) return;
+      var list = loadCmts();
+      if (!list.length) { el.innerHTML = ''; return; }
+      el.innerHTML = list.map(function(c, i) {
+        var replHtml = '';
+        if (c.replies && c.replies.length) {
+          replHtml = '<div class="comment-replies">'+c.replies.map(function(r){
+            return '<div class="comment-item">'+avatarHtml(r.name,30)+'<div class="comment-body">'+
+              '<span class="comment-author">'+escHtml(r.name||'Anonymous')+'</span>'+
+              '<span class="comment-date">'+fmtCmtDate(r.date)+'</span>'+
+              '<p class="comment-text">'+escHtml(r.text)+'</p>'+
+            '</div></div>';
+          }).join('')+'</div>';
+        }
+        var likeLbl = c.likes ? 'Like ('+c.likes+')' : 'Like';
+        return '<div class="comment-item">'+
+          avatarHtml(c.name)+
+          '<div class="comment-body">'+
+            '<span class="comment-author">'+escHtml(c.name||'Anonymous')+'</span>'+
+            '<span class="comment-date">'+fmtCmtDate(c.date)+'</span>'+
+            '<p class="comment-text">'+escHtml(c.text)+'</p>'+
+            '<div class="comment-actions">'+
+              '<button class="comment-like-btn'+(c.liked?' liked':'')+'" data-ci="'+i+'">'+
+                '<svg width="12" height="12" viewBox="0 0 24 24" fill="'+(c.liked?'currentColor':'none')+'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'+
+                likeLbl+
+              '</button>'+
+              '<button class="comment-reply-btn" data-ci="'+i+'">Reply</button>'+
+            '</div>'+
+            replHtml+
+            '<div class="reply-form-wrap" id="reply-form-'+i+'" style="display:none">'+
+              '<textarea class="comment-textarea reply-textarea" placeholder="Write a reply..." rows="3"></textarea>'+
+              '<div class="reply-form-actions">'+
+                '<input class="comment-name-input" placeholder="Your name (optional)">'+
+                '<button class="comment-submit-btn reply-submit-btn" data-ci="'+i+'">Reply</button>'+
+              '</div>'+
+            '</div>'+
+          '</div>'+
+        '</div>';
+      }).join('');
+      bindEvents();
+    }
+
+    function bindEvents() {
+      document.querySelectorAll('.comment-like-btn').forEach(function(btn){
+        btn.onclick = function(){
+          var i = parseInt(btn.getAttribute('data-ci'), 10);
+          var list = loadCmts();
+          if (!list[i]) return;
+          list[i].liked = !list[i].liked;
+          list[i].likes = Math.max(0, (list[i].likes||0) + (list[i].liked ? 1 : -1));
+          saveCmts(list);
+          renderList();
+        };
+      });
+      document.querySelectorAll('.comment-reply-btn').forEach(function(btn){
+        btn.onclick = function(){
+          var f = document.getElementById('reply-form-'+btn.getAttribute('data-ci'));
+          if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
+        };
+      });
+      document.querySelectorAll('.reply-submit-btn').forEach(function(btn){
+        btn.onclick = function(){
+          var i = parseInt(btn.getAttribute('data-ci'), 10);
+          var f = document.getElementById('reply-form-'+i);
+          if (!f) return;
+          var txt = (f.querySelector('.reply-textarea').value||'').trim();
+          if (!txt) return;
+          var nm = (f.querySelector('.comment-name-input').value||'').trim() || 'Anonymous';
+          var list = loadCmts();
+          if (!list[i]) return;
+          if (!list[i].replies) list[i].replies = [];
+          list[i].replies.push({name:nm, date:new Date().toISOString(), text:txt});
+          saveCmts(list);
+          renderList();
+        };
+      });
+    }
+
+    var btnCmt = document.getElementById('btn-comment');
+    if (btnCmt) {
+      btnCmt.onclick = function(){
+        var txt = (document.getElementById('comment-text').value||'').trim();
+        if (!txt) return;
+        var nm = (document.getElementById('comment-name').value||'').trim() || 'Anonymous';
+        var list = loadCmts();
+        list.push({name:nm, date:new Date().toISOString(), text:txt, likes:0, liked:false, replies:[]});
+        saveCmts(list);
+        document.getElementById('comment-text').value = '';
+        document.getElementById('comment-name').value = '';
+        renderList();
+      };
+    }
+
+    renderList();
   }
 
   function renderNotFound() {
