@@ -10,7 +10,7 @@
   gtag('js', new Date());
   gtag('config', 'G-67B4YF0RKX');
 </script>
-<meta name="build" content="v2">
+<meta name="build" content="v3">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bee Anuphong — Science · Business · Technology</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -37,6 +37,123 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+/* ── Latest Posts section ── */
+#latest-posts {
+  padding: 5rem 2rem 5rem;
+  background: var(--bg2);
+  border-top: 1px solid var(--gb);
+}
+.lp-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.lp-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  gap: 1rem;
+}
+.lp-title {
+  font-family: var(--sans);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.lp-view-all {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--teal);
+  text-decoration: none;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: opacity 0.2s;
+}
+.lp-view-all:hover { opacity: 0.75; }
+.lp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.lp-item {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--gb);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+}
+.lp-item:first-child { border-top: 1px solid var(--gb); }
+.lp-item:hover { opacity: 0.8; }
+.lp-thumb {
+  flex-shrink: 0;
+  width: 140px;
+  height: 105px;
+  border-radius: var(--rs);
+  overflow: hidden;
+  background: var(--glass2);
+}
+.lp-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.lp-item:hover .lp-thumb img { transform: scale(1.05); }
+.lp-thumb-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+.lp-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.1rem 0;
+}
+.lp-item-title {
+  font-family: var(--sans);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  transition: color 0.2s;
+}
+.lp-item:hover .lp-item-title { color: var(--teal); }
+.lp-item-date {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.lp-item-excerpt {
+  font-size: 0.875rem;
+  color: var(--sub);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (max-width: 600px) {
+  .lp-thumb { width: 100px; height: 75px; }
+  .lp-item { gap: 1rem; padding: 1.25rem 0; }
+  .lp-item-excerpt { display: none; }
+}
+</style>
 
 <!-- Structured Data -->
 <script type="application/ld+json">
@@ -162,6 +279,25 @@
   </div>
 </section>
 
+<!-- LATEST POSTS -->
+<section id="latest-posts">
+  <div class="lp-wrap">
+    <div class="lp-header">
+      <h2 class="lp-title">Latest Posts</h2>
+      <a href="blog.html" class="lp-view-all">
+        View All
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="lp-list" id="lp-list">
+      <div style="color:var(--muted);font-size:0.85rem;padding:2rem 0;display:flex;align-items:center;gap:0.5rem">
+        <div style="width:14px;height:14px;border:2px solid var(--dim);border-top-color:var(--sub);border-radius:50%;animation:spin 0.7s linear infinite"></div>
+        Loading…
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="f-brand">Bee Anuphong</div>
   <div class="f-social">
@@ -178,6 +314,48 @@
 </footer>
 
 <script src="script.js"></script>
+<script>
+// Latest Posts
+(function () {
+  var listEl = document.getElementById('lp-list');
+
+  function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function formatDate(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+  }
+
+  fetch('posts/index.json?v=' + Date.now())
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+    .then(function(posts) {
+      if (!posts || posts.length === 0) { listEl.innerHTML = ''; return; }
+      var items = posts.slice(0, 4);
+      listEl.innerHTML = '';
+      items.forEach(function(post) {
+        var thumbHtml = post.cover
+          ? '<div class="lp-thumb"><img src="' + escHtml(post.cover) + '" alt="" loading="lazy"></div>'
+          : '<div class="lp-thumb"><div class="lp-thumb-empty"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div></div>';
+        var excerptHtml = post.excerpt
+          ? '<p class="lp-item-excerpt">' + escHtml(post.excerpt) + '</p>'
+          : '';
+        var a = document.createElement('a');
+        a.className = 'lp-item';
+        a.href = 'post.html?id=' + encodeURIComponent(post.id);
+        a.innerHTML =
+          thumbHtml +
+          '<div class="lp-content">' +
+            '<div class="lp-item-title">' + escHtml(post.title || 'Untitled') + '</div>' +
+            '<time class="lp-item-date">' + formatDate(post.created_at) + '</time>' +
+            excerptHtml +
+          '</div>';
+        listEl.appendChild(a);
+      });
+    })
+    .catch(function(){ listEl.innerHTML = ''; });
+})();
+</script>
 <script>
   // Typewriter animation for hero tagline
   const tgEl = document.getElementById('hero-tagline');
