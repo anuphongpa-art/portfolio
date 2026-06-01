@@ -611,9 +611,7 @@ body.full-width .post-wrap { max-width: 1080px; }
 
     /* Like bar */
     var likeKey = 'post_liked_' + id;
-    var countKey = 'post_likes_' + id;
     var liked = !!localStorage.getItem(likeKey);
-    var likeCount = parseInt(localStorage.getItem(countKey) || '0', 10);
     var likeHtml =
       '<div class="post-like">'+
         '<span class="post-like-label">Like this:</span>'+
@@ -622,7 +620,7 @@ body.full-width .post-wrap { max-width: 1080px; }
             '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>'+
           '</svg>'+
           'Like</button>'+
-        '<span class="like-count" id="like-count">'+likeCount+' '+( likeCount === 1 ? 'like' : 'likes')+'</span>'+
+        '<span class="like-count" id="like-count">…</span>'+
       '</div>';
 
     /* Prev / Next */
@@ -686,25 +684,42 @@ body.full-width .post-wrap { max-width: 1080px; }
     /* Like button */
     var likeBtn = document.getElementById('btn-like');
     var likeCountEl = document.getElementById('like-count');
+
+    function updateLikeCount(count) {
+      likeCountEl.textContent = count + ' ' + (count === 1 ? 'like' : 'likes');
+    }
+
+    /* Fetch real count on load */
+    fetch('/api/likes/' + id)
+      .then(function(r){ return r.json(); })
+      .then(function(d){ updateLikeCount(d.count); })
+      .catch(function(){ updateLikeCount(0); });
+
     if (likeBtn && likeCountEl) {
       likeBtn.addEventListener('click', function(){
         var isLiked = !!localStorage.getItem(likeKey);
-        var count = parseInt(localStorage.getItem(countKey) || '0', 10);
+        var action = isLiked ? 'unlike' : 'like';
+
         if (isLiked) {
-          count = Math.max(0, count - 1);
           localStorage.removeItem(likeKey);
           likeBtn.classList.remove('liked');
           likeBtn.querySelector('svg').setAttribute('fill', 'none');
         } else {
-          count = count + 1;
           localStorage.setItem(likeKey, '1');
           likeBtn.classList.add('liked');
           likeBtn.querySelector('svg').setAttribute('fill', 'currentColor');
           likeBtn.classList.add('pop');
           setTimeout(function(){ likeBtn.classList.remove('pop'); }, 200);
         }
-        localStorage.setItem(countKey, String(count));
-        likeCountEl.textContent = count + ' ' + (count === 1 ? 'like' : 'likes');
+
+        fetch('/api/likes/' + id, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: action }),
+        })
+          .then(function(r){ return r.json(); })
+          .then(function(d){ updateLikeCount(d.count); })
+          .catch(function(){});
       });
     }
 
