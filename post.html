@@ -584,10 +584,8 @@ body.full-width .post-wrap { max-width: 1080px; }
       ? '<div class="post-draft-banner"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>This is a draft preview — not yet published.</div>'
       : '';
 
-    var editBtn = isAuthor
-      ? '<a href="editor.html?id='+encodeURIComponent(id)+'" class="btn-edit-post">'+
-          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</a>'
-      : '';
+    var editBtn = '<a href="editor.html?id='+encodeURIComponent(id)+'" class="btn-edit-post">'+
+        '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</a>';
 
     /* Share bar */
     var shareHtml =
@@ -869,7 +867,7 @@ body.full-width .post-wrap { max-width: 1080px; }
       '</div>';
   }
 
-  if (isAuthor && id) {
+  if (id) {
     document.addEventListener('keydown', function(e) {
       if (e.shiftKey && e.key === 'G' && !e.ctrlKey && !e.metaKey && !e.altKey) {
         var tag = document.activeElement && document.activeElement.tagName.toLowerCase();
