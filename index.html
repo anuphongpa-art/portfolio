@@ -342,7 +342,7 @@
           : '';
         var a = document.createElement('a');
         a.className = 'lp-item';
-        a.href = 'post.html?id=' + encodeURIComponent(post.id);
+        a.href = post.slug ? 'blog/' + post.slug + '/' : 'posts/' + post.id + '.html';
         a.innerHTML =
           thumbHtml +
           '<div class="lp-content">' +
