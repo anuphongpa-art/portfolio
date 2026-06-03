@@ -111,6 +111,10 @@
 .post-body hr.post-delimiter { border:none; text-align:center; margin:2.5em 0; color:var(--muted); }
 .post-body hr.post-delimiter::before { content:'* * *'; letter-spacing:0.5em; font-size:1rem; }
 .post-body h1 { font-family:var(--serif); font-size:clamp(1.9rem,5vw,2.4rem); font-weight:700; color:var(--text); letter-spacing:-0.03em; line-height:1.2; margin-top:2.5em; }
+/* Pull Quote */
+.post-pullquote { text-align:center; margin:2.5em 0; }
+.post-pullquote p { font-family:var(--serif); font-size:clamp(1.9rem,5vw,2.4rem); font-weight:700; letter-spacing:-0.03em; line-height:1.2; color:var(--text); margin:0; }
+.post-pullquote cite { display:block; margin-top:0.75rem; font-size:0.85rem; font-style:normal; color:var(--sub); letter-spacing:0.03em; }
 /* Checklist */
 .post-checklist { list-style:none; padding-left:0; }
 .post-checklist li { display:flex; align-items:flex-start; gap:0.6rem; padding:0.2rem 0; }
@@ -474,6 +478,11 @@ body.full-width .post-wrap { max-width: 1080px; }
         case 'quote': {
           var cite=d.caption?'<cite>'+escHtml(d.caption)+'</cite>':'';
           return '<blockquote><p>'+(d.text||'')+'</p>'+cite+'</blockquote>';
+        }
+
+        case 'pullquote': {
+          var cap=d.caption?'<cite>'+escHtml(d.caption)+'</cite>':'';
+          return '<div class="post-pullquote"><p>'+(d.text||'')+'</p>'+cap+'</div>';
         }
 
         case 'warning': {
