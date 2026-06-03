@@ -70,6 +70,7 @@
   color: var(--text); letter-spacing: -0.02em; line-height: 1.2;
 }
 .post-header-divider { margin-top: 2rem; height: 1px; background: var(--dim); }
+.post-cover-img { width:100%; border-radius:var(--r,8px); margin-bottom:2.5rem; display:block; aspect-ratio:16/9; object-fit:cover; }
 
 /* Article typography */
 .post-body { font-size: 1rem; line-height: 1.85; color: var(--text); }
@@ -669,6 +670,7 @@ body.full-width .post-wrap { max-width: 1080px; }
         '<h1 class="post-title">'+escHtml(post.title||'Untitled')+'</h1>'+
         '<div class="post-header-divider"></div>'+
       '</header>'+
+      (coverRaw ? '<img class="post-cover-img" src="'+escHtml(coverRaw)+'" alt="'+escHtml(post.title||'')+'" loading="eager">' : '')+
       '<article class="post-body">'+renderBlocks(blocks)+'</article>'+
       shareHtml+
       likeHtml+
