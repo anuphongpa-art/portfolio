@@ -869,6 +869,16 @@ body.full-width .post-wrap { max-width: 1080px; }
       '</div>';
   }
 
+  if (isAuthor && id) {
+    document.addEventListener('keydown', function(e) {
+      if (e.shiftKey && e.key === 'G' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        var tag = document.activeElement && document.activeElement.tagName.toLowerCase();
+        var isEditable = document.activeElement && (document.activeElement.isContentEditable || tag === 'input' || tag === 'textarea');
+        if (!isEditable) { e.preventDefault(); window.location.href = 'editor.html?id=' + encodeURIComponent(id); }
+      }
+    });
+  }
+
   if (!id) { renderNotFound(); return; }
 
   /* Fetch post + index in parallel for prev/next */
