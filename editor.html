@@ -1114,11 +1114,7 @@ body.full-width .editor-container { max-width: 1080px !important; }
     if (e.key === 'Escape' && moreMenuEl.style.display === 'block') {
       moreMenuEl.style.display = 'none';
     }
-    if (e.shiftKey && e.key === 'G' && !e.ctrlKey && !e.metaKey && !e.altKey) {
-      var tag = document.activeElement && document.activeElement.tagName.toLowerCase();
-      var isEditable = document.activeElement && (document.activeElement.isContentEditable || tag === 'input' || tag === 'textarea');
-      if (!isEditable) { e.preventDefault(); save(); }
-    }
+
   });
 
   function filterMore(q) {
