@@ -86,6 +86,11 @@ function renderBlocks(blocks) {
         return `<blockquote><p>${d.text || ''}</p>${cite}</blockquote>`;
       }
 
+      case 'pullquote': {
+        const cap = d.caption ? `<cite>${escAttr(d.caption)}</cite>` : '';
+        return `<div class="post-pullquote"><p>${d.text || ''}</p>${cap}</div>`;
+      }
+
       case 'warning': {
         const ttl = d.title ? `<strong class="post-callout-title">${escAttr(d.title)}</strong>` : '';
         return `<div class="post-callout">${ttl}<p>${d.message || ''}</p></div>`;
@@ -292,6 +297,9 @@ function generatePostHtml(post, assetBase, pageUrl) {
 .post-attaches-info { flex:1; min-width:0; }
 .post-attaches-name { color:var(--text); font-size:0.9rem; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .post-attaches-size { color:var(--muted); font-size:0.75rem; }
+.post-pullquote { text-align:center; margin:2.5em 0; }
+.post-pullquote p { font-family:var(--serif); font-size:clamp(1.9rem,5vw,2.4rem); font-weight:700; letter-spacing:-0.03em; line-height:1.2; color:var(--text); margin:0; }
+.post-pullquote cite { display:block; margin-top:0.75rem; font-size:0.85rem; font-style:normal; color:var(--sub); letter-spacing:0.03em; }
 mark { background:rgba(255,220,50,0.22); border-radius:2px; color:var(--text); padding:0.05em 0.2em; }
 body.font-serif .post-title,body.font-serif .post-body,body.font-serif .post-body p,body.font-serif .post-body li { font-family:var(--serif); }
 body.font-mono .post-title,body.font-mono .post-body,body.font-mono .post-body p,body.font-mono .post-body li { font-family:'Courier New','Fira Code',monospace; letter-spacing:-0.01em; }
