@@ -2,12 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-67B4YF0RKX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-67B4YF0RKX');
+</script>
 <meta name="build" content="v4">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blog — Bee Anuphong</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta name="description" content="Blog by Bee Anuphong — thoughts at the intersection of Science, Business, and Technology.">
+<meta name="description" content="Blog by Bee Anuphong (อนุพงศ์ พาโยพัด) — thoughts at the intersection of Science, Business, and Technology.">
 <meta name="author" content="Bee Anuphong">
+<meta name="keywords" content="Bee Anuphong Payopat, อนุพงศ์ พาโยพัด, Blog, Science, Business, Technology">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blog — Bee Anuphong">
 <meta property="og:description" content="Thoughts at the intersection of Science, Business, and Technology.">
@@ -27,68 +36,111 @@
   min-height: calc(100vh - 66px - 60px);
   padding: 6rem 2rem 4rem;
 }
-.blog-wrap { max-width: 820px; margin: 0 auto; }
+.blog-wrap { max-width: 1240px; margin: 0 auto; }
 .blog-hero-row {
-  display: flex; align-items: flex-end;
-  justify-content: space-between; gap: 1rem; margin-bottom: 3rem;
+  display: flex; align-items: center;
+  justify-content: center; gap: 1rem;
+  margin-bottom: 3rem; position: relative;
+}
+.blog-hero-block {
+  text-align: center;
+}
+.blog-eyebrow {
+  font-family: var(--sans); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--sub); margin-bottom: 0.75rem;
 }
 .blog-page-title {
-  font-family: var(--serif); font-size: clamp(2rem,5vw,3rem);
-  font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1.1;
+  font-family: var(--sans); font-size: clamp(2.5rem,7vw,4.5rem);
+  font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.05;
+  text-align: center; margin-bottom: 1rem;
 }
-.blog-page-subtitle { margin-top: 0.5rem; color: var(--sub); font-size: 0.9rem; }
+.blog-subtitle {
+  font-family: var(--sans); font-size: clamp(0.95rem,2vw,1.1rem);
+  color: var(--sub); font-weight: 400; text-align: center;
+  max-width: 520px; margin: 0 auto; white-space: nowrap;
+}
 .btn-new-post {
   display: inline-flex; align-items: center; gap: 0.4rem;
   padding: 0.55rem 1.1rem; border-radius: var(--rs);
   background: var(--glass2); border: 1px solid var(--gb);
   color: var(--sub); font-family: var(--sans); font-size: 0.8rem;
-  font-weight: 500; text-decoration: none; white-space: nowrap; flex-shrink: 0;
+  font-weight: 500; text-decoration: none; white-space: nowrap;
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 .btn-new-post:hover { background: var(--gbhi); color: var(--text); border-color: rgba(255,255,255,0.15); }
 
-.post-grid { display: flex; flex-direction: column; gap: 1px; border-top: 1px solid var(--dim); }
-.post-card {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  gap: 1.5rem; padding: 1.75rem 0; border-bottom: 1px solid var(--dim);
-  text-decoration: none; color: inherit;
+/* ── Grid layout ── */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.75rem;
 }
-.post-card:hover .post-card-title { color: var(--teal); }
-.post-card:hover .post-card-arrow { color: var(--teal); transform: translateX(4px); }
-.post-card-body { flex: 1; min-width: 0; }
-.post-card-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
-.post-card-date { font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.post-card {
+  display: flex; flex-direction: column;
+  text-decoration: none; color: inherit;
+  background: var(--glass); border: 1px solid var(--gb);
+  border-radius: var(--r); overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+  border-color: var(--gbhi);
+}
+
+/* Thumbnail */
+.post-card-thumb {
+  width: 100%; height: 0; padding-bottom: 56.25%;
+  background: var(--glass2); overflow: hidden; flex-shrink: 0;
+  position: relative;
+}
+.post-card-thumb img {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.post-card:hover .post-card-thumb img { transform: scale(1.04); }
+.post-card-thumb--empty {
+  background: linear-gradient(135deg, var(--glass2) 0%, var(--gb) 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.post-card-thumb--empty svg { opacity: 0.18; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+/* Card body */
+.post-card-body {
+  flex: 1; padding: 1rem 1.1rem 1.2rem;
+  display: flex; flex-direction: column; gap: 0.55rem;
+}
+.post-card-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; }
 .post-tag {
-  display: inline-block; font-size: 0.7rem; font-weight: 500;
-  padding: 0.15rem 0.55rem; border-radius: 100px;
-  background: var(--glass); border: 1px solid var(--dim); color: var(--sub);
-  letter-spacing: 0.03em; text-transform: uppercase;
+  display: inline-block; font-size: 0.72rem; font-weight: 500;
+  padding: 0.2rem 0.7rem; border-radius: 100px;
+  background: transparent; border: 1px solid var(--dim); color: var(--sub);
 }
 .post-card-title {
-  font-family: var(--serif); font-size: 1.2rem; font-weight: 600;
-  color: var(--text); line-height: 1.3; letter-spacing: -0.01em;
-  transition: color 0.2s; margin-bottom: 0.4rem;
+  font-family: var(--sans); font-size: 0.975rem; font-weight: 700;
+  color: var(--text); line-height: 1.45; letter-spacing: -0.01em;
+  transition: color 0.2s;
 }
-.post-card-excerpt {
-  font-size: 0.85rem; color: var(--sub); line-height: 1.6;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+.post-card:hover .post-card-title { color: var(--teal); }
+.post-card-date {
+  font-size: 0.75rem; color: var(--muted);
+  margin-top: auto; padding-top: 0.2rem;
 }
-.post-card-arrow { color: var(--muted); font-size: 1.1rem; flex-shrink: 0; margin-top: 0.35rem; transition: color 0.2s, transform 0.2s; }
 
+/* Empty state */
 .blog-empty {
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; gap: 1.25rem; padding: 5rem 2rem;
-  text-align: center; border-top: 1px solid var(--dim);
+  text-align: center;
 }
 .blog-empty-icon { color: var(--muted); opacity: 0.4; }
 .blog-empty-text { font-family: var(--serif); font-size: 1.4rem; font-style: italic; color: var(--sub); }
-.blog-empty-sub { font-size: 0.85rem; color: var(--muted); }
-.blog-write-link {
-  display: inline-flex; align-items: center; gap: 0.35rem;
-  font-size: 0.85rem; color: var(--teal); text-decoration: none;
-  border-bottom: 1px solid transparent; transition: border-color 0.2s;
-}
-.blog-write-link:hover { border-color: var(--teal); }
+
 .blog-loading { display: flex; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.85rem; padding: 2rem 0; }
 .spinner {
   width: 14px; height: 14px; border: 2px solid var(--dim);
@@ -96,9 +148,18 @@
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-@media (max-width: 600px) {
+
+@media (max-width: 1100px) {
+  .post-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 760px) {
+  .post-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .btn-new-post { position: static; transform: none; }
+  .blog-hero-row { flex-wrap: wrap; justify-content: center; }
+}
+@media (max-width: 480px) {
   #blog { padding: 5rem 1.25rem 3rem; }
-  .blog-hero-row { flex-direction: column; align-items: flex-start; }
+  .post-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -142,9 +203,10 @@
 <section id="blog">
   <div class="blog-wrap">
     <div class="blog-hero-row">
-      <div>
-        <h1 class="blog-page-title">Blog</h1>
-        <p class="blog-page-subtitle">Thoughts at the intersection of Science, Business &amp; Technology</p>
+      <div class="blog-hero-block">
+        <p class="blog-eyebrow">The Blog</p>
+        <h1 class="blog-page-title">Compete · Grow · Win</h1>
+        <p class="blog-subtitle">Stories of sport, mindset & performance.</p>
       </div>
       <a href="editor.html" class="btn-new-post" id="btn-new-post" style="display:none">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
@@ -179,11 +241,14 @@
 <script src="script.js"></script>
 <script>
 (function () {
-  var isAuthor = !!localStorage.getItem('gh_token');
-
-  if (isAuthor) {
-    document.getElementById('btn-new-post').style.display = '';
-  }
+  var btnNewPost = document.getElementById('btn-new-post');
+  document.addEventListener('keydown', function(e) {
+    if (e.shiftKey && e.key === 'G' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      var tag = document.activeElement && document.activeElement.tagName.toLowerCase();
+      var isEditable = document.activeElement && (document.activeElement.isContentEditable || tag === 'input' || tag === 'textarea');
+      if (!isEditable) { e.preventDefault(); btnNewPost.style.display = btnNewPost.style.display === 'none' ? '' : 'none'; }
+    }
+  });
 
   var listEl = document.getElementById('post-list');
 
@@ -200,30 +265,33 @@
       listEl.innerHTML =
         '<div class="blog-empty">' +
           '<svg class="blog-empty-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>' +
-          '<p class="blog-empty-text">No posts yet.</p>' +
-          '<p class="blog-empty-sub">Write your first post to get started.</p>' +
+          '<p class="blog-empty-text">Coming Soon</p>' +
         '</div>';
       return;
     }
 
     var grid = document.createElement('div');
     grid.className = 'post-grid';
-    posts.forEach(function (post) {
+    posts.forEach(function(post) {
       var tags = (post.tags || []).map(function(t){ return '<span class="post-tag">'+escHtml(t)+'</span>'; }).join('');
+      var thumbHtml = post.cover
+        ? '<div class="post-card-thumb"><img src="'+escHtml(post.cover)+'" alt="" loading="lazy"></div>'
+        : '<div class="post-card-thumb post-card-thumb--empty">' +
+            '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>' +
+          '</div>';
       var a = document.createElement('a');
       a.className = 'post-card';
-      a.href = 'post.html?id=' + encodeURIComponent(post.id);
+      a.href = post.slug ? 'blog/' + post.slug + '/' : 'posts/' + post.id + '.html';
       a.innerHTML =
+        thumbHtml +
         '<div class="post-card-body">' +
-          '<div class="post-card-meta">' +
-            '<time class="post-card-date">' + formatDate(post.created_at) + '</time>' + tags +
-          '</div>' +
+          (tags ? '<div class="post-card-meta">' + tags + '</div>' : '') +
           '<div class="post-card-title">' + escHtml(post.title || 'Untitled') + '</div>' +
-          (post.excerpt ? '<p class="post-card-excerpt">' + escHtml(post.excerpt) + '</p>' : '') +
-        '</div>' +
-        '<span class="post-card-arrow">→</span>';
+          '<time class="post-card-date">' + formatDate(post.created_at) + '</time>' +
+        '</div>';
       grid.appendChild(a);
     });
+
     listEl.innerHTML = '';
     listEl.appendChild(grid);
   }

@@ -10,12 +10,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate static post pages & sitemap
+        run: node build.js
+
       - name: Prepare deploy folder
         run: |
           mkdir dist
-          cp index.html about.html blog.html editor.html post.html style.css script.js favicon.svg dist/
+          cp index.html about.html blog.html editor.html post.html style.css script.js favicon.svg sitemap.xml dist/
           cp -r images dist/
           if [ -d posts ]; then cp -r posts dist/; else mkdir -p dist/posts; fi
+          if [ -d blog ]; then cp -r blog dist/; else mkdir -p dist/blog; fi
 
       - uses: cloudflare/wrangler-action@v3
         with:

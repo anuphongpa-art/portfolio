@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-67B4YF0RKX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-67B4YF0RKX');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Editor — Bee Anuphong</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -132,8 +140,45 @@
 
 .editor-tags-row {
   display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.editor-cover-row {
+  display: flex; align-items: center; gap: 0.6rem;
   margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--dim);
 }
+.cover-url-input {
+  flex: 1; background: transparent; border: none; outline: none;
+  font-family: var(--sans); font-size: 0.75rem; color: var(--sub);
+  min-width: 0;
+}
+.cover-url-input::placeholder { color: var(--muted); }
+.btn-cover-upload {
+  display: inline-flex; align-items: center; gap: 0.35rem; flex-shrink: 0;
+  font-size: 0.7rem; font-weight: 500; padding: 0.28rem 0.7rem;
+  border-radius: var(--rs); border: 1px solid var(--gb);
+  background: var(--glass); color: var(--sub); cursor: pointer;
+  font-family: var(--sans); transition: color 0.15s, border-color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.btn-cover-upload:hover { color: var(--text); border-color: var(--gbhi); background: var(--glass2); }
+.btn-cover-upload.uploading { opacity: 0.55; pointer-events: none; }
+.cover-preview {
+  width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0;
+  border: 1px solid var(--gb); background: var(--glass2);
+  overflow: hidden; display: none;
+}
+.cover-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.editor-slug-row {
+  display: flex; align-items: center; gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.slug-prefix { font-size: 0.75rem; color: var(--muted); flex-shrink: 0; white-space: nowrap; }
+.slug-input {
+  flex: 1; background: transparent; border: none; outline: none;
+  font-family: 'Courier New', monospace; font-size: 0.75rem; color: var(--sub);
+  min-width: 0;
+}
+.slug-input::placeholder { color: var(--muted); }
 .tags-label { font-size: 0.75rem; color: var(--muted); flex-shrink: 0; }
 .tag-pill {
   display: inline-flex; align-items: center; gap: 0.3rem;
@@ -623,6 +668,12 @@ body.full-width .editor-container { max-width: 1080px !important; }
 <main id="editor-main">
   <div class="editor-container">
     <textarea id="editor-title" class="editor-title-input" placeholder="Post title…" rows="1" spellcheck="true"></textarea>
+    <div class="editor-slug-row">
+      <span class="tags-label">URL:</span>
+      <span class="slug-prefix">/blog/</span>
+      <input type="text" id="editor-slug" class="slug-input" placeholder="my-post-slug" autocomplete="off" spellcheck="false">
+      <span class="slug-prefix">/</span>
+    </div>
     <div class="editor-tags-row">
       <span class="tags-label">Tags:</span>
       <span class="tag-pill" data-tag="Science">Science</span>
@@ -630,6 +681,16 @@ body.full-width .editor-container { max-width: 1080px !important; }
       <span class="tag-pill" data-tag="Technology">Technology</span>
       <span class="tag-pill" data-tag="Personal">Personal</span>
       <input type="text" class="tag-custom-input" id="tag-custom" placeholder="+ custom tag" maxlength="30">
+    </div>
+    <div class="editor-cover-row">
+      <span class="tags-label">Cover:</span>
+      <div class="cover-preview" id="cover-preview"><img id="cover-preview-img" src="" alt=""></div>
+      <input type="url" id="editor-cover" class="cover-url-input" placeholder="https://…  (thumbnail image URL)" autocomplete="off" spellcheck="false">
+      <label class="btn-cover-upload" id="btn-cover-upload" title="Upload image from device">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Upload
+        <input type="file" id="cover-file-input" accept="image/*" style="display:none">
+      </label>
     </div>
     <div id="editorjs"></div>
   </div>
@@ -654,7 +715,13 @@ body.full-width .editor-container { max-width: 1080px !important; }
   var currentStyle = { font: 'default', small: false, fullWidth: false };
 
   /* ── DOM ── */
-  var titleEl    = document.getElementById('editor-title');
+  var titleEl       = document.getElementById('editor-title');
+  var slugEl        = document.getElementById('editor-slug');
+  var coverEl       = document.getElementById('editor-cover');
+  var coverFileEl   = document.getElementById('cover-file-input');
+  var coverUploadBtn= document.getElementById('btn-cover-upload');
+  var coverPreview  = document.getElementById('cover-preview');
+  var coverPreviewImg = document.getElementById('cover-preview-img');
   var statusEl   = document.getElementById('save-status');
   var toggleEl   = document.getElementById('publish-toggle');
   var labelEl    = document.getElementById('publish-label');
@@ -723,6 +790,15 @@ body.full-width .editor-container { max-width: 1080px !important; }
     });
   }
 
+  function ghPutImage(path, base64data, mimeType, message, sha) {
+    var body = { message: message, content: base64data, branch: GH_BRANCH };
+    if (sha) body.sha = sha;
+    return ghFetch(path, { method:'PUT', body: JSON.stringify(body) }).then(function(r){
+      if (!r.ok) return r.json().then(function(e){ throw new Error(e.message||('GitHub '+r.status)); });
+      return r.json();
+    });
+  }
+
   function ghDelete(path, message, sha) {
     return ghFetch(path, {
       method: 'DELETE',
@@ -747,7 +823,7 @@ body.full-width .editor-container { max-width: 1080px !important; }
     if (existingIndex && existingIndex.content) {
       try { indexData = JSON.parse(fromBase64(existingIndex.content)); } catch(e){}
     }
-    var meta = { id:post.id, title:post.title, excerpt:post.excerpt, tags:post.tags, created_at:post.created_at, updated_at:post.updated_at };
+    var meta = { id:post.id, title:post.title, slug:post.slug||'', cover:post.cover||'', excerpt:post.excerpt, tags:post.tags, created_at:post.created_at, updated_at:post.updated_at };
     var idx = indexData.findIndex(function(p){ return p.id===post.id; });
     if (idx>=0) indexData[idx]=meta; else indexData.unshift(meta);
     await ghPut(indexPath, indexData, 'Update blog index', indexSha);
@@ -789,6 +865,8 @@ body.full-width .editor-container { max-width: 1080px !important; }
       var post = {
         id:          currentId || uid(),
         title:       titleEl.value.trim() || 'Untitled',
+        slug:        slugEl.value.trim(),
+        cover:       coverEl.value.trim() || '',
         excerpt:     extractExcerpt(output.blocks),
         content:     output,
         tags:        activeTags.slice(),
@@ -883,6 +961,69 @@ body.full-width .editor-container { max-width: 1080px !important; }
     }
   });
   titleEl.addEventListener('input', function(){ autoResize(this); scheduleAutoSave(); });
+  slugEl.addEventListener('input', function(){
+    this.value = this.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
+    scheduleAutoSave();
+  });
+
+  /* ── Cover URL preview (when typed/pasted) ── */
+  coverEl.addEventListener('input', function() {
+    updateCoverPreview(this.value.trim());
+  });
+
+  function updateCoverPreview(url) {
+    if (url) {
+      coverPreviewImg.src = url;
+      coverPreview.style.display = 'block';
+    } else {
+      coverPreview.style.display = 'none';
+      coverPreviewImg.src = '';
+    }
+  }
+
+  /* ── Cover image upload ── */
+  coverFileEl.addEventListener('change', async function() {
+    var file = this.files && this.files[0];
+    if (!file) return;
+
+    if (!getToken()) { showTokenOverlay(); return; }
+
+    var ext = file.name.split('.').pop().toLowerCase() || 'jpg';
+    var filename = 'blog-' + uid() + '.' + ext;
+    var imagePath = 'images/blog/' + filename;
+
+    coverUploadBtn.classList.add('uploading');
+    coverUploadBtn.querySelector('span') && (coverUploadBtn.querySelector('span').textContent = '');
+    setStatus('Uploading image…', 'saving');
+
+    try {
+      var base64data = await new Promise(function(resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          /* strip data:image/...;base64, prefix */
+          resolve(e.target.result.split(',')[1]);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+
+      /* check if file already exists (unlikely, but handle sha) */
+      var existing = await ghGet(imagePath);
+      var sha = existing ? existing.sha : null;
+      await ghPutImage(imagePath, base64data, file.type, 'Add cover image: ' + filename, sha);
+
+      coverEl.value = imagePath;
+      updateCoverPreview(imagePath);
+      setStatus('Image uploaded ✓', 'saved');
+      setTimeout(function(){ setStatus(isPublished ? 'Published' : 'Draft'); }, 3000);
+    } catch(err) {
+      setStatus('Upload failed: ' + (err.message || err), 'error');
+    }
+
+    coverUploadBtn.classList.remove('uploading');
+    /* reset file input so same file can be re-selected */
+    coverFileEl.value = '';
+  });
 
   /* ── Token overlay ── */
   function showTokenOverlay() { overlay.style.display='flex'; }
@@ -923,6 +1064,9 @@ body.full-width .editor-container { max-width: 1080px !important; }
       currentId        = loadId;
       titleEl.value    = existing.title || '';
       autoResize(titleEl);
+      slugEl.value     = existing.slug || '';
+      coverEl.value    = existing.cover || '';
+      updateCoverPreview(existing.cover || '');
       isPublished      = !!existing.published;
       wasPublishedOnGH = isPublished;
       toggleEl.checked = isPublished;
