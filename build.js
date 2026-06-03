@@ -297,7 +297,8 @@ body.font-serif .post-title,body.font-serif .post-body,body.font-serif .post-bod
 body.font-mono .post-title,body.font-mono .post-body,body.font-mono .post-body p,body.font-mono .post-body li { font-family:'Courier New','Fira Code',monospace; letter-spacing:-0.01em; }
 body.small-text .post-body { font-size:0.9rem; line-height:1.7; }
 body.full-width .post-wrap { max-width:1080px; }
-.btn-edit-post { display:inline-flex; align-items:center; gap:0.35rem; padding:0.35rem 0.75rem; border-radius:var(--rs); background:var(--glass2); border:1px solid var(--gb); color:var(--sub); font-size:0.75rem; font-weight:500; text-decoration:none; transition:background 0.2s,color 0.2s; margin-left:auto; flex-shrink:0; }
+.btn-edit-post { display:none; align-items:center; gap:0.35rem; padding:0.35rem 0.75rem; border-radius:var(--rs); background:var(--glass2); border:1px solid var(--gb); color:var(--sub); font-size:0.75rem; font-weight:500; text-decoration:none; transition:background 0.2s,color 0.2s; margin-left:auto; flex-shrink:0; }
+.btn-edit-post.visible { display:inline-flex; }
 .btn-edit-post:hover { background:var(--gbhi); color:var(--text); }
 .post-footer { margin-top:4rem; padding-top:2rem; border-top:1px solid var(--dim); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
 .post-footer-back { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.85rem; color:var(--sub); text-decoration:none; transition:color 0.2s; }
@@ -392,7 +393,11 @@ document.addEventListener('keydown', function(e) {
   if (e.shiftKey && e.key === 'G' && !e.ctrlKey && !e.metaKey && !e.altKey) {
     var tag = document.activeElement && document.activeElement.tagName.toLowerCase();
     var isEditable = document.activeElement && (document.activeElement.isContentEditable || tag === 'input' || tag === 'textarea');
-    if (!isEditable) { e.preventDefault(); window.location.href = '${assetBase}editor.html?id=${escAttr(post.id)}'; }
+    if (!isEditable) {
+      e.preventDefault();
+      var btn = document.querySelector('.btn-edit-post');
+      if (btn) btn.classList.toggle('visible');
+    }
   }
 });
 </script>

@@ -241,11 +241,14 @@
 <script src="script.js"></script>
 <script>
 (function () {
-  var isAuthor = !!localStorage.getItem('gh_token');
-
-  if (isAuthor) {
-    document.getElementById('btn-new-post').style.display = '';
-  }
+  var btnNewPost = document.getElementById('btn-new-post');
+  document.addEventListener('keydown', function(e) {
+    if (e.shiftKey && e.key === 'G' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      var tag = document.activeElement && document.activeElement.tagName.toLowerCase();
+      var isEditable = document.activeElement && (document.activeElement.isContentEditable || tag === 'input' || tag === 'textarea');
+      if (!isEditable) { e.preventDefault(); btnNewPost.style.display = btnNewPost.style.display === 'none' ? '' : 'none'; }
+    }
+  });
 
   var listEl = document.getElementById('post-list');
 
