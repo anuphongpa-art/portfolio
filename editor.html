@@ -168,6 +168,17 @@
   overflow: hidden; display: none;
 }
 .cover-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.editor-slug-row {
+  display: flex; align-items: center; gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.slug-prefix { font-size: 0.75rem; color: var(--muted); flex-shrink: 0; white-space: nowrap; }
+.slug-input {
+  flex: 1; background: transparent; border: none; outline: none;
+  font-family: 'Courier New', monospace; font-size: 0.75rem; color: var(--sub);
+  min-width: 0;
+}
+.slug-input::placeholder { color: var(--muted); }
 .tags-label { font-size: 0.75rem; color: var(--muted); flex-shrink: 0; }
 .tag-pill {
   display: inline-flex; align-items: center; gap: 0.3rem;
@@ -648,6 +659,12 @@ body.full-width .editor-container { max-width: 1080px !important; }
 <main id="editor-main">
   <div class="editor-container">
     <textarea id="editor-title" class="editor-title-input" placeholder="Post title…" rows="1" spellcheck="true"></textarea>
+    <div class="editor-slug-row">
+      <span class="tags-label">URL:</span>
+      <span class="slug-prefix">/blog/</span>
+      <input type="text" id="editor-slug" class="slug-input" placeholder="my-post-slug" autocomplete="off" spellcheck="false">
+      <span class="slug-prefix">/</span>
+    </div>
     <div class="editor-tags-row">
       <span class="tags-label">Tags:</span>
       <span class="tag-pill" data-tag="Science">Science</span>
@@ -690,6 +707,7 @@ body.full-width .editor-container { max-width: 1080px !important; }
 
   /* ── DOM ── */
   var titleEl       = document.getElementById('editor-title');
+  var slugEl        = document.getElementById('editor-slug');
   var coverEl       = document.getElementById('editor-cover');
   var coverFileEl   = document.getElementById('cover-file-input');
   var coverUploadBtn= document.getElementById('btn-cover-upload');
@@ -796,7 +814,7 @@ body.full-width .editor-container { max-width: 1080px !important; }
     if (existingIndex && existingIndex.content) {
       try { indexData = JSON.parse(fromBase64(existingIndex.content)); } catch(e){}
     }
-    var meta = { id:post.id, title:post.title, cover:post.cover||'', excerpt:post.excerpt, tags:post.tags, created_at:post.created_at, updated_at:post.updated_at };
+    var meta = { id:post.id, title:post.title, slug:post.slug||'', cover:post.cover||'', excerpt:post.excerpt, tags:post.tags, created_at:post.created_at, updated_at:post.updated_at };
     var idx = indexData.findIndex(function(p){ return p.id===post.id; });
     if (idx>=0) indexData[idx]=meta; else indexData.unshift(meta);
     await ghPut(indexPath, indexData, 'Update blog index', indexSha);
@@ -838,6 +856,7 @@ body.full-width .editor-container { max-width: 1080px !important; }
       var post = {
         id:          currentId || uid(),
         title:       titleEl.value.trim() || 'Untitled',
+        slug:        slugEl.value.trim(),
         cover:       coverEl.value.trim() || '',
         excerpt:     extractExcerpt(output.blocks),
         content:     output,
@@ -933,6 +952,10 @@ body.full-width .editor-container { max-width: 1080px !important; }
     }
   });
   titleEl.addEventListener('input', function(){ autoResize(this); scheduleAutoSave(); });
+  slugEl.addEventListener('input', function(){
+    this.value = this.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
+    scheduleAutoSave();
+  });
 
   /* ── Cover URL preview (when typed/pasted) ── */
   coverEl.addEventListener('input', function() {
@@ -1032,6 +1055,7 @@ body.full-width .editor-container { max-width: 1080px !important; }
       currentId        = loadId;
       titleEl.value    = existing.title || '';
       autoResize(titleEl);
+      slugEl.value     = existing.slug || '';
       coverEl.value    = existing.cover || '';
       updateCoverPreview(existing.cover || '');
       isPublished      = !!existing.published;

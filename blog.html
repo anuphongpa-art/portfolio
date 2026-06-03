@@ -278,7 +278,7 @@
           '</div>';
       var a = document.createElement('a');
       a.className = 'post-card';
-      a.href = 'posts/' + post.id + '.html';
+      a.href = post.slug ? 'blog/' + post.slug + '/' : 'posts/' + post.id + '.html';
       a.innerHTML =
         thumbHtml +
         '<div class="post-card-body">' +
