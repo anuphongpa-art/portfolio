@@ -158,11 +158,12 @@ function coverAbsUrl(cover) {
   return `${BASE_URL}/${cover}`;
 }
 
-function generatePostHtml(post) {
+// assetBase: relative path from the generated file back to site root
+// e.g. '../' for posts/{id}.html, '../../' for blog/{slug}/index.html
+function generatePostHtml(post, assetBase, pageUrl) {
   const title = post.title || 'Untitled';
   const excerpt = stripHtml(post.excerpt || '').slice(0, 200);
   const ogImage = coverAbsUrl(post.cover);
-  const pageUrl = `${BASE_URL}/posts/${post.id}.html`;
   const tags = (post.tags || []).map(t => `<span class="post-tag">${escAttr(t)}</span>`).join('');
   const blocks = (post.content && post.content.blocks) || [];
   const dateDisplay = formatDate(post.created_at);
@@ -173,6 +174,11 @@ function generatePostHtml(post) {
     postStyle.small    ? 'small-text'  : '',
     postStyle.fullWidth ? 'full-width' : '',
   ].filter(Boolean).join(' ');
+
+  // cover src: absolute URLs pass through; relative paths need assetBase prefix
+  const coverSrc = post.cover
+    ? (post.cover.startsWith('http') ? post.cover : assetBase + post.cover)
+    : '';
 
   // JSON-LD structured data for Google
   const jsonLd = JSON.stringify({
@@ -198,7 +204,7 @@ function generatePostHtml(post) {
 <link rel="canonical" href="${pageUrl}">
 <meta name="description" content="${escAttr(excerpt)}">
 <meta name="author" content="Bee Anuphong">
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/svg+xml" href="${assetBase}favicon.svg">
 <!-- Open Graph -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="${escAttr(title)}">
@@ -217,7 +223,7 @@ function generatePostHtml(post) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="${assetBase}style.css">
 <style>
 #post-page { min-height: calc(100vh - 66px); padding: 5.5rem 2rem 5rem; }
 .post-wrap { max-width: 720px; margin: 0 auto; }
@@ -304,18 +310,18 @@ body.full-width .post-wrap { max-width:1080px; }
 <div id="scroll-progress"></div>
 
 <nav>
-  <a href="../index.html" class="nav-brand">Bee Anuphong</a>
+  <a href="${assetBase}index.html" class="nav-brand">Bee Anuphong</a>
   <ul class="nav-menu">
-    <li><a href="../blog.html">Blog</a></li>
+    <li><a href="${assetBase}blog.html">Blog</a></li>
     <li class="nav-has-dropdown">
-      <a href="../about.html">About Me</a>
+      <a href="${assetBase}about.html">About Me</a>
       <ul class="nav-dropdown">
-        <li><a href="../about.html#profile">Profile</a></li>
-        <li><a href="../about.html#experience">Experience</a></li>
-        <li><a href="../about.html#volunteering">Activities</a></li>
-        <li><a href="../about.html#education">Education</a></li>
-        <li><a href="../about.html#certifications">Certifications</a></li>
-        <li><a href="../about.html#contact">Contact</a></li>
+        <li><a href="${assetBase}about.html#profile">Profile</a></li>
+        <li><a href="${assetBase}about.html#experience">Experience</a></li>
+        <li><a href="${assetBase}about.html#volunteering">Activities</a></li>
+        <li><a href="${assetBase}about.html#education">Education</a></li>
+        <li><a href="${assetBase}about.html#certifications">Certifications</a></li>
+        <li><a href="${assetBase}about.html#contact">Contact</a></li>
       </ul>
     </li>
   </ul>
@@ -325,20 +331,20 @@ body.full-width .post-wrap { max-width:1080px; }
 </nav>
 
 <nav class="nav-drawer" id="drawer">
-  <a href="../blog.html">Blog</a>
+  <a href="${assetBase}blog.html">Blog</a>
   <div class="drawer-divider"><span>About Me</span></div>
-  <a href="../about.html#profile" class="drawer-sub">Profile</a>
-  <a href="../about.html#experience" class="drawer-sub">Experience</a>
-  <a href="../about.html#volunteering" class="drawer-sub">Activities</a>
-  <a href="../about.html#education" class="drawer-sub">Education</a>
-  <a href="../about.html#certifications" class="drawer-sub">Certifications</a>
-  <a href="../about.html#contact" class="drawer-sub">Contact</a>
+  <a href="${assetBase}about.html#profile" class="drawer-sub">Profile</a>
+  <a href="${assetBase}about.html#experience" class="drawer-sub">Experience</a>
+  <a href="${assetBase}about.html#volunteering" class="drawer-sub">Activities</a>
+  <a href="${assetBase}about.html#education" class="drawer-sub">Education</a>
+  <a href="${assetBase}about.html#certifications" class="drawer-sub">Certifications</a>
+  <a href="${assetBase}about.html#contact" class="drawer-sub">Contact</a>
 </nav>
 
 <section id="post-page">
   <div class="post-wrap">
     <div class="post-breadcrumb">
-      <a href="../blog.html">Blog</a>
+      <a href="${assetBase}blog.html">Blog</a>
       <span class="post-breadcrumb-sep">/</span>
       <span>${escAttr(title)}</span>
     </div>
@@ -350,12 +356,12 @@ body.full-width .post-wrap { max-width:1080px; }
       <h1 class="post-title">${escAttr(title)}</h1>
       <div class="post-header-divider"></div>
     </header>
-    ${post.cover ? `<img class="post-cover-img" src="${escAttr(post.cover.startsWith('http') ? post.cover : '../' + post.cover)}" alt="${escAttr(title)}" loading="eager">` : ''}
+    ${coverSrc ? `<img class="post-cover-img" src="${escAttr(coverSrc)}" alt="${escAttr(title)}" loading="eager">` : ''}
     <article class="post-body">
       ${renderBlocks(blocks)}
     </article>
     <footer class="post-footer">
-      <a href="../blog.html" class="post-footer-back">
+      <a href="${assetBase}blog.html" class="post-footer-back">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to Blog
       </a>
     </footer>
@@ -377,7 +383,7 @@ body.full-width .post-wrap { max-width:1080px; }
   <span class="f-copy">© 2026 · Bangkok, Thailand</span>
 </footer>
 
-<script src="../script.js"></script>
+<script src="${assetBase}script.js"></script>
 </body>
 </html>`;
 }
@@ -392,7 +398,7 @@ function generateSitemap(posts) {
     { url: `${BASE_URL}/about.html`, priority: '0.7', changefreq: 'monthly' },
   ];
   const postPages = posts.map(p => ({
-    url: `${BASE_URL}/posts/${p.id}.html`,
+    url: p.slug ? `${BASE_URL}/blog/${p.slug}/` : `${BASE_URL}/posts/${p.id}.html`,
     lastmod: (p.updated_at || p.created_at || today).split('T')[0],
     priority: '0.8',
     changefreq: 'monthly',
@@ -424,6 +430,8 @@ function main() {
     return;
   }
 
+  const BLOG_DIR = path.join(__dirname, 'blog');
+
   let built = 0;
   for (const meta of posts) {
     const jsonPath = path.join(POSTS_DIR, `${meta.id}.json`);
@@ -432,10 +440,26 @@ function main() {
       continue;
     }
     const post = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-    const html = generatePostHtml(post);
-    const outPath = path.join(POSTS_DIR, `${meta.id}.html`);
-    fs.writeFileSync(outPath, html, 'utf8');
-    console.log(`  ✓ posts/${meta.id}.html`);
+
+    if (post.slug) {
+      // Slug-based: generate blog/{slug}/index.html
+      const slugDir = path.join(BLOG_DIR, post.slug);
+      if (!fs.existsSync(slugDir)) fs.mkdirSync(slugDir, { recursive: true });
+      const pageUrl = `${BASE_URL}/blog/${post.slug}/`;
+      const html = generatePostHtml(post, '../../', pageUrl);
+      fs.writeFileSync(path.join(slugDir, 'index.html'), html, 'utf8');
+      console.log(`  ✓ blog/${post.slug}/index.html`);
+
+      // Write a redirect at posts/{id}.html for backwards compatibility
+      const redirect = `<!DOCTYPE html><html><head><meta charset="UTF-8"><link rel="canonical" href="${pageUrl}"><meta http-equiv="refresh" content="0;url=${pageUrl}"></head><body><script>window.location.replace('${pageUrl}');<\/script></body></html>`;
+      fs.writeFileSync(path.join(POSTS_DIR, `${post.id}.html`), redirect, 'utf8');
+    } else {
+      // No slug: generate posts/{id}.html as before
+      const pageUrl = `${BASE_URL}/posts/${post.id}.html`;
+      const html = generatePostHtml(post, '../', pageUrl);
+      fs.writeFileSync(path.join(POSTS_DIR, `${post.id}.html`), html, 'utf8');
+      console.log(`  ✓ posts/${post.id}.html`);
+    }
     built++;
   }
 
