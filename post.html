@@ -16,10 +16,14 @@
 .post-breadcrumb {
   display: flex; align-items: center; gap: 0.5rem;
   margin-bottom: 2.5rem; font-size: 0.8rem; color: var(--muted);
+  min-width: 0;
 }
-.post-breadcrumb a { color: var(--sub); text-decoration: none; transition: color 0.2s; }
+.post-breadcrumb a { color: var(--sub); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
 .post-breadcrumb a:hover { color: var(--text); }
-.post-breadcrumb-sep { opacity: 0.4; }
+.post-breadcrumb-sep { opacity: 0.4; flex-shrink: 0; }
+.post-breadcrumb > span:not(.post-breadcrumb-sep) {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;
+}
 
 .btn-edit-post {
   display: inline-flex; align-items: center; gap: 0.35rem;
@@ -85,6 +89,10 @@
 .post-body hr.post-delimiter { border:none; text-align:center; margin:2.5em 0; color:var(--muted); }
 .post-body hr.post-delimiter::before { content:'* * *'; letter-spacing:0.5em; font-size:1rem; }
 .post-body h1 { font-family:var(--serif); font-size:clamp(1.9rem,5vw,2.4rem); font-weight:700; color:var(--text); letter-spacing:-0.03em; line-height:1.2; margin-top:2.5em; }
+/* Pull Quote */
+.post-pullquote { text-align:center; margin:2.5em 0; }
+.post-pullquote p { font-family:var(--serif); font-size:clamp(1.9rem,5vw,2.4rem); font-weight:700; letter-spacing:-0.03em; line-height:1.2; color:var(--text); margin:0; }
+.post-pullquote cite { display:block; margin-top:0.75rem; font-size:0.85rem; font-style:normal; color:var(--sub); letter-spacing:0.03em; }
 /* Checklist */
 .post-checklist { list-style:none; padding-left:0; }
 .post-checklist li { display:flex; align-items:flex-start; gap:0.6rem; padding:0.2rem 0; }
@@ -297,6 +305,11 @@ body.full-width .post-wrap { max-width: 1080px; }
           return '<blockquote><p>'+(d.text||'')+'</p>'+cite+'</blockquote>';
         }
 
+        case 'pullquote': {
+          var cap=d.caption?'<cite>'+escHtml(d.caption)+'</cite>':'';
+          return '<div class="post-pullquote"><p>'+(d.text||'')+'</p>'+cap+'</div>';
+        }
+
         case 'warning': {
           var ttl=d.title?'<strong class="post-callout-title">'+escHtml(d.title)+'</strong>':'';
           return '<div class="post-callout">'+ttl+'<p>'+(d.message||'')+'</p></div>';
@@ -379,14 +392,14 @@ body.full-width .post-wrap { max-width: 1080px; }
       ? '<div class="post-draft-banner"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>This is a draft preview — not yet published.</div>'
       : '';
     wrap.innerHTML =
-      '<nav class="post-breadcrumb">'+
+      '<div class="post-breadcrumb">'+
         '<a href="blog.html">Blog</a>'+
         '<span class="post-breadcrumb-sep">/</span>'+
         '<span>'+escHtml(post.title||'Untitled')+'</span>'+
         '<a href="editor.html?id='+encodeURIComponent(id)+'" class="btn-edit-post">'+
           '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit'+
         '</a>'+
-      '</nav>'+
+      '</div>'+
       draftBanner+
       '<header class="post-header">'+
         '<div class="post-meta-row">'+
