@@ -5,7 +5,7 @@
   "cover": "images/blog/blog-mpy59vpp9og9.png",
   "excerpt": "สรุป 8 ไอเดียจากบทสัมภาษณ์ของ Lewis Hamilton จากเด็กไร้ตัวตนในสังคม สู่นักแข่งรถฟอร์มูล่าวันระดับโลก | F1 Motivate",
   "content": {
-    "time": 1780503271727,
+    "time": 1780503281097,
     "blocks": [
       {
         "id": "22YuKzTRh8",
@@ -116,14 +116,14 @@
         "id": "Rz2PwbwJ8J",
         "type": "paragraph",
         "data": {
-          "text": "Lewis ยกคำพูดจากนักเขียนชื่อดังอย่าง Mazzafero ที่ชอบมากๆ ถึงกับมีรอยสักไว้ติดตัวเลยว่า<br>"
+          "text": "Lewis ยกคำพูดจากนักเขียนชื่อดังอย่าง Mazzafero ที่ชอบมากๆ ถึงกับมีรอยสักไว้ติดตัวเลยว่า “Powerful Beyond Measure” <br><br>"
         }
       },
       {
         "id": "YISCpGv8Ta",
         "type": "pullquote",
         "data": {
-          "text": "Powerful Beyond Measure",
+          "text": "",
           "caption": ""
         }
       },
@@ -197,5 +197,5 @@
   },
   "published": true,
   "created_at": "2026-05-29T09:17:19.183Z",
-  "updated_at": "2026-06-03T16:14:31.727Z"
+  "updated_at": "2026-06-03T16:14:41.097Z"
 }
