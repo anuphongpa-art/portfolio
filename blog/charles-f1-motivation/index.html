@@ -247,7 +247,7 @@ body.full-width .post-wrap { max-width:1080px; }
 <script src="../../script.js"></script>
 <script>
 document.addEventListener('keydown', function(e) {
-  if (e.shiftKey && e.key === 'G' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+  if (e.shiftKey && e.code === 'KeyG' && !e.ctrlKey && !e.metaKey && !e.altKey) {
     var tag = document.activeElement && document.activeElement.tagName.toLowerCase();
     var isEditable = document.activeElement && (document.activeElement.isContentEditable || tag === 'input' || tag === 'textarea');
     if (!isEditable) {
