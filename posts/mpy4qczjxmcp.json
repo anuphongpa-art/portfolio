@@ -5,7 +5,7 @@
   "cover": "images/blog/blog-mpy4vq24binz.png",
   "excerpt": "สรุป 20 ไอเดียจากบทสัมภาษณ์ของ Charles Leclerc ผู้ตั้งเป้าพาทีม Scuderia Ferrari กลับมาทวงบัลลังก์ความยิ่งใหญ่บนเวที Formula 1 อีกครั้ง | F1 Motivate",
   "content": {
-    "time": 1780503144029,
+    "time": 1780503155562,
     "blocks": [
       {
         "id": "4IjH0KtOEX",
@@ -298,7 +298,7 @@
         "id": "KCB2ilMfBA",
         "type": "pullquote",
         "data": {
-          "text": "",
+          "text": "It’s possible to do anything",
           "caption": ""
         }
       },
@@ -414,5 +414,5 @@
   },
   "published": true,
   "created_at": "2026-06-03T13:56:06.847Z",
-  "updated_at": "2026-06-03T16:12:24.030Z"
+  "updated_at": "2026-06-03T16:12:35.562Z"
 }
