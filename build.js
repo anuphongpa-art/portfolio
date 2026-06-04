@@ -164,7 +164,7 @@ function generatePostHtml(post, assetBase, pageUrl) {
   const title = post.title || 'Untitled';
   const excerpt = stripHtml(post.excerpt || '').slice(0, 200);
   const ogImage = coverAbsUrl(post.cover);
-  const tags = (post.tags || []).map(t => `<span class="post-tag">${escAttr(t)}</span>`).join('');
+  const tags = (post.tags || []).map(t => `<a class="post-tag" href="${assetBase}blog.html?tag=${encodeURIComponent(t)}">${escAttr(t)}</a>`).join('');
   const blocks = (post.content && post.content.blocks) || [];
   const dateDisplay = formatDate(post.created_at);
   const postStyle = post.style || {};

@@ -60,6 +60,17 @@
   color: var(--sub); font-weight: 400; text-align: center;
   max-width: 520px; margin: 0 auto; white-space: nowrap;
 }
+.blog-category-heading {
+  font-family: var(--sans); font-size: clamp(1.5rem,4vw,2.5rem);
+  font-weight: 800; color: var(--text); letter-spacing: -0.02em;
+  text-align: center; margin-bottom: 0.5rem;
+}
+.blog-category-back {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-size: 0.82rem; color: var(--sub); text-decoration: none;
+  transition: color 0.2s; margin-top: 0.75rem;
+}
+.blog-category-back:hover { color: var(--text); }
 .btn-new-post {
   display: inline-flex; align-items: center; gap: 0.4rem;
   padding: 0.55rem 1.1rem; border-radius: var(--rs);
@@ -273,7 +284,9 @@
     var grid = document.createElement('div');
     grid.className = 'post-grid';
     posts.forEach(function(post) {
-      var tags = (post.tags || []).map(function(t){ return '<span class="post-tag">'+escHtml(t)+'</span>'; }).join('');
+      var tags = (post.tags || []).map(function(t){
+        return '<a class="post-tag" href="blog.html?tag='+encodeURIComponent(t)+'" onclick="event.stopPropagation()">'+escHtml(t)+'</a>';
+      }).join('');
       var thumbHtml = post.cover
         ? '<div class="post-card-thumb"><img src="'+escHtml(post.cover)+'" alt="" loading="lazy"></div>'
         : '<div class="post-card-thumb post-card-thumb--empty">' +
@@ -296,10 +309,34 @@
     listEl.appendChild(grid);
   }
 
+  var heroBlock = document.querySelector('.blog-hero-block');
+
+  function applyTagFilter(allPosts) {
+    var params = new URLSearchParams(window.location.search);
+    var tag = params.get('tag');
+    if (!tag) {
+      renderPosts(allPosts);
+      return;
+    }
+    var tagLower = tag.toLowerCase();
+    var filtered = allPosts.filter(function(p) {
+      return (p.tags || []).some(function(t){ return t.toLowerCase() === tagLower; });
+    });
+    if (heroBlock) {
+      heroBlock.innerHTML =
+        '<h1 class="blog-category-heading">Category: ' + escHtml(tag) + '</h1>' +
+        '<a href="blog.html" class="blog-category-back">' +
+          '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>' +
+          'All posts' +
+        '</a>';
+    }
+    renderPosts(filtered);
+  }
+
   /* fetch published posts from static file */
   fetch('posts/index.json?v=' + Date.now())
     .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
-    .then(function(data){ renderPosts(data); })
+    .then(function(data){ applyTagFilter(data); })
     .catch(function(){ renderPosts([]); });
 })();
 </script>
