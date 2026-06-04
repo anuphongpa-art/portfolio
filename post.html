@@ -587,7 +587,7 @@ body.full-width .post-wrap { max-width: 1080px; }
     setMeta('meta[name="twitter:description"]', desc);
     setMeta('meta[name="twitter:image"]', cover);
     setMeta('link[rel="canonical"]', pageUrl);
-    var tags=(post.tags||[]).map(function(t){return '<span class="post-tag">'+escHtml(t)+'</span>';}).join('');
+    var tags=(post.tags||[]).map(function(t){return '<a class="post-tag" href="blog.html?tag='+encodeURIComponent(t)+'">'+escHtml(t)+'</a>';}).join('');
     var blocks=(post.content&&post.content.blocks)?post.content.blocks:[];
     var pageTitle = encodeURIComponent(post.title||'');
 
