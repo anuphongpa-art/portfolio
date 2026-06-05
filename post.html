@@ -350,8 +350,9 @@ body.full-width .post-wrap { max-width: 1080px; }
 @media (max-width:600px) {
   #post-page { padding:5rem 1.25rem 4rem; }
   .post-nav { grid-template-columns: 1fr; }
-  .comment-form-footer { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-  .comment-form-actions { margin-left: 0; align-self: flex-end; }
+  .comment-form-hint { display: none; }
+  .comment-form-actions { margin-left: 0; width: 100%; }
+  .comment-name-input { flex: 1; width: auto; min-width: 0; }
 }
 </style>
 </head>
