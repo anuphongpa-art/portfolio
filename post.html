@@ -623,7 +623,8 @@ body.full-width .post-wrap { max-width: 1080px; }
 
     /* Like bar */
     var likeKey = 'post_liked_' + id;
-    var liked = !!localStorage.getItem(likeKey);
+    var liked = false;
+    try { liked = !!localStorage.getItem(likeKey); } catch(e) {}
     var likeHtml =
       '<div class="post-like">'+
         '<span class="post-like-label">Like this:</span>'+
