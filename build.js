@@ -312,6 +312,74 @@ body.full-width .post-wrap { max-width:1080px; }
 .post-footer-back { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.85rem; color:var(--sub); text-decoration:none; transition:color 0.2s; }
 .post-footer-back:hover { color:var(--text); }
 .post-cover-img { width:100%; border-radius:var(--r,8px); margin-bottom:2.5rem; display:block; aspect-ratio:16/9; object-fit:cover; }
+/* Share bar */
+.post-share{margin-top:3.5rem;padding-top:2rem;border-top:1px solid var(--dim);}
+.post-share-label{display:block;font-size:0.8rem;color:var(--sub);margin-bottom:0.85rem;}
+.post-share-btns{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.share-btn{display:inline-flex;align-items:center;gap:0.45rem;font-size:0.78rem;font-weight:600;padding:0.45rem 1rem;border-radius:var(--rs);text-decoration:none;border:1px solid transparent;transition:opacity 0.18s,transform 0.18s;cursor:pointer;font-family:var(--sans);}
+.share-btn:hover{opacity:0.85;transform:translateY(-1px);}
+.share-fb{background:#1877F2;color:#fff;}
+.share-x{background:#000;color:#fff;border-color:#333;}
+.share-email{background:var(--glass2);color:var(--sub);border-color:var(--gb);}
+.share-copy{background:var(--glass2);color:var(--sub);border-color:var(--gb);}
+.share-copy.copied{color:#4ade80;border-color:rgba(74,222,128,0.35);}
+/* Like bar */
+.post-like{margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--dim);display:flex;align-items:center;gap:0.85rem;flex-wrap:wrap;}
+.post-like-label{font-size:0.82rem;font-weight:600;color:var(--sub);flex-shrink:0;}
+.like-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.42rem 1rem;border-radius:var(--rs);background:var(--glass2);border:1px solid var(--gb);color:var(--sub);font-size:0.78rem;font-weight:600;cursor:pointer;font-family:var(--sans);transition:background 0.18s,border-color 0.18s,color 0.18s,transform 0.15s;}
+.like-btn:hover{background:var(--gbhi);color:var(--text);transform:translateY(-1px);}
+.like-btn.liked{background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.35);color:#f87171;}
+.like-btn.liked svg{fill:#f87171;}
+.like-btn svg{transition:fill 0.15s,transform 0.2s;}
+.like-btn.pop svg{transform:scale(1.4);}
+.like-count{font-size:0.82rem;color:var(--muted);}
+/* Prev/Next nav */
+.post-nav{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--dim);display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.post-nav-link{display:flex;flex-direction:column;gap:0.3rem;padding:1rem 1.1rem;border-radius:var(--r);background:var(--glass);border:1px solid var(--gb);text-decoration:none;transition:background 0.2s,border-color 0.2s;}
+.post-nav-link:hover{background:var(--glass2);border-color:var(--gbhi);}
+.post-nav-link--next{text-align:right;}
+.post-nav-dir{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+.post-nav-title{font-size:0.85rem;font-weight:600;color:var(--text);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.post-nav-placeholder{visibility:hidden;}
+/* Comments */
+.post-comments{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--dim);}
+.comments-heading{font-family:var(--sans);font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:1.25rem;}
+.comment-form{border:1px solid var(--dim);border-radius:var(--rs);overflow:hidden;margin-bottom:2rem;}
+.comment-textarea{width:100%;box-sizing:border-box;background:transparent;border:none;border-bottom:1px solid var(--dim);color:var(--text);font-family:var(--sans);font-size:0.9rem;padding:0.85rem 1rem;resize:vertical;min-height:90px;outline:none;}
+.comment-textarea::placeholder{color:var(--muted);}
+.comment-form-footer{background:var(--glass);padding:0.75rem 1rem;display:flex;align-items:center;flex-wrap:wrap;gap:0.75rem;}
+.comment-form-hint{font-size:0.8rem;color:var(--sub);}
+.comment-form-actions{display:flex;align-items:center;gap:0.5rem;margin-left:auto;}
+.comment-name-input{background:var(--glass2);border:1px solid var(--gb);border-radius:var(--rs);padding:0.35rem 0.7rem;color:var(--text);font-size:0.78rem;font-family:var(--sans);outline:none;width:140px;}
+.comment-name-input::placeholder{color:var(--muted);}
+.comment-name-input:focus{border-color:var(--teal);}
+.comment-submit-btn{background:var(--glass2);border:1px solid var(--gb);border-radius:var(--rs);padding:0.38rem 1rem;color:var(--sub);font-size:0.78rem;font-weight:600;font-family:var(--sans);cursor:pointer;transition:background 0.18s,color 0.18s;}
+.comment-submit-btn:hover{background:var(--gbhi);color:var(--text);}
+.comments-list{display:flex;flex-direction:column;gap:1.5rem;}
+.comment-item{display:flex;gap:0.85rem;align-items:flex-start;}
+.comment-avatar{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;color:#07090F;}
+.comment-body{flex:1;min-width:0;}
+.comment-author{font-size:0.85rem;font-weight:600;color:var(--text);margin-right:0.4rem;}
+.comment-date{font-size:0.75rem;color:var(--muted);}
+.comment-text{margin-top:0.4rem;font-size:0.88rem;color:var(--text);line-height:1.65;white-space:pre-wrap;word-break:break-word;}
+.comment-actions{display:flex;align-items:center;gap:0.85rem;margin-top:0.5rem;}
+.comment-like-btn,.comment-reply-btn{background:none;border:none;padding:0;font-size:0.78rem;color:var(--muted);cursor:pointer;font-family:var(--sans);display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.15s;}
+.comment-like-btn:hover{color:var(--text);}
+.comment-like-btn.liked{color:#fbbf24;}
+.comment-like-btn.liked svg{fill:#fbbf24;}
+.comment-reply-btn:hover{color:var(--text);text-decoration:underline;}
+.comment-replies{margin-top:1rem;padding-left:1rem;border-left:2px solid var(--dim);display:flex;flex-direction:column;gap:1rem;}
+.comment-replies .comment-avatar{width:30px;height:30px;font-size:0.75rem;}
+.reply-form-wrap{margin-top:0.85rem;}
+.reply-textarea{min-height:64px !important;border-radius:var(--rs);border:1px solid var(--dim) !important;}
+.reply-form-actions{display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem;justify-content:flex-end;}
+@media (max-width:600px){
+  #post-page{padding:5rem 1.25rem 4rem;}
+  .post-nav{grid-template-columns:1fr;}
+  .comment-form-hint{display:none;}
+  .comment-form-actions{margin-left:0;width:100%;}
+  .comment-name-input{flex:1;width:auto;min-width:0;}
+}
 </style>
 <script type="application/ld+json">${jsonLd}</script>
 </head>
@@ -372,6 +440,35 @@ body.full-width .post-wrap { max-width:1080px; }
     <article class="post-body">
       ${renderBlocks(blocks)}
     </article>
+    <div class="post-share">
+      <span class="post-share-label">😊 แชร์บทความนี้</span>
+      <div class="post-share-btns">
+        <a class="share-btn share-fb" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Share</a>
+        <a class="share-btn share-x" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(title)}" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>X Post</a>
+        <a class="share-btn share-email" href="mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(pageUrl)}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>Email</a>
+        <button class="share-btn share-copy" id="btn-copy-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Copy link</span></button>
+      </div>
+    </div>
+    <div class="post-like">
+      <span class="post-like-label">Like this:</span>
+      <button class="like-btn" id="btn-like"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Like</button>
+      <span class="like-count" id="like-count">…</span>
+    </div>
+    <div class="post-nav" id="post-nav"></div>
+    <section class="post-comments">
+      <h3 class="comments-heading">Leave a Reply</h3>
+      <div class="comment-form">
+        <textarea class="comment-textarea" id="comment-text" placeholder="Write a comment..." rows="4"></textarea>
+        <div class="comment-form-footer">
+          <span class="comment-form-hint">Leave a comment. (log in optional)</span>
+          <div class="comment-form-actions">
+            <input class="comment-name-input" id="comment-name" placeholder="Your name (optional)">
+            <button class="comment-submit-btn" id="btn-comment">Comment</button>
+          </div>
+        </div>
+      </div>
+      <div class="comments-list" id="comments-list"></div>
+    </section>
     <footer class="post-footer">
       <a href="${assetBase}blog.html" class="post-footer-back">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Back to Blog
@@ -408,6 +505,111 @@ document.addEventListener('keydown', function(e) {
     }
   }
 });
+</script>
+<script>
+(function() {
+  var POST_ID = '${escAttr(post.id)}';
+  var PAGE_URL = '${escAttr(pageUrl)}';
+  var likeKey = 'post_liked_' + POST_ID;
+
+  var likeBtn = document.getElementById('btn-like');
+  var likeCountEl = document.getElementById('like-count');
+  if (likeBtn && likeCountEl) {
+    if (localStorage.getItem(likeKey)) {
+      likeBtn.classList.add('liked');
+      likeBtn.querySelector('svg').setAttribute('fill', 'currentColor');
+    }
+    fetch('/api/likes/' + POST_ID)
+      .then(function(r){ return r.json(); })
+      .then(function(d){ likeCountEl.textContent = d.count + ' ' + (d.count === 1 ? 'like' : 'likes'); })
+      .catch(function(){ likeCountEl.textContent = ''; });
+    likeBtn.addEventListener('click', function() {
+      var liked = !!localStorage.getItem(likeKey);
+      if (liked) {
+        localStorage.removeItem(likeKey);
+        likeBtn.classList.remove('liked');
+        likeBtn.querySelector('svg').setAttribute('fill', 'none');
+      } else {
+        localStorage.setItem(likeKey, '1');
+        likeBtn.classList.add('liked');
+        likeBtn.querySelector('svg').setAttribute('fill', 'currentColor');
+        likeBtn.classList.add('pop');
+        setTimeout(function(){ likeBtn.classList.remove('pop'); }, 200);
+      }
+      fetch('/api/likes/' + POST_ID, {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ action: liked ? 'unlike' : 'like' })
+      }).then(function(r){ return r.json(); })
+        .then(function(d){ likeCountEl.textContent = d.count + ' ' + (d.count === 1 ? 'like' : 'likes'); })
+        .catch(function(){});
+    });
+  }
+
+  var copyBtn = document.getElementById('btn-copy-link');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function() {
+      navigator.clipboard.writeText(PAGE_URL).then(function() {
+        copyBtn.classList.add('copied');
+        copyBtn.querySelector('span').textContent = 'Copied!';
+        setTimeout(function(){ copyBtn.classList.remove('copied'); copyBtn.querySelector('span').textContent = 'Copy link'; }, 2000);
+      });
+    });
+  }
+
+  function escH(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  var navEl = document.getElementById('post-nav');
+  if (navEl) {
+    fetch('${assetBase}posts/index.json?v=' + Date.now())
+      .then(function(r){ return r.ok ? r.json() : []; }).catch(function(){ return []; })
+      .then(function(idx) {
+        var i = idx.findIndex(function(p){ return p.id === POST_ID; });
+        if (i < 0) return;
+        var prev = i < idx.length - 1 ? idx[i+1] : null;
+        var next = i > 0 ? idx[i-1] : null;
+        var pH = prev ? '<a class="post-nav-link post-nav-link--prev" href="${assetBase}post.html?id='+encodeURIComponent(prev.id)+'"><span class="post-nav-dir">← Previous</span><span class="post-nav-title">'+escH(prev.title)+'</span></a>' : '<span class="post-nav-placeholder"></span>';
+        var nH = next ? '<a class="post-nav-link post-nav-link--next" href="${assetBase}post.html?id='+encodeURIComponent(next.id)+'"><span class="post-nav-dir">Next →</span><span class="post-nav-title">'+escH(next.title)+'</span></a>' : '<span class="post-nav-placeholder"></span>';
+        navEl.innerHTML = pH + nH;
+      });
+  }
+
+  var cKey = 'post_comments_' + POST_ID;
+  var AV_COLS = ['#4ade80','#60a5fa','#f87171','#fbbf24','#a78bfa','#34d399','#fb923c','#38bdf8'];
+  function loadC(){ try{ return JSON.parse(localStorage.getItem(cKey)||'[]'); }catch(e){ return []; } }
+  function saveC(l){ localStorage.setItem(cKey, JSON.stringify(l)); }
+  function avH(n, sz){ var c=AV_COLS[(n||'A').charCodeAt(0)%AV_COLS.length]; var s=sz||38; return '<div class="comment-avatar" style="background:'+c+';width:'+s+'px;height:'+s+'px">'+(n||'A')[0].toUpperCase()+'</div>'; }
+  function fmtD(iso){ return new Date(iso).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}); }
+
+  function renderCmts() {
+    var el = document.getElementById('comments-list');
+    if (!el) return;
+    var list = loadC();
+    if (!list.length) { el.innerHTML = ''; return; }
+    el.innerHTML = list.map(function(c, i) {
+      var rH = '';
+      if (c.replies && c.replies.length) rH = '<div class="comment-replies">'+c.replies.map(function(r){ return '<div class="comment-item">'+avH(r.name,30)+'<div class="comment-body"><span class="comment-author">'+escH(r.name||'Anonymous')+'</span><span class="comment-date">'+fmtD(r.date)+'</span><p class="comment-text">'+escH(r.text)+'</p></div></div>'; }).join('')+'</div>';
+      return '<div class="comment-item">'+avH(c.name)+'<div class="comment-body"><span class="comment-author">'+escH(c.name||'Anonymous')+'</span><span class="comment-date">'+fmtD(c.date)+'</span><p class="comment-text">'+escH(c.text)+'</p><div class="comment-actions"><button class="comment-like-btn'+(c.liked?' liked':'')+'" data-ci="'+i+'"><svg width="12" height="12" viewBox="0 0 24 24" fill="'+(c.liked?'currentColor':'none')+'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'+(c.likes?'Like ('+c.likes+')':'Like')+'</button><button class="comment-reply-btn" data-ci="'+i+'">Reply</button></div>'+rH+'<div class="reply-form-wrap" id="reply-form-'+i+'" style="display:none"><textarea class="comment-textarea reply-textarea" placeholder="Write a reply..." rows="3"></textarea><div class="reply-form-actions"><input class="comment-name-input" placeholder="Your name (optional)"><button class="comment-submit-btn reply-submit-btn" data-ci="'+i+'">Reply</button></div></div></div></div>';
+    }).join('');
+    document.querySelectorAll('.comment-like-btn').forEach(function(b){ b.onclick=function(){ var i=parseInt(b.getAttribute('data-ci'),10),l=loadC(); if(!l[i]) return; l[i].liked=!l[i].liked; l[i].likes=Math.max(0,(l[i].likes||0)+(l[i].liked?1:-1)); saveC(l); renderCmts(); }; });
+    document.querySelectorAll('.comment-reply-btn').forEach(function(b){ b.onclick=function(){ var f=document.getElementById('reply-form-'+b.getAttribute('data-ci')); if(f) f.style.display=f.style.display==='none'?'block':'none'; }; });
+    document.querySelectorAll('.reply-submit-btn').forEach(function(b){ b.onclick=function(){ var i=parseInt(b.getAttribute('data-ci'),10),f=document.getElementById('reply-form-'+i); if(!f) return; var txt=(f.querySelector('.reply-textarea').value||'').trim(); if(!txt) return; var nm=(f.querySelector('.comment-name-input').value||'').trim()||'Anonymous'; var l=loadC(); if(!l[i]) return; if(!l[i].replies) l[i].replies=[]; l[i].replies.push({name:nm,date:new Date().toISOString(),text:txt}); saveC(l); renderCmts(); }; });
+  }
+
+  var btnC = document.getElementById('btn-comment');
+  if (btnC) {
+    btnC.onclick = function() {
+      var txt = (document.getElementById('comment-text').value||'').trim();
+      if (!txt) return;
+      var nm = (document.getElementById('comment-name').value||'').trim()||'Anonymous';
+      var l = loadC();
+      l.push({name:nm,date:new Date().toISOString(),text:txt,likes:0,liked:false,replies:[]});
+      saveC(l);
+      document.getElementById('comment-text').value = '';
+      document.getElementById('comment-name').value = '';
+      renderCmts();
+    };
+  }
+  renderCmts();
+})();
 </script>
 </body>
 </html>`;
