@@ -1099,6 +1099,8 @@ footer {
   .profile-grid { grid-template-columns: 1fr; }
   footer { flex-wrap: wrap; gap: 0.5rem 1rem; padding: 1.25rem 1.5rem; }
   .f-pillars { justify-content: center; }
+  .f-social a { font-size: 0; gap: 0; }
+  .f-social svg { flex-shrink: 0; }
   .edu-header { flex-wrap: wrap; }
   .edu-desc, .edu-skills { padding-left: 0; }
   .tl-card { padding: 1.25rem 1.25rem; }
