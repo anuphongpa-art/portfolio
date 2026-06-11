@@ -590,6 +590,38 @@ body.full-width .post-wrap { max-width: 1080px; }
     setMeta('meta[name="twitter:description"]', desc);
     setMeta('meta[name="twitter:image"]', cover);
     setMeta('link[rel="canonical"]', pageUrl);
+
+    /* Article structured data for SEO */
+    var ldData = {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      'headline': post.title || 'Post',
+      'description': desc,
+      'image': cover,
+      'url': pageUrl,
+      'datePublished': post.created_at || '',
+      'dateModified': post.updated_at || post.created_at || '',
+      'author': {
+        '@type': 'Person',
+        'name': 'Bee Anuphong',
+        'url': 'https://beeanuphong.com/about.html'
+      },
+      'publisher': {
+        '@type': 'Person',
+        'name': 'Bee Anuphong',
+        'url': 'https://beeanuphong.com/'
+      },
+      'keywords': (post.tags || []).join(', ')
+    };
+    var ldEl = document.getElementById('ld-article');
+    if (!ldEl) {
+      ldEl = document.createElement('script');
+      ldEl.type = 'application/ld+json';
+      ldEl.id = 'ld-article';
+      document.head.appendChild(ldEl);
+    }
+    ldEl.textContent = JSON.stringify(ldData);
+
     var tags=(post.tags||[]).map(function(t){return '<a class="post-tag" href="blog.html?tag='+encodeURIComponent(t)+'">'+escHtml(t)+'</a>';}).join('');
     var blocks=(post.content&&post.content.blocks)?post.content.blocks:[];
     var pageTitle = encodeURIComponent(post.title||'');
