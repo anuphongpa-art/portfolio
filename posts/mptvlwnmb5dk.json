@@ -5,7 +5,7 @@
   "cover": "images/blog/blog-mpy5514upgb9.png",
   "excerpt": "สรุป 20 ไอเดียจากบทสัมภาษณ์ของ Alex Albon นักแข่งรถ F1 ผู้พาธงชาติไทยสู่เวทีระดับโลก | F1 Motivate",
   "content": {
-    "time": 1780500240331,
+    "time": 1781256359833,
     "blocks": [
       {
         "id": "rI4LA70fSY",
@@ -327,7 +327,7 @@
   },
   "tags": [
     "F1",
-    "Motivation"
+    "MOTIVATION"
   ],
   "style": {
     "font": "default",
@@ -336,5 +336,5 @@
   },
   "published": true,
   "created_at": "2026-05-31T14:29:37.810Z",
-  "updated_at": "2026-06-03T15:24:00.334Z"
+  "updated_at": "2026-06-12T09:25:59.833Z"
 }
